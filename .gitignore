@@ -3,3 +3,6 @@
 
 # npm
 node_modules
+
+# Compiles TypeScript
+src/**/*.js
