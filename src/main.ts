@@ -10,6 +10,8 @@ const displayChart = (data: ChartData) => {
         type: 'bar',
         data: data,
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true

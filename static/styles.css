@@ -4,8 +4,16 @@ html, body {
 }
 
 body {
-    height: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.chart-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
 }
 
 #chart {
+    margin: 5%;
 }
