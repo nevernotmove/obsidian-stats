@@ -22,17 +22,21 @@ const displayChart = (data: ChartData) => {
 const prepareData = (json: object): ChartData => {
     const labels: string[] = [];
     const data = [];
+    let count = 0, max = 30;
     for (const [pluginName, pluginData] of Object.entries(json)) {
+        count++;
         labels.push(pluginName);
         data.push(pluginData.downloads);
+        if (count >= max) break;
     }
     const label = "# of downloads";
-    const borderWidth: number = 1;
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: borderWidth
-
+        borderWidth: 0,
+        borderRadius: 2,
+        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+        hoverBackgroundColor: 'rgba(0, 0, 255, 0.4)',
     }];
     const res = {
         labels: labels,
