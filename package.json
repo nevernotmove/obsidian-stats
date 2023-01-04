@@ -16,11 +16,7 @@
   },
   "homepage": "https://github.com/nevernotmove/plugin-stats#readme",
   "type": "module",
-  "dependencies": {
-    "d3": "^7.8.0"
-  },
   "devDependencies": {
-    "@types/d3": "^7.4.0",
     "@types/node": "^18.11.18",
     "esbuild": "^0.16.13",
     "tslib": "^2.4.1",
