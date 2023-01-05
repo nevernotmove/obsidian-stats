@@ -1,4 +1,5 @@
 # plugin-stats
 Display plugin statistics.
 
-**NOT USABLE YET**
+Not much going on yet, but the site is here:
+https://nevernotmove.github.io/plugin-stats/
