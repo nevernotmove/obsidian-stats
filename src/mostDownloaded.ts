@@ -1,4 +1,4 @@
-import {ChartData} from 'chart.js/dist/types';
+import type {ChartData} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 
 const prepareData = (json: object): ChartData => {

@@ -1,27 +1,24 @@
 {
   "name": "plugin-stats",
+  "private": true,
   "version": "0.1.0",
-  "description": "Display plugin statistics",
-  "main": "src/main.ts",
-  "scripts": {
-    "build": "node build.mjs",
-    "build-only": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "nevernotmove",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nevernotmove/plugin-stats/issues"
-  },
-  "homepage": "https://github.com/nevernotmove/plugin-stats#readme",
   "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "esbuild": "^0.16.13",
+    "@sveltejs/vite-plugin-svelte": "^2.0.0",
+    "@tsconfig/svelte": "^3.0.0",
+    "svelte": "^3.54.0",
+    "svelte-check": "^2.10.0",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
   },
   "dependencies": {
-    "chart.js": "^4.1.1"
+    "chart.js": "^4.1.2"
   }
 }
