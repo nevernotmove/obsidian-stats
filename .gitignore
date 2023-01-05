@@ -3,9 +3,11 @@
 
 # npm
 node_modules
+/.npmrc
 
 # Compiled TypeScript
 src/**/*.js
 
 # Build output
 dist
+
