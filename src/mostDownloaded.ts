@@ -11,12 +11,6 @@ const prepareData = (json: object): ChartData => {
         labels.push(sortable[i][0]);
         data.push(sortable[i][1].downloads);
     }
-    // for (const [pluginName, pluginData] of Object.entries(json)) {
-    //     count++;
-    //     labels.push(pluginName);
-    //     data.push(pluginData.downloads);
-    //     if (count >= max) break;
-    // }
     const label = "# of downloads";
     const datasets = [{
         label: label,
