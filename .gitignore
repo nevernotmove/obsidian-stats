@@ -8,4 +8,4 @@ node_modules
 src/**/*.js
 
 # Build output
-build
+dist
