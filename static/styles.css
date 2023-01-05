@@ -4,6 +4,7 @@ html, body {
 }
 
 body {
+    background-color: #1E1E1E;
     display: grid;
     place-content: center;
 }

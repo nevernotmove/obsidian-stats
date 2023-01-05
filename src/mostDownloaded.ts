@@ -7,7 +7,6 @@ const prepareData = (json: object): ChartData => {
     const sortable = Object.entries(json)
         .sort(([, a], [, b]) => b.downloads - a.downloads)
     const max = 30;
-    console.log(sortable)
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
         data.push(sortable[i][1].downloads);
@@ -24,8 +23,8 @@ const prepareData = (json: object): ChartData => {
         data: data,
         borderWidth: 0,
         borderRadius: 2,
-        backgroundColor: 'rgba(0, 0, 255, 0.2)',
-        hoverBackgroundColor: 'rgba(0, 0, 255, 0.4)',
+        backgroundColor: 'rgb(139, 108, 239, .7)',
+        hoverBackgroundColor: 'rgb(139, 108, 239, 1)',
     }];
     const res = {
         labels: labels,
@@ -44,8 +43,16 @@ const displayChart = (data: ChartData) => {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    grid: {
+                        color: '#3F3F3F',
+                    }
                 }
             }
         }
