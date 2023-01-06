@@ -15,7 +15,7 @@ const prepareData = (json: object): ChartData => {
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: 0,
+        borderWidth: 1,
         borderRadius: 2,
         backgroundColor: 'rgb(139, 108, 239, .7)',
         hoverBackgroundColor: 'rgb(139, 108, 239, 1)',
