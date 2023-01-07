@@ -1,9 +1,10 @@
 :root {
+    --color1: rgba(255, 255, 255, 0.87);
+    --color2: #242424;
+    --color3: #1E1E1E;
+    --color4: rgb(139, 108, 239, .7);
+    
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -12,7 +13,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #1E1E1E;
+    background-color: var(--color3);
     height: 100vh;
 }
 
@@ -21,4 +22,3 @@ body {
     flex-direction: column;
     height: 100%;
 }
-
