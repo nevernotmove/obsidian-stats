@@ -3,6 +3,7 @@
     import {onMount} from 'svelte';
     import MostDownloaded from './MostDownloaded/MostDownloaded.svelte';
     import PluginDownloads from './PluginDownloads/PluginDownloads.svelte';
+    import {ChartType} from './ChartType';
 
     // Bundling fails if missing
     Chart.register(...registerables);
@@ -12,7 +13,7 @@
     Chart.defaults.borderColor = 'rgb(139, 108, 239, 1)';
     Chart.defaults.color = '#B4B4B4';
 
-    export let activeChart = '';
+    export let activeChart = ChartType.MostDownloaded;
     
     $: console.log("Chart: switching to", activeChart);
     
@@ -21,9 +22,9 @@
 </script>
 
 <div class="chart-container">
-    {#if activeChart === 'most-downloaded'}
+    {#if activeChart === ChartType.MostDownloaded}
         <MostDownloaded/>
-    {:else if activeChart === 'plugin-downloads'}
+    {:else if activeChart === ChartType.PluginDownloads}
         <PluginDownloads/>
     {/if} 
 </div>
