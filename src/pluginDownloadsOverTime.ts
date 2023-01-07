@@ -2,23 +2,30 @@ import type {ChartData} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 
 const prepareData = (json: object): ChartData => {
-    const labels: string[] = [];
+    const pluginName = 'chord-lyrics';
+    const labels = [];
     const data = [];
-    const sortable = Object.entries(json)
-        .sort(([, a], [, b]) => b.downloads - a.downloads)
-    const max = 30;
-    for (let i = 0; i < sortable.length && i < max; i++) {
-        labels.push(sortable[i][0]);
-        data.push(sortable[i][1].downloads);
+    const map = new Map(Object.entries(json));
+    const plugin = map.get(pluginName);
+    console.log(map);
+    console.log(plugin);
+    for (const entry of Object.entries(plugin)) {
+        const time = entry[0];
+        const downloads = entry[1];
+        labels.push(time);
+        data.push(downloads);
     }
-    const label = "# of downloads";
+    const label = "# of downloads for " + pluginName;
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: 1,
-        borderRadius: 2,
+        borderWidth: 3,
         backgroundColor: 'rgb(139, 108, 239, .7)',
         hoverBackgroundColor: 'rgb(139, 108, 239, 1)',
+        pointStyle: true,
+        pointRadius: 0,
+        pointHoverRadius: 10,
+        fill: true,
     }];
     const res = {
         labels: labels,
@@ -31,9 +38,10 @@ const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: data,
         options: {
+            
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -53,7 +61,7 @@ const displayChart = (data: ChartData) => {
     });
 };
 
-export default function mostDownloaded(json: object): void {
-    const barChartData: ChartData = prepareData(json);
-    displayChart(barChartData);
+export default function pluginDownloadsOverTime(json: object): void {
+    const lineChartData: ChartData = prepareData(json);
+    displayChart(lineChartData);
 }

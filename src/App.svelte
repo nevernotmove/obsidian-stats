@@ -1,8 +1,10 @@
 <script lang="ts">
     import {Chart, registerables} from 'chart.js';
-    import json from './assets/community-plugin-stats.json';
-    import mostDownloaded from './mostDownloaded';
+    //import json from './assets/community-plugin-stats.json';
+    //import json from './assets/downloads-time.json';
+    import json from './assets/downloads.json';
     import {onMount} from 'svelte';
+    import pluginDownloadsOverTime from './pluginDownloadsOverTime';
 
     // Bundling fails if missing
     Chart.register(...registerables);
@@ -13,7 +15,8 @@
     Chart.defaults.color = '#B4B4B4';
 
     onMount(() => {
-        mostDownloaded(json);
+        pluginDownloadsOverTime(json)
+        //mostDownloadedPlugins(json);
     })
 </script>
 
