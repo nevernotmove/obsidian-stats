@@ -6,7 +6,6 @@
     onMount(() => {
         mostDownloadedPlugins(json);
     });
-    
 </script>
 
 <canvas id="chart"></canvas>

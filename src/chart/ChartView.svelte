@@ -14,9 +14,6 @@
     Chart.defaults.color = '#B4B4B4';
 
     export let activeChart = ChartType.MostDownloaded;
-    
-    onMount(() => {
-    })
 </script>
 
 <div class="chart-container">
