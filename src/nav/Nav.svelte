@@ -11,7 +11,14 @@
 
 <style>
     nav {
+        margin-top: 1em;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1em;
     }
     button{
+        padding: .2em .5em;
     }
 </style>
