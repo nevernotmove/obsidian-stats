@@ -1,10 +1,10 @@
 <script lang="ts">
     import {Chart, registerables} from 'chart.js';
-    //import json from './assets/community-plugin-stats.json';
-    //import json from './assets/downloads-time.json';
-    import json from './assets/downloads.json';
+    import json from '../public/downloads.json';
+    import json2 from '../public/community-plugin-stats.json';
     import {onMount} from 'svelte';
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
+    import mostDownloadedPlugins from './mostDownloadedPlugins';
 
     // Bundling fails if missing
     Chart.register(...registerables);
@@ -16,7 +16,7 @@
 
     onMount(() => {
         pluginDownloadsOverTime(json)
-        //mostDownloadedPlugins(json);
+        //mostDownloadedPlugins(json2);
     })
 </script>
 
