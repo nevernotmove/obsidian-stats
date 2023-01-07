@@ -15,8 +15,6 @@
 
     export let activeChart = ChartType.MostDownloaded;
     
-    $: console.log("Chart: switching to", activeChart);
-    
     onMount(() => {
     })
 </script>

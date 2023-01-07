@@ -4,8 +4,6 @@
     import {ChartType} from '../chart/ChartType';
 
     let activeChart = ChartType.MostDownloaded;
-    $: console.log("App: switching to", activeChart);
-    
 </script>
 
 <main>

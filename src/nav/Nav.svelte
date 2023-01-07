@@ -2,7 +2,6 @@
     import {ChartType} from "../chart/ChartType";
 
     export let activeChart = ChartType.MostDownloaded;
-    $: console.log("Nav: switching to", activeChart)
 </script>
 
 <nav>
