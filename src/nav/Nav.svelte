@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {ChartType} from "../chart/ChartType";
 
     export let activeChart = ChartType.MostDownloaded;

@@ -1,5 +1,5 @@
-<script>
-    import mostDownloadedPlugins from "./mostDownloadedPlugins.ts";
+<script lang="ts">
+    import mostDownloadedPlugins from './mostDownloadedPlugins';
     import json from '../../../public/community-plugin-stats.json';
     import {onMount} from "svelte";
 

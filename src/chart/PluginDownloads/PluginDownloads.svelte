@@ -1,5 +1,5 @@
-<script>
-    import pluginDownloadsOverTime from "./pluginDownloadsOverTime.ts";
+<script lang="ts">
+    import pluginDownloadsOverTime from './pluginDownloadsOverTime';
     import json from '../../../public/downloads.json';
     import {onMount} from "svelte";
     
