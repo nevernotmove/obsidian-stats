@@ -18,6 +18,14 @@
         gap: 1em;
     }
     button{
-        padding: .2em .5em;
+        padding: .3em .6em;
+        background-color: var(--color2);
+        color: var(--color1);
+        border: 1px solid var(--color1);
+        cursor: pointer;
+        border-radius: .2em;
+    }
+    button:hover {
+        background-color: var(--color4);
     }
 </style>
