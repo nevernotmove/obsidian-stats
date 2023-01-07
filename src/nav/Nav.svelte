@@ -11,7 +11,6 @@
 
 <style>
     nav {
-        margin-top: 1em;
         justify-content: center;
         display: flex;
         flex-direction: row;

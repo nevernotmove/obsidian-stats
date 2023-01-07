@@ -25,11 +25,6 @@
 
 <style>
     .chart-container {
-        position: relative;
-        height: 100vh;
-        width: 100vw;
-    }
-    :global(#chart) {
-        margin: 5%;
+        height: 100%;
     }
 </style>
