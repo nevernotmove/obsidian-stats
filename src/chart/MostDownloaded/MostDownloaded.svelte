@@ -10,9 +10,3 @@
 </script>
 
 <canvas id="chart"></canvas>
-
-<style>
-    #chart {
-        margin: 5%;
-    }
-</style>

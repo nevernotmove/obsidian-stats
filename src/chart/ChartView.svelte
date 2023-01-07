@@ -34,4 +34,7 @@
         height: 100vh;
         width: 100vw;
     }
+    :global(#chart) {
+        margin: 5%;
+    }
 </style>
