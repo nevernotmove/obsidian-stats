@@ -1,6 +1,5 @@
 <script lang="ts">
     import {Chart, registerables} from 'chart.js';
-    import {onMount} from 'svelte';
     import MostDownloaded from './MostDownloaded/MostDownloaded.svelte';
     import PluginDownloads from './PluginDownloads/PluginDownloads.svelte';
     import {ChartType} from './ChartType';
