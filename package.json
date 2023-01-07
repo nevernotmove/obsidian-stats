@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "fetch-and-crunch": "script/fetch-and-crunch.sh"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
