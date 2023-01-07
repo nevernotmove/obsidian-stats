@@ -17,7 +17,7 @@ var pluginStats = make(map[string]map[int64]int64)
 func main() {
 	processData()
 	file, _ := json.MarshalIndent(pluginStats, "", "	")
-	_ = os.WriteFile("output.json", file, 0644)
+	_ = os.WriteFile("downloads.json", file, 0644)
 }
 
 func parseTimestamp(input string) int64 {
