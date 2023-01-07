@@ -7,8 +7,6 @@ const prepareData = (json: object): ChartData => {
     const data = [];
     const map = new Map(Object.entries(json));
     const plugin = map.get(pluginName);
-    console.log(map);
-    console.log(plugin);
     for (const entry of Object.entries(plugin)) {
         const time = entry[0];
         const downloads = entry[1];

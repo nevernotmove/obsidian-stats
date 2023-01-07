@@ -1,16 +1,14 @@
 <script lang="ts">
     import Nav from '../nav/Nav.svelte';
-    import {onMount} from 'svelte';
     import ChartView from '../chart/ChartView.svelte';
 
-    onMount(() => {
-        //pluginDownloadsOverTime(json)
-        //mostDownloadedPlugins(json2);
-    })
+    let activeChart = "most-downloaded"
+    $: console.log("App: switching to", activeChart);
+    
 </script>
 
 <main>
-    <Nav/>
-    <ChartView/>
+    <Nav bind:activeChart/>
+    <ChartView {activeChart}/>
 </main>
 

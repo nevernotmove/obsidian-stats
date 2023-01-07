@@ -1,10 +1,8 @@
 <script lang="ts">
     import {Chart, registerables} from 'chart.js';
-    import json from '../../public/downloads.json';
-    import json2 from '../../public/community-plugin-stats.json';
     import {onMount} from 'svelte';
-    import pluginDownloadsOverTime from './pluginDownloadsOverTime';
-    import mostDownloadedPlugins from './mostDownloadedPlugins';
+    import MostDownloaded from './MostDownloaded/MostDownloaded.svelte';
+    import PluginDownloads from './PluginDownloads/PluginDownloads.svelte';
 
     // Bundling fails if missing
     Chart.register(...registerables);
@@ -14,14 +12,20 @@
     Chart.defaults.borderColor = 'rgb(139, 108, 239, 1)';
     Chart.defaults.color = '#B4B4B4';
 
+    export let activeChart = '';
+    
+    $: console.log("Chart: switching to", activeChart);
+    
     onMount(() => {
-        pluginDownloadsOverTime(json)
-        //mostDownloadedPlugins(json2);
     })
 </script>
 
 <div class="chart-container">
-    <canvas id="chart"></canvas>
+    {#if activeChart === 'most-downloaded'}
+        <MostDownloaded/>
+    {:else if activeChart === 'plugin-downloads'}
+        <PluginDownloads/>
+    {/if} 
 </div>
 
 <style>
@@ -29,9 +33,5 @@
         position: relative;
         height: 100vh;
         width: 100vw;
-    }
-
-    #chart {
-        margin: 5%;
     }
 </style>
