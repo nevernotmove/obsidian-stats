@@ -1,7 +1,7 @@
 <script lang="ts">
     import {Chart, registerables} from 'chart.js';
-    import json from '../public/downloads.json';
-    import json2 from '../public/community-plugin-stats.json';
+    import json from '../../public/downloads.json';
+    import json2 from '../../public/community-plugin-stats.json';
     import {onMount} from 'svelte';
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
     import mostDownloadedPlugins from './mostDownloadedPlugins';

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Nav from './Nav.svelte';
+    import Nav from '../nav/Nav.svelte';
     import {onMount} from 'svelte';
-    import ChartView from './ChartView.svelte';
+    import ChartView from '../chart/ChartView.svelte';
 
     onMount(() => {
         //pluginDownloadsOverTime(json)
