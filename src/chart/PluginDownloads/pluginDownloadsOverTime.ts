@@ -8,7 +8,7 @@ const prepareData = (json: object): ChartData => {
     const map = new Map(Object.entries(json));
     const plugin = map.get(pluginName);
     for (const entry of Object.entries(plugin)) {
-        const time = entry[0];
+        const time = parseInt(entry[0] + "000");
         const downloads = entry[1];
         labels.push(time);
         data.push(downloads);
@@ -46,6 +46,10 @@ const displayChart = (data: ChartData) => {
                 x: {
                     grid: {
                         display: false
+                    },
+                    type: 'time', 
+                    time: {
+                        unit: "day"
                     }
                 },
                 y: {
