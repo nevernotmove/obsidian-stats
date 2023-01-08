@@ -1,7 +1,8 @@
 import type {ChartData} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
+import type {ChartDefaults} from '../ChartDefaults';
 
-const prepareData = (json: object): ChartData => {
+const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     const labels: string[] = [];
     const data = [];
     const sortable = Object.entries(json)
@@ -15,10 +16,11 @@ const prepareData = (json: object): ChartData => {
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: 2,
+        borderWidth: defaults.borderWidth,
+        borderColor: defaults.borderColor,
         borderRadius: 2,
-        backgroundColor: 'rgb(139, 108, 239, .7)',
-        hoverBackgroundColor: 'rgb(139, 108, 239, 1)',
+        backgroundColor: defaults.backgroundColor,
+        hoverBackgroundColor: defaults.hoverBackgroundColor,
     }];
     const res = {
         labels: labels,
@@ -29,7 +31,7 @@ const prepareData = (json: object): ChartData => {
 
 const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
-
+    
     new Chart(ctx, {
         type: 'bar',
         data: data,
@@ -53,7 +55,7 @@ const displayChart = (data: ChartData) => {
     });
 };
 
-export default function mostDownloadedPlugins(json: object): void {
-    const barChartData: ChartData = prepareData(json);
+export default function mostDownloadedPlugins(json: object, chartDefaults: ChartDefaults): void {
+    const barChartData: ChartData = prepareData(json, chartDefaults);
     displayChart(barChartData);
 }

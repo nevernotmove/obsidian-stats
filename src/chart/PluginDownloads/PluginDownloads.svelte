@@ -2,9 +2,12 @@
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
     import json from '../../../public/downloads.json';
     import {onMount} from "svelte";
+    import type {ChartDefaults} from '../ChartDefaults';
+    
+    export let chartDefaults: ChartDefaults;
     
     onMount(() => {
-        pluginDownloadsOverTime(json);
+        pluginDownloadsOverTime(json, chartDefaults);
     });
 </script>
 
