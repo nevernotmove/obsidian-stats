@@ -1,13 +1,18 @@
 <script lang="ts">
     import mostDownloadedPlugins from './mostDownloadedPlugins';
-    import json from '../../../public/community-plugin-stats.json';
     import {onMount} from "svelte";
     import type {ChartDefaults} from '../ChartDefaults';
     
     export let chartDefaults: ChartDefaults;
+    
+    async function lazyLoadThenDisplay() {
+        await import('../../../public/community-plugin-stats.json').then(json => {
+            mostDownloadedPlugins(json.default, chartDefaults);
+        })
+    }
 
     onMount(() => {
-        mostDownloadedPlugins(json, chartDefaults);
+        lazyLoadThenDisplay()
     });
 </script>
 

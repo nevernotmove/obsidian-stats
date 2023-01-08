@@ -1,13 +1,18 @@
 <script lang="ts">
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
-    import json from '../../../public/downloads.json';
     import {onMount} from "svelte";
     import type {ChartDefaults} from '../ChartDefaults';
     
     export let chartDefaults: ChartDefaults;
     
+    async function lazyLoadThenDisplay() {
+        await import('../../../public/downloads.json').then(json => {
+            pluginDownloadsOverTime(json.default, chartDefaults);
+        })
+    }
+
     onMount(() => {
-        pluginDownloadsOverTime(json, chartDefaults);
+        lazyLoadThenDisplay()
     });
 </script>
 
