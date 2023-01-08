@@ -12,7 +12,7 @@
     Chart.defaults.borderColor = 'rgb(139, 108, 239, 1)';
     Chart.defaults.color = '#B4B4B4';
 
-    export let activeChart = ChartType.MostDownloaded;
+    export let activeChart: ChartType = ChartType.MostDownloaded;
 </script>
 
 <div class="chart-container">

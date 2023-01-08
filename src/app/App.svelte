@@ -3,7 +3,7 @@
     import ChartView from '../chart/ChartView.svelte';
     import {ChartType} from '../chart/ChartType';
 
-    let activeChart = ChartType.MostDownloaded;
+    let activeChart: ChartType = ChartType.MostDownloaded;
 </script>
 
 <main>
