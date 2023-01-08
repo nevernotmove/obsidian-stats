@@ -1,3 +1,5 @@
+@import url(modern-normalize.css);
+
 :root {
     --color1: rgba(255, 255, 255, 0.87);
     --color2: #242424;
@@ -8,10 +10,6 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
 }
 
 body {
