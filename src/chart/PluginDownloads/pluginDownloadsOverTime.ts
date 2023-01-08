@@ -1,5 +1,6 @@
 import type {ChartData} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
+import 'chartjs-adapter-luxon';
 
 const prepareData = (json: object): ChartData => {
     const pluginName = 'chord-lyrics';
