@@ -21,17 +21,6 @@
         borderColor: color1,
         borderWidth: 2,
     }
-    
-    // Can't get most of these to work
-    // Set default colors
-    // Chart.defaults.backgroundColor = '#fff';
-    // Chart.defaults.borderColor = color1;
-    // Chart.defaults.color = color1;
-    // Chart.defaults.font.size = 16;
-    // Chart.defaults.responsive
-    // Chart.defaults.hoverColor()
-    // Chart.defaults.hoverBackgroundColor()
-    // Chart.defaults.font
 
     export let activeChart: ChartType = ChartType.MostDownloaded;
 </script>
