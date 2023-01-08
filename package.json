@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "build-then-preview": "npm run build && npm run preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "deploy": "script/deploy.sh",
     "fetch-and-crunch": "script/fetch-and-crunch.sh"
