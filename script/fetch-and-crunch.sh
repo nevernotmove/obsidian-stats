@@ -19,6 +19,6 @@ cp -R ../script/crunch/. .
 go mod tidy
 go mod vendor
 go run crunch.go
-cp downloads.json ../src/assets/downloads.json
+cp downloads.json ../public/downloads.json
 cd ..
 rm -rf tmp 
