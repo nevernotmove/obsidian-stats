@@ -10,8 +10,8 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-    box-sizing: border-box
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 body {
