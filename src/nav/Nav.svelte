@@ -27,4 +27,7 @@
     :global(a):hover {
         background-color: var(--color5);
     }
+    :global(a[aria-current="page"]) {
+        background-color: var(--color4);
+    }
 </style>
