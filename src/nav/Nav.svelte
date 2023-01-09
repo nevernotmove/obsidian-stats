@@ -27,6 +27,6 @@
         border-radius: .2em;
     }
     :global(a):hover {
-        background-color: var(--color4);
+        background-color: var(--color5);
     }
 </style>
