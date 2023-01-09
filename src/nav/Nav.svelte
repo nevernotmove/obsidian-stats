@@ -3,8 +3,8 @@
 </script>
 
 <nav>
-    <Link to="/plugin-stats/plugin-downloads">plugin downloads</Link>
     <Link to="/plugin-stats/most-downloaded">most downloaded</Link>
+    <Link to="/plugin-stats/plugin-downloads">plugin downloads</Link>
 </nav>
 
 <style>
