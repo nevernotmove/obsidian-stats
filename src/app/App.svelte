@@ -3,7 +3,9 @@
     import Nav from '../nav/Nav.svelte';
     import ChartView from '../chart/ChartView.svelte';
 
-    navigate('/plugin-stats/most-downloaded')
+    if (window.location.href.endsWith('/plugin-stats')) {
+        navigate('/plugin-stats/most-downloaded')
+    }
 </script>
 
 <main>
