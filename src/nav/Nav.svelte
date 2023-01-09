@@ -15,8 +15,6 @@
         flex-wrap: wrap;
         gap: 1em;
     }
-    /*.link > :global(a) {*/
-    /*}*/
     :global(a) {
         text-decoration: none;
         padding: .3em .6em;
