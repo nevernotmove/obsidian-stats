@@ -1,14 +1,17 @@
 <script lang="ts">
+    import {navigate, Router} from "svelte-navigator";
     import Nav from '../nav/Nav.svelte';
     import ChartView from '../chart/ChartView.svelte';
-    import {ChartType} from '../chart/ChartType';
 
-    let activeChart: ChartType = ChartType.MostDownloaded;
+    navigate('/plugin-stats/most-downloaded')
 </script>
 
 <main>
-    <Nav bind:activeChart/>
-    <ChartView {activeChart}/>
+    <!--TODO Might want to remove primary=false and take care-->
+    <Router primary={false}> 
+        <Nav/>
+        <ChartView/>
+    </Router>
 </main>
 
 <style>

@@ -1,12 +1,10 @@
 <script lang="ts">
-    import {ChartType} from "../chart/ChartType";
-
-    export let activeChart: ChartType = ChartType.MostDownloaded;
+    import {Link} from 'svelte-navigator';
 </script>
 
 <nav>
-    <button on:click={() => activeChart = ChartType.MostDownloaded}>Most downloaded</button>
-    <button on:click={() => activeChart = ChartType.PluginDownloads}>Plugin downloads</button>
+    <Link to="/plugin-stats/plugin-downloads">plugin downloads</Link>
+    <Link to="/plugin-stats/most-downloaded">most downloaded</Link>
 </nav>
 
 <style>
@@ -17,7 +15,10 @@
         flex-wrap: wrap;
         gap: 1em;
     }
-    button{
+    /*.link > :global(a) {*/
+    /*}*/
+    :global(a) {
+        text-decoration: none;
         padding: .3em .6em;
         background-color: var(--color2);
         color: var(--color1);
@@ -25,7 +26,7 @@
         cursor: pointer;
         border-radius: .2em;
     }
-    button:hover {
+    :global(a):hover {
         background-color: var(--color4);
     }
 </style>

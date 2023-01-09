@@ -2,8 +2,8 @@
     import {Chart, registerables} from 'chart.js';
     import MostDownloaded from './MostDownloaded/MostDownloaded.svelte';
     import PluginDownloads from './PluginDownloads/PluginDownloads.svelte';
-    import {ChartType} from './ChartType';
     import type {ChartDefaults} from './ChartDefaults';
+    import {Route} from 'svelte-navigator';
 
     // Bundling fails if missing
     Chart.register(...registerables);
@@ -21,16 +21,15 @@
         borderColor: color1,
         borderWidth: 2,
     }
-
-    export let activeChart: ChartType = ChartType.MostDownloaded;
 </script>
 
 <div class="chart-container">
-    {#if activeChart === ChartType.MostDownloaded}
+    <Route path="/plugin-stats/most-downloaded">
         <MostDownloaded {chartDefaults}/>
-    {:else if activeChart === ChartType.PluginDownloads}
+    </Route>
+    <Route path="/plugin-stats/plugin-downloads">
         <PluginDownloads {chartDefaults}/>
-    {/if} 
+    </Route>
 </div>
 
 <style>
