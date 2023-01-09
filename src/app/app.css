@@ -5,6 +5,7 @@
     --color2: #242424;
     --color3: #1E1E1E;
     --color4: rgb(139, 108, 239, .7);
+    --color5: rgb(139, 108, 239, .9);
     
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
