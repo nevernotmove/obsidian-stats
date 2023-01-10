@@ -6,7 +6,7 @@
     export let chartDefaults: ChartDefaults;
     
     async function lazyLoadThenDisplay() {
-        await import('../../../public/community-plugin-stats.json').then(json => {
+        await import('../../../public/total-downloads.json').then(json => {
             mostDownloadedPlugins(json.default, chartDefaults);
         })
     }

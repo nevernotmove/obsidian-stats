@@ -6,11 +6,11 @@ const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     const labels: string[] = [];
     const data = [];
     const sortable = Object.entries(json)
-        .sort(([, a], [, b]) => b.downloads - a.downloads)
-    const max = 30;
+        .sort(([, a], [, b]) => b - a)
+    const max = 20;
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
-        data.push(sortable[i][1].downloads);
+        data.push(sortable[i][1]);
     }
     const label = "# of downloads";
     const datasets = [{
