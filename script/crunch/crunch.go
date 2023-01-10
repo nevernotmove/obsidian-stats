@@ -12,12 +12,80 @@ import (
 
 import "github.com/buger/jsonparser"
 
-var pluginStats = make(map[string]map[int64]int64)
+// Outputs of this script:
+//   - json file with all plugin names plus their total downloads
+//   - a json file for each plugin with their downloads over time
+
+var downloadsOverTime = make(map[string]map[int64]int64)
+var totalDownloads = make(map[string]int64)
 
 func main() {
-	processData()
-	file, _ := json.MarshalIndent(pluginStats, "", "	")
-	_ = os.WriteFile("downloads.json", file, 0644)
+	processData("stats.json")
+	println(len(downloadsOverTime))
+	println(len(totalDownloads))
+	saveJsonFile("total-downloads.json", totalDownloads)
+	saveJsonFile("downloads-over-time.json", downloadsOverTime)
+}
+
+func saveJsonFile[V any](fileName string, data map[string]V) {
+	file, _ := json.MarshalIndent(data, "", "	")
+	_ = os.WriteFile(fileName, file, 0644)
+}
+
+func processData(fileName string) {
+	readFile, err := os.Open(fileName)
+	if err != nil {
+		fmt.Println(err)
+	}
+	scan := bufio.NewScanner(readFile)
+	scan.Split(bufio.ScanLines)
+
+	jsonData := ""
+	copy := false
+	for scan.Scan() {
+		line := scan.Text()
+		if strings.HasPrefix(line, "{") {
+			copy = true
+			jsonData += line + "\n"
+		} else if strings.HasPrefix(line, "}") {
+			copy = false
+			jsonData += line + "\n"
+		} else if strings.HasPrefix(line, "author") {
+			timestamp := parseTimestamp(line)
+			parsePluginData(jsonData, timestamp)
+			jsonData = ""
+		} else if copy {
+			jsonData += line + "\n"
+		}
+	}
+
+	err = readFile.Close()
+	if err != nil {
+		// TODO
+	}
+}
+
+func parsePluginData(json string, timestamp int64) {
+	jsonBytes := []byte(json)
+	jsonparser.ObjectEach(jsonBytes, func(key []byte, value []byte, dataType jsonparser.ValueType, offset int) error {
+		name := string(key)
+		downloads, _ := jsonparser.GetInt(value, "downloads")
+		if plugin, ok := downloadsOverTime[name]; !ok {
+			plugin = make(map[int64]int64)
+			downloadsOverTime[name] = plugin
+		}
+		// Ignore 0 values for downloads if there were more downloads before
+		if downloads == 0 && len(downloadsOverTime[name]) != 0 {
+			for _, prevDownloads := range downloadsOverTime[name] {
+				if prevDownloads > 0 {
+					return nil
+				}
+			}
+		}
+		downloadsOverTime[name][timestamp] = downloads
+		totalDownloads[name] = downloads
+		return nil
+	})
 }
 
 func parseTimestamp(input string) int64 {
@@ -38,58 +106,4 @@ func parseTimestamp(input string) int64 {
 		fmt.Println(tm)
 		return tm
 	*/
-}
-
-func processData() {
-	readFile, err := os.Open("stats.json")
-	if err != nil {
-		fmt.Println(err)
-	}
-	scan := bufio.NewScanner(readFile)
-	scan.Split(bufio.ScanLines)
-
-	jsonData := ""
-	doCopy := false
-	for scan.Scan() {
-		s := scan.Text()
-		if strings.HasPrefix(s, "{") {
-			doCopy = true
-		} else if strings.HasPrefix(s, "}") {
-			doCopy = false
-		} else if strings.HasPrefix(s, "author") {
-			timestamp := parseTimestamp(s)
-			parsePluginData(jsonData, timestamp)
-			jsonData = ""
-		}
-		if doCopy {
-			jsonData += s + "\n"
-		}
-	}
-
-	err = readFile.Close()
-	if err != nil {
-		// TODO
-	}
-}
-
-func parsePluginData(json string, timestamp int64) {
-	jsonBytes := []byte(json)
-	jsonparser.ObjectEach(jsonBytes, func(key []byte, value []byte, dataType jsonparser.ValueType, offset int) error {
-		name := string(key)
-		downloads, _ := jsonparser.GetInt(value, "downloads")
-		if plugin, ok := pluginStats[name]; !ok {
-			plugin = make(map[int64]int64)
-			pluginStats[name] = plugin
-		}
-		// Ignore 0 values for downloads if there were more downloads before
-		if downloads == 0 && len(pluginStats[name]) != 0 {
-			for _, prevDownloads := range pluginStats[name] {
-				if prevDownloads > 0 {
-					return nil
-				}
-			}
-		}
-		pluginStats[name][timestamp] = downloads
-		return nil
-	})
 }
