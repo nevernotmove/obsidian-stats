@@ -3,7 +3,8 @@
     import Nav from '../nav/Nav.svelte';
     import ChartView from '../chart/ChartView.svelte';
 
-    if (window.location.href.endsWith('/plugin-stats')) {
+    const loc = window.location.href;
+    if (loc.endsWith('/plugin-stats') || loc.endsWith('/plugin-stats/')) {
         navigate('/plugin-stats/most-downloaded')
     }
 </script>
