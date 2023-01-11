@@ -39,6 +39,7 @@
 
     function search() {
         searchText = searchText.trim();
+        if (searchText === '') return;
         let pluginExists = false;
         for (const pluginName of Object.keys(plugins)) {
             if (pluginName === searchText) {
