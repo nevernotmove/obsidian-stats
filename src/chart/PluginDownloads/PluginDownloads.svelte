@@ -7,10 +7,14 @@
 
     export let chartDefaults: ChartDefaults;
     let searchText: string;
+    let plugins: object;
     let error: boolean = false;
     let chart: Chart;
 
     onMount(() => {
+        getData('total-downloads.json', (data: object) => {
+            if (data) plugins = data;
+        });
         const lastSegment = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
         const pluginName = lastSegment === 'plugin-downloads' ? 'chord-lyrics' : lastSegment;
         loadData(pluginName);
@@ -18,7 +22,6 @@
 
     function loadData(pluginName: string) {
         const path = `plugins/${pluginName}.json`;
-        console.log('Will request', path);
         getData(path, (data: object) => {
             if (data) {
                 if (chart) chart.destroy();
@@ -30,13 +33,22 @@
         });
     }
 
-    function onSubmit() {
-        loadData(searchText);
+    function search() {
+        searchText = searchText.trim();
+        let pluginExists = false;
+        for (const pluginName of Object.keys(plugins)) {
+            if (pluginName === searchText) {
+                pluginExists = true;
+                break;
+            }
+        }
+        if (pluginExists) loadData(searchText);
+        else error = true;
     }
 </script>
 
 <div class="container">
-    <form on:submit|preventDefault={onSubmit}>
+    <form on:submit|preventDefault={search}>
         <input autofocus type="text" bind:value={searchText} placeholder="Enter plugin name" class:error={error}>
     </form>
     <div class="chart-container">
@@ -68,7 +80,7 @@
     .error {
         background-color: var(--color-error);
     }
-    
+
     .chart-container {
         height: 100%;
     }
