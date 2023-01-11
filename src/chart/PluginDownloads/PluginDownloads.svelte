@@ -12,9 +12,7 @@
 
     onMount(() => {
         const lastSegment = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-        console.log(lastSegment);
         const pluginName = lastSegment === 'plugin-downloads' ? 'chord-lyrics' : lastSegment;
-        console.log(pluginName);
         loadData(pluginName);
     });
     
