@@ -35,7 +35,7 @@ const prepareData = (json: object, pluginName: string, defaults: ChartDefaults):
 const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
     
-    new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'line',
         data: data,
         options: {
@@ -62,7 +62,7 @@ const displayChart = (data: ChartData) => {
     });
 };
 
-export default function pluginDownloadsOverTime(json: object, pluginName: string, chartDefaults: ChartDefaults): void {
+export default function pluginDownloadsOverTime(json: object, pluginName: string, chartDefaults: ChartDefaults): Chart {
     const lineChartData: ChartData = prepareData(json, pluginName, chartDefaults);
-    displayChart(lineChartData);
+    return displayChart(lineChartData);
 }

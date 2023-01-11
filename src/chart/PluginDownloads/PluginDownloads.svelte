@@ -3,34 +3,57 @@
     import {onMount} from "svelte";
     import type {ChartDefaults} from '../ChartDefaults';
     import {getData} from '../../cache';
+    import {Chart} from 'chart.js';
 
     export let chartDefaults: ChartDefaults;
-    let error = false;
+    let searchText: string;
+    let error: boolean = false;
+    let chart: Chart;
 
     onMount(() => {
         const lastSegment = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
         console.log(lastSegment);
         const pluginName = lastSegment === 'plugin-downloads' ? 'chord-lyrics' : lastSegment;
         console.log(pluginName);
-        const path = `plugins/${pluginName}.json`;
-        getData(path, (data: object) => {
-            data ? pluginDownloadsOverTime(data, pluginName, chartDefaults) : error = true;
-        });
+        loadData(pluginName);
     });
+    
+    function loadData(pluginName: string) {
+        const path = `plugins/${pluginName}.json`;
+        console.log('Will request', path);
+        getData(path, (data: object) => {
+            if (data) {
+                if (chart) chart.destroy();
+                chart = pluginDownloadsOverTime(data, pluginName, chartDefaults);
+            } else {
+                error = true;
+            }
+        });
+    }
+    
+    function onSubmit() {
+        loadData(searchText);
+    }
 </script>
 
 <div>
+    <form on:submit|preventDefault={onSubmit}>
+        <input type="text" bind:value={searchText} placeholder="Enter plugin name">
+    </form>
     {#if error}
         <span>The requested plugin does not exist</span>
-    {:else}
-        <canvas id="chart"></canvas>
-    {/if}   
+    {/if}
+    <canvas id="chart"></canvas>
 </div>
 
 <style>
     div {
         display: flex;
+        flex-direction: column;
         height: 100%;
+    }
+    form {
+        margin: auto;
     }
     span {
         padding: 1%;
