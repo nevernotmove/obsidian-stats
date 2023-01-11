@@ -24,10 +24,13 @@
 </script>
 
 <div class="chart-container">
-    <Route path="/plugin-stats/most-downloaded">
+    <Route path="/">
         <MostDownloaded {chartDefaults}/>
     </Route>
-    <Route path="/plugin-stats/plugin-downloads">
+    <Route path="/most-downloaded">
+        <MostDownloaded {chartDefaults}/>
+    </Route>
+    <Route path="/plugin-downloads">
         <PluginDownloads {chartDefaults}/>
     </Route>
 </div>

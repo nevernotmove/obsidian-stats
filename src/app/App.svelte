@@ -1,19 +1,16 @@
 <script lang="ts">
-    import {navigate, Router} from "svelte-navigator";
+    import {Route, Router} from "svelte-navigator";
     import Nav from '../nav/Nav.svelte';
     import ChartView from '../chart/ChartView.svelte';
-
-    const loc = window.location.href;
-    if (loc.endsWith('/plugin-stats') || loc.endsWith('/plugin-stats/')) {
-        navigate('/plugin-stats/most-downloaded')
-    }
 </script>
 
 <main>
     <!--TODO Might want to remove primary=false and take care-->
-    <Router primary={false}> 
-        <Nav/>
-        <ChartView/>
+    <Router primary={false}>
+        <Route path="plugin-stats/*">
+            <Nav/>
+            <ChartView/>
+        </Route>
     </Router>
 </main>
 

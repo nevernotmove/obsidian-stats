@@ -10,12 +10,13 @@ const write = (path: string, newEntry: object) => {
 }
 
 export async function getData(path: string,  callback: (data: object) => void): Promise<void> {
-    const val = read(path);
+    const absolutePath = `${import.meta.env.BASE_URL}/${path}`;
+    const val = read(absolutePath);
     if (val === undefined) {
-        await fetch(path)
+        await fetch(absolutePath)
             .then((r) => r.json())
             .then((jsonData) => {
-                write(path, jsonData);
+                write(absolutePath, jsonData);
                 callback(jsonData);
             });       
         return;
