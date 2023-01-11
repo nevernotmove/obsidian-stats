@@ -6,8 +6,9 @@
     export let chartDefaults: ChartDefaults;
     
     async function lazyLoadThenDisplay() {
-        await import('../../../public/downloads.json').then(json => {
-            pluginDownloadsOverTime(json.default, chartDefaults);
+        const pluginName = 'obsidian-jtab';
+        await import('../../../public/plugins/' + pluginName).then(json => {
+            pluginDownloadsOverTime(json.default, pluginName, chartDefaults);
         })
     }
 

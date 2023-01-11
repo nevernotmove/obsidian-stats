@@ -3,13 +3,12 @@ import {Chart} from 'chart.js';
 import 'chartjs-adapter-luxon';
 import type {ChartDefaults} from '../ChartDefaults';
 
-const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
-    const pluginName = 'table-editor-obsidian';
+const prepareData = (json: object, pluginName: string, defaults: ChartDefaults): ChartData => {
     const labels = [];
     const data = [];
-    const map = new Map(Object.entries(json));
-    const plugin = map.get(pluginName);
-    for (const entry of Object.entries(plugin)) {
+    //const map = new Map(Object.entries(json));
+    //const plugin = map.get(pluginName);
+    for (const entry of Object.entries(json)) {
         const time = parseInt(entry[0] + "000");
         const downloads = entry[1];
         labels.push(time);
@@ -42,7 +41,6 @@ const displayChart = (data: ChartData) => {
         type: 'line',
         data: data,
         options: {
-            
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -66,7 +64,7 @@ const displayChart = (data: ChartData) => {
     });
 };
 
-export default function pluginDownloadsOverTime(json: object, chartDefaults: ChartDefaults): void {
-    const lineChartData: ChartData = prepareData(json, chartDefaults);
+export default function pluginDownloadsOverTime(json: object, pluginName: string, chartDefaults: ChartDefaults): void {
+    const lineChartData: ChartData = prepareData(json, pluginName, chartDefaults);
     displayChart(lineChartData);
 }
