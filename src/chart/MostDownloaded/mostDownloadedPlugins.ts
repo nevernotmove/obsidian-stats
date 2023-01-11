@@ -1,6 +1,7 @@
-import type {ChartData} from 'chart.js/dist/types';
+import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 import type {ChartDefaults} from '../ChartDefaults';
+import {navigate} from 'svelte-navigator';
 
 const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     const labels: string[] = [];
@@ -29,6 +30,13 @@ const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     return res as ChartData;
 };
 
+const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
+        if (elements.length === 0) return;
+        const index = elements[0].index;
+        const label = chart.data.labels[index];
+        navigate('plugin-downloads/' + label);
+}
+
 const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
     
@@ -36,6 +44,7 @@ const displayChart = (data: ChartData) => {
         type: 'bar',
         data: data,
         options: {
+            onClick: handleClickOnChart,
             responsive: true,
             maintainAspectRatio: false,
             scales: {
