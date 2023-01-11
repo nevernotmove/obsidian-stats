@@ -15,20 +15,21 @@
         const pluginName = lastSegment === 'plugin-downloads' ? 'chord-lyrics' : lastSegment;
         loadData(pluginName);
     });
-    
+
     function loadData(pluginName: string) {
         const path = `plugins/${pluginName}.json`;
         console.log('Will request', path);
         getData(path, (data: object) => {
             if (data) {
                 if (chart) chart.destroy();
+                error = false;
                 chart = pluginDownloadsOverTime(data, pluginName, chartDefaults);
             } else {
                 error = true;
             }
         });
     }
-    
+
     function onSubmit() {
         loadData(searchText);
     }
@@ -36,11 +37,8 @@
 
 <div>
     <form on:submit|preventDefault={onSubmit}>
-        <input type="text" bind:value={searchText} placeholder="Enter plugin name">
+        <input type="text" bind:value={searchText} placeholder="Enter plugin name" class:error={error}>
     </form>
-    {#if error}
-        <span>The requested plugin does not exist</span>
-    {/if}
     <canvas id="chart"></canvas>
 </div>
 
@@ -52,10 +50,9 @@
     }
     form {
         margin: auto;
+        padding: .5%;
     }
-    span {
-        padding: 1%;
-        margin: auto;
-        background-color: var(--color1); 
+    .error {
+        background-color: var(--color-error);
     }
 </style>
