@@ -16,7 +16,11 @@
             if (data) plugins = data;
         });
         const lastSegment = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-        const pluginName = lastSegment === 'plugin-downloads' ? 'chord-lyrics' : lastSegment;
+        let pluginName = 'chord-lyrics';
+        if (lastSegment !== 'plugin-downloads') {
+            pluginName = lastSegment;
+            searchText = pluginName;
+        } 
         loadData(pluginName);
     });
 
