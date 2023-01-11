@@ -6,8 +6,6 @@ import type {ChartDefaults} from '../ChartDefaults';
 const prepareData = (json: object, pluginName: string, defaults: ChartDefaults): ChartData => {
     const labels = [];
     const data = [];
-    //const map = new Map(Object.entries(json));
-    //const plugin = map.get(pluginName);
     for (const entry of Object.entries(json)) {
         const time = parseInt(entry[0] + "000");
         const downloads = entry[1];
