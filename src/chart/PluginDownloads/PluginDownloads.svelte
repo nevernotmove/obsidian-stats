@@ -2,20 +2,16 @@
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
     import {onMount} from "svelte";
     import type {ChartDefaults} from '../ChartDefaults';
+    import {getData} from '../../cache';
 
     export let chartDefaults: ChartDefaults;
 
-    async function lazyLoadThenDisplay() {
-        const pluginName = 'dataview';
-        fetch(`plugins/${pluginName}.json`)
-            .then((r) => r.json())
-            .then((data) => {
-                pluginDownloadsOverTime(data, pluginName, chartDefaults);
-            });
-    }
-
     onMount(() => {
-        lazyLoadThenDisplay();
+        const pluginName = 'dataview';
+        const path = `plugins/${pluginName}.json`;
+        getData(path, (data: object) => {
+            pluginDownloadsOverTime(data, pluginName, chartDefaults);
+        });
     });
 </script>
 
