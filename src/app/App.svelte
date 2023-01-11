@@ -1,7 +1,11 @@
 <script lang="ts">
-    import {Route, Router} from "svelte-navigator";
+    import {navigate, Route, Router} from "svelte-navigator";
     import Nav from '../nav/Nav.svelte';
     import ChartView from '../chart/ChartView.svelte';
+    
+    if (window.location.href.endsWith('/plugin-stats')) {
+        navigate('/plugin-stats/') 
+    }
 </script>
 
 <main>
