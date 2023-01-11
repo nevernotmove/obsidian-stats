@@ -30,7 +30,7 @@
     <Route path="/most-downloaded">
         <MostDownloaded {chartDefaults}/>
     </Route>
-    <Route path="/plugin-downloads">
+    <Route path="/plugin-downloads/*">
         <PluginDownloads {chartDefaults}/>
     </Route>
 </div>

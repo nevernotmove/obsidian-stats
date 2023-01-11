@@ -13,11 +13,22 @@ export async function getData(path: string,  callback: (data: object) => void): 
     const absolutePath = `${import.meta.env.BASE_URL}/${path}`;
     const val = read(absolutePath);
     if (val === undefined) {
-        await fetch(absolutePath)
-            .then((r) => r.json())
+        await fetch(absolutePath, {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+            .then((r) => {
+                if (r.ok) return r.json();
+                else return undefined;
+            })
             .then((jsonData) => {
-                write(absolutePath, jsonData);
-                callback(jsonData);
+                if (jsonData) {
+                    write(absolutePath, jsonData);
+                    callback(jsonData);
+                } else callback(null);
+            }).catch(_ => {
+                //console.log(reason);
             });       
         return;
     }
