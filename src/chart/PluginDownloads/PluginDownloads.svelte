@@ -49,8 +49,16 @@
         height: 100%;
     }
     form {
-        margin: auto;
         padding: .5%;
+        margin: auto auto .5% auto;
+    }
+    input {
+        background-color: var(--color2);
+        color: var(--color1);
+        padding: .3em .6em;
+        border-color: var(--color2);
+        border: 1px inset var(--color1);
+        border-radius: var(--radius);
     }
     .error {
         background-color: var(--color-error);
