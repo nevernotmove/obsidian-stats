@@ -37,7 +37,7 @@
 
 <div>
     <form on:submit|preventDefault={onSubmit}>
-        <input type="text" bind:value={searchText} placeholder="Enter plugin name" class:error={error}>
+        <input autofocus type="text" bind:value={searchText} placeholder="Enter plugin name" class:error={error}>
     </form>
     <canvas id="chart"></canvas>
 </div>
