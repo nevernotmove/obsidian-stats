@@ -35,23 +35,27 @@
     }
 </script>
 
-<div>
+<div class="container">
     <form on:submit|preventDefault={onSubmit}>
         <input autofocus type="text" bind:value={searchText} placeholder="Enter plugin name" class:error={error}>
     </form>
-    <canvas id="chart"></canvas>
+    <div class="chart-container">
+        <canvas id="chart"></canvas>
+    </div>
 </div>
 
 <style>
-    div {
+    .container {
         display: flex;
         flex-direction: column;
         height: 100%;
     }
+
     form {
         padding: .5%;
         margin: auto auto .5% auto;
     }
+
     input {
         background-color: var(--color2);
         color: var(--color1);
@@ -60,7 +64,12 @@
         border: 1px inset var(--color1);
         border-radius: var(--radius);
     }
+
     .error {
         background-color: var(--color-error);
+    }
+    
+    .chart-container {
+        height: 100%;
     }
 </style>
