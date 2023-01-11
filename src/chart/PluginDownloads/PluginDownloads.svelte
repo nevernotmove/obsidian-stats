@@ -2,18 +2,20 @@
     import pluginDownloadsOverTime from './pluginDownloadsOverTime';
     import {onMount} from "svelte";
     import type {ChartDefaults} from '../ChartDefaults';
-    
+
     export let chartDefaults: ChartDefaults;
-    
+
     async function lazyLoadThenDisplay() {
-        const pluginName = 'obsidian-jtab';
-        await import('../../../public/plugins/' + pluginName).then(json => {
-            pluginDownloadsOverTime(json.default, pluginName, chartDefaults);
-        })
+        const pluginName = 'dataview';
+        fetch(`plugins/${pluginName}.json`)
+            .then((r) => r.json())
+            .then((data) => {
+                pluginDownloadsOverTime(data, pluginName, chartDefaults);
+            });
     }
 
     onMount(() => {
-        lazyLoadThenDisplay()
+        lazyLoadThenDisplay();
     });
 </script>
 
