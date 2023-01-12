@@ -1,19 +1,20 @@
 <script lang="ts">
-
     export let onSearch: (searchText: string) => void;
     export let plugins: object;
-    export let searchText: string;
+    export let searchText: string = '';
     export let error: boolean;
     export let maxSuggestions: number = 3;
 
-    let suggestions: string[];
+    let suggestions: string[] = [];
     let activeSuggestion: number;
-    $: showSuggestions = suggestions.length > 0;
+    let showSuggestions: boolean = false;
+    $: showSuggestions ? hideOnClickOutside(document.getElementById('search-form').parentElement) : null;
     resetSuggestions();
 
     function resetSuggestions() {
-        suggestions = [];
+        // suggestions = [];
         activeSuggestion = -1;
+        showSuggestions = false;
     }
 
     function onSubmit() {
@@ -36,7 +37,7 @@
         console.log("onInput");
         error = false;
         if (searchText === '') {
-            resetSuggestions();
+            showSuggestions = false;
             return;
         }
         const newSuggestions: string[] = [];
@@ -47,6 +48,7 @@
             }
         }
         suggestions = newSuggestions;
+        showSuggestions = true;
         console.log(suggestions);
     }
 
@@ -73,7 +75,7 @@
         searchText = suggestions[id];
         onSubmit();
     }
-    
+
     function onKeyDown(e) {
         console.log("onKeyDown");
         if (e.key === 'ArrowDown' || e.key === 'Down') {
@@ -81,49 +83,64 @@
             if (activeSuggestion < maxSuggestions - 1) activeSuggestion++;
             const el = list[activeSuggestion] as HTMLElement;
             console.log(activeSuggestion, el);
-            el.focus();
-        }
-        else if (e.key === 'ArrowUp' || e.key === 'Up') {
+        } else if (e.key === 'ArrowUp' || e.key === 'Up') {
             const list = document.getElementById("suggestions").children[0].children as HTMLElement;
             if (activeSuggestion > 0) {
                 activeSuggestion--;
                 const el = list[activeSuggestion] as HTMLElement;
                 console.log(activeSuggestion, el);
-                el.focus();
-            }
-            else {
+            } else {
                 const searchBar = document.getElementById("searchbar") as HTMLElement;
-                console.log(searchBar);
                 searchBar.focus();
             }
-        }
-        else if (e.key === "Enter") {
-            console.log("jo enter");
-            searchText = suggestions[activeSuggestion];
+        } else if (e.key === "Enter") {
+            if (activeSuggestion >= 0) {
+                searchText = suggestions[activeSuggestion];
+            }
             onSubmit();
         }
     }
+
+    function hideOnClickOutside(element) {
+        const outsideClickListener = event => {
+            if (!element.contains(event.target) && isVisible(element)) {
+                showSuggestions = false;
+                removeClickListener();
+            }
+        };
+
+        const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener);
+        };
+
+        document.addEventListener('click', outsideClickListener);
+    }
+
+    const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
 </script>
 
-<!--TODO Add back to input attributes-->
-<form on:submit|preventDefault={onSubmit} on:keydown={e => onKeyDown(e)} autocomplete="off">
-    <input 
+<form id="search-form" on:submit|preventDefault={onSubmit} on:keydown={e => onKeyDown(e)} autocomplete="off">
+    <input
             id="searchbar"
             autofocus type="text"
             placeholder="Enter plugin name"
             bind:value={searchText}
             class:error={error}
-            on:input={e => onInput(e)} 
+            on:input={e => onInput(e)}
             on:focus={e => onInput(e)}>
-    {#if showSuggestions}
-        <div id="suggestions">
-            <ul>
-                {#each suggestions as s, id}
-                    <li id={id} tabindex="1" on:click={(e) => onSelect(e)}>{s}</li>
-                {/each}
-            </ul>
-        </div>
-    {/if}
+    <div id="suggestions" class={(showSuggestions ? '' : 'hidden')}>
+        <ul>
+            {#each suggestions as s, id}
+                <li
+                        id={id}
+                        tabindex="-1"
+                        on:click={(e) => onSelect(e)}
+                        class={(activeSuggestion === id ? 'selected' : '')}>
+                    {s}
+                </li>
+            {/each}
+        </ul>
+    </div>
 </form>
 
 <style>
@@ -149,6 +166,10 @@
         position: relative;
     }
 
+    .hidden {
+        display: none;
+    }
+
     ul {
         z-index: 1;
         position: absolute;
@@ -168,12 +189,8 @@
         background-color: var(--color2);
         cursor: pointer;
     }
-    
-    li:focus {
-        background-color: yellow;
-    }
 
-    li:hover, li:focus {
+    li:hover, .selected {
         background-color: var(--color4);
     }
 </style>
