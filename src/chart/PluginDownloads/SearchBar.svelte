@@ -1,10 +1,14 @@
 <script lang="ts">
+
     export let onSearch: (searchText: string) => void;
     export let plugins: object;
     export let searchText: string;
     export let error: boolean;
-    
-    function search() {
+
+    let suggestions: string[] = [];
+    $: showSuggestions = suggestions.length > 0;
+
+    function onSubmit() {
         searchText = searchText.trim();
         if (searchText === '') return;
         let pluginExists = false;
@@ -20,13 +24,17 @@
 
     function onInput() {
         error = false;
-        if (searchText === '') return;
-        const suggestions: string[] = [];
+        if (searchText === '') {
+            suggestions = [];
+            return;
+        }
+        const newSuggestions: string[] = [];
         for (const pluginName: string of Object.keys(plugins)) {
             if (fuzzySearch(searchText, pluginName)) {
-                suggestions.push(pluginName);
+                newSuggestions.push(pluginName);
             }
         }
+        suggestions = newSuggestions;
         console.log(suggestions);
     }
 
@@ -48,8 +56,17 @@
     }
 </script>
 
-<form on:submit|preventDefault={search}>
+<form on:submit|preventDefault={onSubmit}>
     <input autofocus type="text" bind:value={searchText} on:input={onInput} placeholder="Enter plugin name" class:error={error}>
+    {#if showSuggestions}
+        <div class="suggestions">
+            <ul>
+                {#each suggestions as s, id}
+                    <li id={id}>{s}</li>
+                {/each}
+            </ul>
+        </div>
+    {/if}
 </form>
 
 <style>
@@ -69,5 +86,28 @@
 
     .error {
         background-color: var(--color-error);
+    }
+
+    .suggestions {
+        position: relative;
+    }
+
+    ul {
+        z-index: 10;
+        position: absolute;
+        width: 100%;
+        padding: 0 .6em;
+        color: var(--color1);
+        background-color: var(--color2);
+        list-style-type: none;
+        margin: 0;
+        border-color: var(--color2);
+        border: 1px inset var(--color1);
+        border-radius: var(--radius);
+    }
+
+    li {
+        padding: .3em 0;
+        background-color: var(--color2);
     }
 </style>
