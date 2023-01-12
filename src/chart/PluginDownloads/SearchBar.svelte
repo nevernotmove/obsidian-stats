@@ -106,8 +106,7 @@
 </script>
 
 <!--TODO Add back to input attributes-->
-<!-- on:focusout={resetSuggestions} -->
-<form on:submit|preventDefault={onSubmit} on:keydown={e => onKeyDown(e)}>
+<form on:submit|preventDefault={onSubmit} on:keydown={e => onKeyDown(e)} autocomplete="off">
     <input 
             id="searchbar"
             autofocus type="text"
