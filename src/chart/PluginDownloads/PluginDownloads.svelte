@@ -20,7 +20,7 @@
         if (lastSegment !== 'plugin-downloads') {
             pluginName = lastSegment;
             searchText = pluginName;
-        } 
+        }
         loadData(pluginName);
     });
 
@@ -50,11 +50,41 @@
         if (pluginExists) loadData(searchText);
         else error = true;
     }
+
+    function onInput() {
+        error = false;
+        if (searchText === '') return;
+        const suggestions: string[] = [];
+        for (const pluginName: string of Object.keys(plugins)) {
+            //if (pluginName.startsWith(searchText)) {
+            if (fuzzySearch(searchText, pluginName)) {
+                suggestions.push(pluginName);
+            }
+        }
+        console.log(suggestions);
+    }
+
+    function fuzzySearch(search: string, text: string): boolean {
+        const searchLen = search.length;
+        const textLen = text.length;
+        if (searchLen > textLen) return false;
+        if (searchLen === textLen) return search === text;
+        nextChar: for (let s = 0, t = 0; s < searchLen; s++) {
+            let searchChart = search.charCodeAt(s);
+            while (t < textLen) {
+                if (text.charCodeAt(t++) === searchChart) {
+                    continue nextChar;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <div class="container">
     <form on:submit|preventDefault={search}>
-        <input autofocus type="text" bind:value={searchText} on:input={() => error = false} placeholder="Enter plugin name" class:error={error}>
+        <input autofocus type="text" bind:value={searchText} on:input={onInput} placeholder="Enter plugin name" class:error={error}>
     </form>
     <div class="chart-container">
         <canvas id="chart"></canvas>
