@@ -76,7 +76,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
             scales: {
                 x: {
                     grid: {
-                        display: false
+                        display: false,
                     },
                      ticks: {
                          color: defaults.fontColor,
@@ -91,7 +91,14 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                         color: '#3F3F3F',
                     }
                 }
-            }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: defaults.fontColor,   
+                    },   
+                },   
+            },
         }
     });
 };
