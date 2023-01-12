@@ -4,6 +4,7 @@
     export let plugins: object;
     export let searchText: string;
     export let error: boolean;
+    export let maxSuggestions: number = 3;
 
     let suggestions: string[] = [];
     $: showSuggestions = suggestions.length > 0;
@@ -32,6 +33,7 @@
         for (const pluginName: string of Object.keys(plugins)) {
             if (fuzzySearch(searchText, pluginName)) {
                 newSuggestions.push(pluginName);
+                if (newSuggestions.length >= maxSuggestions) break;
             }
         }
         suggestions = newSuggestions;

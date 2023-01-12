@@ -39,7 +39,7 @@
 </script>
 
 <div class="container">
-    <SearchBar {plugins} {searchText} onSearch={(s) => loadData(s)} {error}/>
+    <SearchBar {plugins} {searchText} onSearch={(s) => loadData(s)} {error} maxSuggestions={10}/>
     <div class="chart-container">
         <canvas id="chart"></canvas>
     </div>
