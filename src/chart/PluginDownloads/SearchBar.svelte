@@ -9,7 +9,7 @@
     let suggestions: string[];
     resetSuggestions();
     $: showSuggestions = suggestions.length > 0;
-    
+
     function resetSuggestions() {
         suggestions = [];
     }
@@ -62,7 +62,7 @@
         }
         return true;
     }
-    
+
     function onSelect(e) {
         const id = e.target.id;
         searchText = suggestions[id];
@@ -71,7 +71,13 @@
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
-    <input autofocus type="text" bind:value={searchText} on:input={onInput} placeholder="Enter plugin name" class:error={error}>
+    <input 
+            autofocus type="text" 
+            bind:value={searchText} 
+            on:input={onInput} 
+            on:focusout={resetSuggestions}
+            placeholder="Enter plugin name" 
+            class:error={error}>
     {#if showSuggestions}
         <div class="suggestions">
             <ul>
@@ -107,7 +113,7 @@
     }
 
     ul {
-        z-index: 10;
+        z-index: 1;
         position: absolute;
         width: 100%;
         padding: 0;
@@ -125,8 +131,8 @@
         background-color: var(--color2);
         cursor: pointer;
     }
-    
+
     li:hover {
-        background-color: var(--color4); 
+        background-color: var(--color4);
     }
 </style>
