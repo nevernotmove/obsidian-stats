@@ -6,8 +6,13 @@
     export let error: boolean;
     export let maxSuggestions: number = 3;
 
-    let suggestions: string[] = [];
+    let suggestions: string[];
+    resetSuggestions();
     $: showSuggestions = suggestions.length > 0;
+    
+    function resetSuggestions() {
+        suggestions = [];
+    }
 
     function onSubmit() {
         searchText = searchText.trim();
@@ -21,12 +26,13 @@
         }
         if (pluginExists) onSearch(searchText);
         else error = true;
+        resetSuggestions();
     }
 
     function onInput() {
         error = false;
         if (searchText === '') {
-            suggestions = [];
+            resetSuggestions();
             return;
         }
         const newSuggestions: string[] = [];
@@ -56,6 +62,12 @@
         }
         return true;
     }
+    
+    function onSelect(e) {
+        const id = e.target.id;
+        searchText = suggestions[id];
+        onSubmit();
+    }
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
@@ -64,7 +76,7 @@
         <div class="suggestions">
             <ul>
                 {#each suggestions as s, id}
-                    <li id={id}>{s}</li>
+                    <li id={id} on:click={(e) => onSelect(e)}>{s}</li>
                 {/each}
             </ul>
         </div>
@@ -98,7 +110,7 @@
         z-index: 10;
         position: absolute;
         width: 100%;
-        padding: 0 .6em;
+        padding: 0;
         color: var(--color1);
         background-color: var(--color2);
         list-style-type: none;
@@ -109,7 +121,12 @@
     }
 
     li {
-        padding: .3em 0;
+        padding: .3em .6em;
         background-color: var(--color2);
+        cursor: pointer;
+    }
+    
+    li:hover {
+        background-color: var(--color4); 
     }
 </style>
