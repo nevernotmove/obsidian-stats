@@ -76,7 +76,8 @@
             bind:value={searchText} 
             on:input={onInput} 
             on:focusout={resetSuggestions}
-            placeholder="Enter plugin name" 
+            on:focus={onInput}
+            placeholder="Enter plugin name"
             class:error={error}>
     {#if showSuggestions}
         <div class="suggestions">
