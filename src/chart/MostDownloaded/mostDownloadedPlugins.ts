@@ -37,6 +37,11 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
         navigate('plugin-downloads/' + label);
 }
 
+const onHover = (event: ChartEvent, elements: ActiveElement[]) => {
+    const el = document.getElementById('chart');
+    el.style.cursor = elements[0] ? 'pointer' : 'default';
+};
+
 const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
     
@@ -44,6 +49,7 @@ const displayChart = (data: ChartData) => {
         type: 'bar',
         data: data,
         options: {
+            onHover: onHover,
             onClick: handleClickOnChart,
             responsive: true,
             maintainAspectRatio: false,
