@@ -72,13 +72,13 @@
 
 <form on:submit|preventDefault={onSubmit}>
     <input 
-            autofocus type="text" 
-            bind:value={searchText} 
+            autofocus type="text"
+            placeholder="Enter plugin name"
+            bind:value={searchText}
+            class:error={error}
             on:input={onInput} 
             on:focusout={resetSuggestions}
-            on:focus={onInput}
-            placeholder="Enter plugin name"
-            class:error={error}>
+            on:focus={onInput}>
     {#if showSuggestions}
         <div class="suggestions">
             <ul>
