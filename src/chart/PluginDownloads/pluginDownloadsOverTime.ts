@@ -32,7 +32,7 @@ const prepareData = (json: object, pluginName: string, defaults: ChartDefaults):
     return res as ChartData;
 };
 
-const displayChart = (data: ChartData) => {
+const displayChart = (data: ChartData, defaults: ChartDefaults) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
 
     const dataPoints = data.datasets[0].data.length;
@@ -50,6 +50,9 @@ const displayChart = (data: ChartData) => {
                 x: {
                     grid: {
                         display: false
+                    },
+                    ticks: {
+                        color: defaults.fontColor,
                     },
                     type: 'time', 
                     time: {
@@ -71,14 +74,24 @@ const displayChart = (data: ChartData) => {
                     beginAtZero: true,
                     grid: {
                         color: '#3F3F3F',
-                    }
+                    },
+                    ticks: {
+                        color: defaults.fontColor,
+                    },
                 }
-            }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: defaults.fontColor,
+                    },
+                },
+            },
         }
     });
 };
 
 export default function pluginDownloadsOverTime(json: object, pluginName: string, chartDefaults: ChartDefaults): Chart {
     const lineChartData: ChartData = prepareData(json, pluginName, chartDefaults);
-    return displayChart(lineChartData);
+    return displayChart(lineChartData, chartDefaults);
 }
