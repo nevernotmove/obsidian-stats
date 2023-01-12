@@ -1,4 +1,4 @@
-import type {ChartData} from 'chart.js/dist/types';
+import type {ChartData, TimeUnit} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 import 'chartjs-adapter-luxon';
 import type {ChartDefaults} from '../ChartDefaults';
@@ -34,6 +34,11 @@ const prepareData = (json: object, pluginName: string, defaults: ChartDefaults):
 
 const displayChart = (data: ChartData) => {
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
+
+    const dataPoints = data.datasets[0].data.length;
+    let unit: TimeUnit = 'month';
+    if (dataPoints < 50) unit = 'day';
+    else if (dataPoints > 700) unit = 'year';
     
     return new Chart(ctx, {
         type: 'line',
@@ -48,7 +53,18 @@ const displayChart = (data: ChartData) => {
                     },
                     type: 'time', 
                     time: {
-                        unit: "day"
+                        unit: unit,
+                        // displayFormats: {
+                        //     'millisecond': 'MMM DD',
+                        //     'second': 'MMM DD',
+                        //     'minute': 'MMM DD',
+                        //     'hour': 'MMM DD',
+                        //     'day': 'MMM DD',
+                        //     'week': 'MMM DD',
+                        //     'month': 'MMM DD',
+                        //     'quarter': 'MMM DD',
+                        //     'year': 'MMM DD',
+                        // }
                     }
                 },
                 y: {
