@@ -20,6 +20,7 @@
         hoverBackgroundColor: color1,
         borderColor: color1,
         borderWidth: 2,
+        fontColor: color1,
     };
 </script>
 

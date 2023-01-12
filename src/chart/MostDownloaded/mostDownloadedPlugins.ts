@@ -37,13 +37,33 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
         navigate('plugin-downloads/' + label);
 }
 
-const onHover = (event: ChartEvent, elements: ActiveElement[]) => {
-    const el = document.getElementById('chart');
-    el.style.cursor = elements[0] ? 'pointer' : 'default';
-};
-
-const displayChart = (data: ChartData) => {
+const displayChart = (data: ChartData, defaults: ChartDefaults) => {
+    
     const ctx = document.getElementById('chart') as HTMLCanvasElement;
+    let highlighted = false; 
+    
+    const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
+        if (elements.length === 0) {
+            if (!highlighted) return;
+            chart.config.options.scales.x.ticks.color = defaults.fontColor;
+            ctx.style.cursor = 'default';
+            chart.update();
+            highlighted = false;
+            return;
+        }
+
+        if (highlighted) return;
+        
+        ctx.style.cursor = 'pointer'
+        const numBars = chart.data.datasets[0].data.length;
+        const colors: string[] = new Array<string>(numBars);
+        colors.fill(defaults.fontColor);
+        const index = elements[0].index;
+        colors[index] = defaults.backgroundColor;
+        chart.config.options.scales.x.ticks.color = colors;
+        chart.update();
+        highlighted = true;
+    };
     
     new Chart(ctx, {
         type: 'bar',
@@ -57,10 +77,16 @@ const displayChart = (data: ChartData) => {
                 x: {
                     grid: {
                         display: false
-                    }
+                    },
+                     ticks: {
+                         color: defaults.fontColor,
+                     }
                 },
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        color: defaults.fontColor,
+                    },
                     grid: {
                         color: '#3F3F3F',
                     }
@@ -72,5 +98,5 @@ const displayChart = (data: ChartData) => {
 
 export default function mostDownloadedPlugins(json: object, chartDefaults: ChartDefaults): void {
     const barChartData: ChartData = prepareData(json, chartDefaults);
-    displayChart(barChartData);
+    displayChart(barChartData, chartDefaults);
 }
