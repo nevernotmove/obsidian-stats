@@ -19,16 +19,16 @@
 
     function onSubmit() {
         console.log("onSubmit");
-        searchText = searchText.trim();
-        if (searchText === '') return;
+        const search = searchText.trim().toLowerCase();
+        if (search === '') return;
         let pluginExists = false;
         for (const pluginName of Object.keys(plugins)) {
-            if (pluginName === searchText) {
+            if (pluginName.toLowerCase() === search) {
                 pluginExists = true;
                 break;
             }
         }
-        if (pluginExists) onSearch(searchText);
+        if (pluginExists) onSearch(search);
         else error = true;
         resetSuggestions();
     }
@@ -53,6 +53,8 @@
     }
 
     function fuzzySearch(search: string, text: string): boolean {
+        search = search.toLowerCase();
+        text = text.toLowerCase();
         const searchLen = search.length;
         const textLen = text.length;
         if (searchLen > textLen) return false;
