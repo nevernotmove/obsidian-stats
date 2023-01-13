@@ -83,6 +83,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                         display: false,
                     },
                      ticks: {
+                         font: {
+                            size: defaults.fontSize,    
+                         },
                          color: defaults.fontColor,
                      }
                 },
@@ -92,6 +95,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                     },
                     beginAtZero: true,
                     ticks: {
+                        font: {
+                            size: defaults.fontSize,
+                        },
                         color: defaults.fontColor,
                     },
                     grid: {

@@ -55,6 +55,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                         display: false
                     },
                     ticks: {
+                        font: {
+                            size: defaults.fontSize,
+                        },
                         color: defaults.fontColor,
                     },
                     type: 'time', 
@@ -83,6 +86,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                         color: defaults.gridColor,
                     },
                     ticks: {
+                        font: {
+                            size: defaults.fontSize,
+                        },
                         color: defaults.fontColor,
                     },
                 }

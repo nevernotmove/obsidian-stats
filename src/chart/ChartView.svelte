@@ -10,9 +10,10 @@
 
     // Get default values
     const style = getComputedStyle(document.body);
-    const lineWidth = style.getPropertyValue('--chart-line-width');
+    const lineWidth = parseInt(style.getPropertyValue('--chart-line-width'));
     const lineColor = style.getPropertyValue('--chart-line-color');
     const lineColorHighlight = style.getPropertyValue('--chart-line-color-highlight');
+    const fontSize = parseInt(style.getPropertyValue('--chart-font-size'));
     const fontColor = style.getPropertyValue('--chart-font-color');
     const fontColorHighlight = style.getPropertyValue('--chart-font-color-highlight');
     const fillColor = style.getPropertyValue('--chart-fill-color');
@@ -23,6 +24,7 @@
         lineWidth,
         lineColor,
         lineColorHighlight,
+        fontSize,
         fontColor,
         fontColorHighlight,
         fillColor,
