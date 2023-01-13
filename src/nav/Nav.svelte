@@ -20,16 +20,15 @@
     :global(a) {
         text-decoration: none;
         padding: .3em .6em;
-        background-color: var(--color2);
-        color: var(--color1);
-        border: 1px solid var(--color1);
+        background-color: transparent;
+        color: inherit;
         cursor: pointer;
         border-radius: var(--radius);
     }
     :global(a):hover {
-        background-color: var(--color5);
+        color: var(--color-text-hightlight);
     }
     :global(a[aria-current="page"]) {
-        background-color: var(--color4);
+        color: var(--color-text-hightlight);
     }
 </style>

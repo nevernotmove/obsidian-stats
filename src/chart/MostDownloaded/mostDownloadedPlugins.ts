@@ -17,11 +17,12 @@ const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: defaults.borderWidth,
-        borderColor: defaults.borderColor,
+        borderWidth: defaults.lineWidth,
+        borderColor: defaults.lineColor,
         borderRadius: 2,
-        backgroundColor: defaults.backgroundColor,
-        hoverBackgroundColor: defaults.hoverBackgroundColor,
+        backgroundColor: defaults.fillColor,
+        hoverBackgroundColor: defaults.fillColorHighlight,
+        hoverBorderColor: defaults.lineColorHighlight,
     }];
     const res = {
         labels: labels,
@@ -59,7 +60,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
         const colors: string[] = new Array<string>(numBars);
         colors.fill(defaults.fontColor);
         const index = elements[0].index;
-        colors[index] = defaults.backgroundColor;
+        colors[index] = defaults.fontColorHighlight;
         chart.config.options.scales.x.ticks.color = colors;
         chart.update();
         highlighted = true;
@@ -75,6 +76,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
             maintainAspectRatio: false,
             scales: {
                 x: {
+                    border: {
+                        color: defaults.gridColor,
+                    },
                     grid: {
                         display: false,
                     },
@@ -83,20 +87,28 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                      }
                 },
                 y: {
+                    border: {
+                        display: false,
+                    },
                     beginAtZero: true,
                     ticks: {
                         color: defaults.fontColor,
                     },
                     grid: {
-                        color: '#3F3F3F',
+                        tickLength: 0,
+                        color: defaults.gridColor,
                     }
                 }
             },
             plugins: {
+                tooltip: {
+                    enabled: false,
+                },
                 legend: {
+                    display: false,
                     labels: {
                         color: defaults.fontColor,   
-                    },   
+                    },
                 },   
             },
         }

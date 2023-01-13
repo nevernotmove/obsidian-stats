@@ -1,7 +1,10 @@
 export type ChartDefaults = {
-    backgroundColor: string,
-    hoverBackgroundColor: string,
-    borderColor: string,
-    borderWidth: number,
+    fillColor: string,
+    fillColorHighlight: string,
+    lineColor: string,
+    lineColorHighlight: string,
+    lineWidth: string,
     fontColor: string,
+    fontColorHighlight: string,
+    gridColor: string,
 }

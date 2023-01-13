@@ -16,10 +16,10 @@ const prepareData = (json: object, pluginName: string, defaults: ChartDefaults):
     const datasets = [{
         label: label,
         data: data,
-        borderWidth: defaults.borderWidth,
-        backgroundColor: defaults.backgroundColor,
-        borderColor: defaults.borderColor,
-        hoverBackgroundColor: defaults.hoverBackgroundColor,
+        borderWidth: defaults.lineWidth,
+        backgroundColor: defaults.fillColor,
+        borderColor: defaults.lineColor,
+        hoverBackgroundColor: defaults.fillColorHighlight,
         pointStyle: true,
         pointRadius: 0,
         pointHoverRadius: 10,
@@ -48,6 +48,9 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
             maintainAspectRatio: false,
             scales: {
                 x: {
+                    border: {
+                        color: defaults.gridColor,
+                    },
                     grid: {
                         display: false
                     },
@@ -71,9 +74,13 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                     }
                 },
                 y: {
+                    border: {
+                        display: false,
+                    },
                     beginAtZero: true,
                     grid: {
-                        color: '#3F3F3F',
+                        tickLength: 0,
+                        color: defaults.gridColor,
                     },
                     ticks: {
                         color: defaults.fontColor,
@@ -81,7 +88,11 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
                 }
             },
             plugins: {
+                tooltip: {
+                    enabled: false,
+                },
                 legend: {
+                    display: false,
                     labels: {
                         color: defaults.fontColor,
                     },

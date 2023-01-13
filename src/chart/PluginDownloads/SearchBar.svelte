@@ -158,14 +158,13 @@
     }
 
     input {
-        background-color: var(--color2);
-        color: var(--color1);
+        background-color: var(--color-background-muted);
+        color: inherit;
         padding: .3em .6em;
-        border-color: var(--color2);
-        border: 1px inset var(--color1);
+        border: 1px inset var(--color-line);
         border-radius: var(--radius);
     }
-
+    
     .error {
         background-color: var(--color-error);
     }
@@ -183,22 +182,21 @@
         position: absolute;
         width: 100%;
         padding: 0;
-        color: var(--color1);
-        background-color: var(--color2);
+        color: inherit;
+        background-color: var(--color-background-muted);
         list-style-type: none;
         margin: 0;
-        border-color: var(--color2);
-        border: 1px inset var(--color1);
+        border: 1px inset var(--color-line);
         border-radius: var(--radius);
     }
 
     li {
         padding: .3em .6em;
-        background-color: var(--color2);
         cursor: pointer;
     }
 
     li:hover, .selected {
-        background-color: var(--color4);
+        background-color: var(--color-background-highlight);
+        color: var(--color-text-hightlight);
     }
 </style>
