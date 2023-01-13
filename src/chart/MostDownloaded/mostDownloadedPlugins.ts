@@ -35,7 +35,7 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
         if (elements.length === 0) return;
         const index = elements[0].index;
         const label = chart.data.labels[index];
-        navigate('plugin-downloads/' + label);
+        navigate('plugin/' + label);
 }
 
 const displayChart = (data: ChartData, defaults: ChartDefaults) => {

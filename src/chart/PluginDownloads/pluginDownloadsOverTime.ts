@@ -3,7 +3,7 @@ import {Chart} from 'chart.js';
 import 'chartjs-adapter-luxon';
 import type {ChartDefaults} from '../ChartDefaults';
 
-const prepareData = (json: object, pluginName: string, defaults: ChartDefaults): ChartData => {
+const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     const labels = [];
     const data = [];
     for (const entry of Object.entries(json)) {
@@ -12,7 +12,7 @@ const prepareData = (json: object, pluginName: string, defaults: ChartDefaults):
         labels.push(time);
         data.push(downloads);
     }
-    const label = "# of downloads for " + pluginName;
+    const label = "downloads";
     const datasets = [{
         label: label,
         data: data,
@@ -108,7 +108,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
     });
 };
 
-export default function pluginDownloadsOverTime(json: object, pluginName: string, chartDefaults: ChartDefaults): Chart {
-    const lineChartData: ChartData = prepareData(json, pluginName, chartDefaults);
+export default function pluginDownloadsOverTime(json: object, chartDefaults: ChartDefaults): Chart {
+    const lineChartData: ChartData = prepareData(json, chartDefaults);
     return displayChart(lineChartData, chartDefaults);
 }

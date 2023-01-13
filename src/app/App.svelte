@@ -22,9 +22,9 @@
     main {
         display: flex;
         flex-direction: column;
-        row-gap: 1em;
+        row-gap: 3rem;
         height: 100%;
-        padding: 4em;
+        padding: 3rem 3rem 6rem 3rem;
     }
 </style>
 

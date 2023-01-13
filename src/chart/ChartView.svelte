@@ -36,9 +36,9 @@
 <Route path="/">
     <MostDownloaded {chartDefaults}/>
 </Route>
-<Route path="/most-downloaded">
+<Route path="/top">
     <MostDownloaded {chartDefaults}/>
 </Route>
-<Route path="/plugin-downloads/*">
+<Route path="/plugin/*">
     <PluginDownloads {chartDefaults}/>
 </Route>

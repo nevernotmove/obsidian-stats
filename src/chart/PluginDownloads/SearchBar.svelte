@@ -1,9 +1,10 @@
 <script lang="ts">
     export let onSearch: (searchText: string) => void;
-    export let plugins: object;
+    export let options: object;
     export let searchText: string = '';
-    export let error: boolean;
+    export let error: boolean = false;
     export let maxSuggestions: number = 3;
+    export let placeholder: string = '';
 
     let suggestions: string[] = [];
     let activeSuggestion: number;
@@ -22,8 +23,8 @@
         const search = searchText.trim().toLowerCase();
         if (search === '') return;
         let pluginExists = false;
-        for (const pluginName of Object.keys(plugins)) {
-            if (pluginName.toLowerCase() === search) {
+        for (const option of Object.keys(options)) {
+            if (option.toLowerCase() === search) {
                 pluginExists = true;
                 break;
             }
@@ -41,9 +42,9 @@
             return;
         }
         const newSuggestions: string[] = [];
-        for (const pluginName: string of Object.keys(plugins)) {
-            if (fuzzySearch(searchText, pluginName)) {
-                newSuggestions.push(pluginName);
+        for (const option: string of Object.keys(options)) {
+            if (fuzzySearch(searchText, option)) {
+                newSuggestions.push(option);
                 if (newSuggestions.length >= maxSuggestions) break;
             }
         }
@@ -131,7 +132,7 @@
     <input
             id="searchbar"
             autofocus type="text"
-            placeholder="Enter plugin name"
+            placeholder={placeholder}
             bind:value={searchText}
             class:error={error}
             on:input={e => onInput(e)}
@@ -153,11 +154,12 @@
 
 <style>
     form {
-        padding: .5%;
-        margin: auto auto .5% auto;
+        margin: 0;
+        padding: 0;
     }
 
     input {
+        width: 20rem;
         background-color: var(--color-background-muted);
         color: inherit;
         padding: .3em .6em;
