@@ -101,14 +101,14 @@
             }
             onSubmit();
         } else if (e.key === 'Escape') {
-            showSuggestions = false;
+            resetSuggestions();
         }
     }
    
     function hideOnClickOutside(element) {
         const outsideClickListener = event => {
             if (!element.contains(event.target) && isVisible(element)) {
-                showSuggestions = false;
+                resetSuggestions();
                 removeClickListener();
             }
         };
