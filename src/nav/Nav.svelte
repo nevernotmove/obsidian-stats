@@ -1,8 +1,10 @@
 <script lang="ts">
     import {Link} from 'svelte-navigator';
+    import Logo from '../Logo.svelte';
 </script>
 
 <nav>
+    <Logo/>
     <Link to="/plugin-stats/most-downloaded">most downloaded</Link>
     <Link to="/plugin-stats/plugin-downloads">plugin downloads</Link>
 </nav>
