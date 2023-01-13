@@ -10,7 +10,7 @@
     let showSuggestions: boolean = false;
     $: showSuggestions ? hideOnClickOutside(document.getElementById('search-form').parentElement) : null;
     resetSuggestions();
-
+    
     function resetSuggestions() {
         // suggestions = [];
         activeSuggestion = -1;
@@ -98,9 +98,11 @@
                 searchText = suggestions[activeSuggestion];
             }
             onSubmit();
+        } else if (e.key === 'Escape') {
+            showSuggestions = false;
         }
     }
-
+   
     function hideOnClickOutside(element) {
         const outsideClickListener = event => {
             if (!element.contains(event.target) && isVisible(element)) {
@@ -119,7 +121,11 @@
     const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
 </script>
 
-<form id="search-form" on:submit|preventDefault={onSubmit} on:keydown={e => onKeyDown(e)} autocomplete="off">
+<form 
+        id="search-form" 
+        on:submit|preventDefault={onSubmit} 
+        on:keydown={e => onKeyDown(e)} 
+        autocomplete="off">
     <input
             id="searchbar"
             autofocus type="text"
