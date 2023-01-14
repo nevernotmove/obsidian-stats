@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {Link, navigate, Route} from 'svelte-navigator';
+    import {Link, useNavigate, Route} from 'svelte-navigator';
     import {onMount} from "svelte";
     import {getData} from '../cache';
     import Logo from './Logo.svelte';
@@ -7,10 +7,12 @@
     import TopDownloads from '../chart/TopDownloads.svelte';
     import PluginDownloads from '../chart/PluginDownloads.svelte';
 
-    let activePlugin: string;
+    const navigate = useNavigate();
     let allPlugins: object;
     
-    $: if (activePlugin) navigate(`/plugin-stats/plugin/${activePlugin}`);
+    const onSearch = (search: string) => {
+        navigate(`plugin/${search}`);
+    }
 
     onMount(() => {
         getData('total-downloads.json', (data: object) => {
@@ -29,15 +31,15 @@
 
 <nav>
     <Logo/>
-    <SearchBar options={allPlugins} onSearch={(s) => activePlugin = s} 
+    <SearchBar options={allPlugins} {onSearch} 
                maxSuggestions={10} placeholder={'Enter plugin name'}/>
     <Link to="/plugin-stats/top">top</Link>
 </nav>
 <Route path="/top"> 
     <TopDownloads/> 
 </Route>
-<Route path="/plugin/*">
-    <PluginDownloads bind:activePlugin={activePlugin}/>
+<Route path="/plugin/:id" let:params>
+    <PluginDownloads activePlugin={params.id}/>
 </Route>
 
 <style>

@@ -1,18 +1,15 @@
 <script lang="ts">
     import {Chart} from 'chart.js';
-    import {onDestroy, onMount} from 'svelte';
+    import {onDestroy} from 'svelte';
     import {randomId} from '../util';
     import pluginDownloads from './pluginDownloads';
     import {getData} from '../cache';
-    import {navigate} from 'svelte-navigator';
 
-    export let activePlugin: string = null;
-    
-    $: if (activePlugin !== null) loadPluginData(activePlugin); 
-    
     const id = randomId();
     let pluginData: object;
     let chart: Chart;
+    export let activePlugin: string = null;
+    $: if (activePlugin !== null) loadPluginData(activePlugin); 
 
     $: if (pluginData) {
         console.log("Reacting");
@@ -27,18 +24,11 @@
         getData(path, (data: object) => {
             if (data) {
                 pluginData = data;
-                navigate(`/plugin-stats/plugin/${pluginName}`);
             } else {
                 // TODO Show error
             }
         });
     }
-    
-    onMount(() => {
-        console.log("mount");
-        console.log("Active plugin in mount", activePlugin);
-        loadPluginData(activePlugin);
-    });
 
     onDestroy(() => {
         if (chart) chart.destroy();

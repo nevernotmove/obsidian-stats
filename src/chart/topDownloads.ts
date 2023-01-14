@@ -1,8 +1,10 @@
 import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 import type {ChartDefaults} from './ChartDefaults';
-import {navigate} from 'svelte-navigator';
+import {useNavigate} from 'svelte-navigator';
 import {chartDefaults} from './ChartDefaults';
+
+const navigate = useNavigate();
 
 const prepareData = (json: object): ChartData => {
     const defaults: ChartDefaults = chartDefaults();
@@ -37,12 +39,11 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
         if (elements.length === 0) return;
         const index = elements[0].index;
         const label = chart.data.labels[index];
-        navigate('plugin/' + label);
+        navigate('/plugin-stats/plugin/' + label);
 }
 
 const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
     const defaults: ChartDefaults = chartDefaults();
-    console.log("Element to place top chart on:", targetEl);
     let highlighted = false; 
     
     const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
