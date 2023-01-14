@@ -1,11 +1,12 @@
 <script lang="ts">
     import {Chart} from 'chart.js';
     import {onDestroy} from 'svelte';
+    import {randomId} from '../util';
 
     export let draw: (object, HTMLCanvasElement) => Chart;
     export let data: object = null;
     
-    const id = Math.floor(Math.random() * 10000000).toString(10);
+    const id = randomId();
     let chart: Chart;
 
     $: if (data !== null) {

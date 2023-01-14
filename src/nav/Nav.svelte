@@ -4,9 +4,9 @@
     import {getData} from '../cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
-    import ChartView from '../chart/ChartView.svelte';
-    import topDownloads from '../chart/topDownloads.js';
     import pluginDownloads from '../chart/pluginDownloads.js';
+    import TopDownloads from '../chart/TopDownloads.svelte';
+    import PluginDownloads from '../chart/PluginDownloads.svelte';
 
     let searchText: string;
     let allPlugins: object;
@@ -44,8 +44,8 @@
     <SearchBar options={allPlugins} {searchText} onSearch={(s) => loadPluginData(s)} {error} maxSuggestions={10} placeholder={'Enter plugin name'}/>
     <Link to="/plugin-stats/top">top</Link>
 </nav>
-<Route path="/top"> <ChartView data={allPlugins} draw={topDownloads}/> </Route>
-<Route path="/plugin/*"> <ChartView bind:data={singlePlugin} draw={pluginDownloads}/> </Route>
+<Route path="/top"> <TopDownloads/> </Route>
+<Route path="/plugin/*"> <PluginDownloads bind:data={singlePlugin} draw={pluginDownloads}/> </Route>
 
 <style>
     nav {
