@@ -19,7 +19,6 @@
     }
 
     function onSubmit() {
-        console.log("onSubmit");
         const search = searchText.trim().toLowerCase();
         if (search === '') return;
         let pluginExists = false;
@@ -35,7 +34,6 @@
     }
 
     function onInput() {
-        console.log("onInput");
         error = false;
         if (searchText === '') {
             showSuggestions = false;
@@ -50,7 +48,6 @@
         }
         suggestions = newSuggestions;
         showSuggestions = true;
-        console.log(suggestions);
     }
 
     function fuzzySearch(search: string, text: string): boolean {
@@ -73,25 +70,17 @@
     }
 
     function onSelect(e) {
-        console.log("onSelect");
         const id = e.target.id;
         searchText = suggestions[id];
         onSubmit();
     }
 
     function onKeyDown(e) {
-        console.log("onKeyDown");
         if (e.key === 'ArrowDown' || e.key === 'Down') {
-            const list = document.getElementById("suggestions").children[0].children as HTMLElement;
             if (activeSuggestion < maxSuggestions - 1) activeSuggestion++;
-            const el = list[activeSuggestion] as HTMLElement;
-            console.log(activeSuggestion, el);
         } else if (e.key === 'ArrowUp' || e.key === 'Up') {
-            const list = document.getElementById("suggestions").children[0].children as HTMLElement;
             if (activeSuggestion > 0) {
                 activeSuggestion--;
-                const el = list[activeSuggestion] as HTMLElement;
-                console.log(activeSuggestion, el);
             } else {
                 const searchBar = document.getElementById("searchbar") as HTMLElement;
                 searchBar.focus();

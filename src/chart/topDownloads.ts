@@ -1,9 +1,11 @@
 import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
-import type {ChartDefaults} from '../ChartDefaults';
+import type {ChartDefaults} from './ChartDefaults';
 import {navigate} from 'svelte-navigator';
+import {chartDefaults} from './ChartDefaults';
 
-const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
+const prepareData = (json: object): ChartData => {
+    const defaults: ChartDefaults = chartDefaults();
     const labels: string[] = [];
     const data = [];
     const sortable = Object.entries(json)
@@ -38,16 +40,16 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
         navigate('plugin/' + label);
 }
 
-const displayChart = (data: ChartData, defaults: ChartDefaults) => {
-    
-    const ctx = document.getElementById('chart') as HTMLCanvasElement;
+const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
+    const defaults: ChartDefaults = chartDefaults();
+    console.log("Element to place top chart on:", targetEl);
     let highlighted = false; 
     
     const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
         if (elements.length === 0) {
             if (!highlighted) return;
             chart.config.options.scales.x.ticks.color = defaults.fontColor;
-            ctx.style.cursor = 'default';
+            targetEl.style.cursor = 'default';
             chart.update();
             highlighted = false;
             return;
@@ -55,7 +57,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
 
         if (highlighted) return;
         
-        ctx.style.cursor = 'pointer'
+        targetEl.style.cursor = 'pointer'
         const numBars = chart.data.datasets[0].data.length;
         const colors: string[] = new Array<string>(numBars);
         colors.fill(defaults.fontColor);
@@ -66,7 +68,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
         highlighted = true;
     };
     
-    new Chart(ctx, {
+    return new Chart(targetEl, {
         type: 'bar',
         data: data,
         options: {
@@ -121,7 +123,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
     });
 };
 
-export default function mostDownloadedPlugins(json: object, chartDefaults: ChartDefaults): void {
-    const barChartData: ChartData = prepareData(json, chartDefaults);
-    displayChart(barChartData, chartDefaults);
+export default function topDownloads(json: object, targetEl: HTMLCanvasElement): Chart {
+    const barChartData: ChartData = prepareData(json);
+    return displayChart(barChartData, targetEl);
 }

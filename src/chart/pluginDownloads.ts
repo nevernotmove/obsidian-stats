@@ -1,9 +1,11 @@
 import type {ChartData, TimeUnit} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 import 'chartjs-adapter-luxon';
-import type {ChartDefaults} from '../ChartDefaults';
+import type {ChartDefaults} from './ChartDefaults';
+import {chartDefaults} from './ChartDefaults';
 
-const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
+const prepareData = (json: object): ChartData => {
+    const defaults: ChartDefaults = chartDefaults();
     const labels = [];
     const data = [];
     for (const entry of Object.entries(json)) {
@@ -32,15 +34,16 @@ const prepareData = (json: object, defaults: ChartDefaults): ChartData => {
     return res as ChartData;
 };
 
-const displayChart = (data: ChartData, defaults: ChartDefaults) => {
-    const ctx = document.getElementById('chart') as HTMLCanvasElement;
-
+const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
+    const defaults: ChartDefaults = chartDefaults();
+    console.log("Element to place plugin chart on:", targetEl);
+    
     const dataPoints = data.datasets[0].data.length;
     let unit: TimeUnit = 'month';
     if (dataPoints < 50) unit = 'day';
     else if (dataPoints > 700) unit = 'year';
     
-    return new Chart(ctx, {
+    return new Chart(targetEl, {
         type: 'line',
         data: data,
         options: {
@@ -108,7 +111,7 @@ const displayChart = (data: ChartData, defaults: ChartDefaults) => {
     });
 };
 
-export default function pluginDownloadsOverTime(json: object, chartDefaults: ChartDefaults): Chart {
-    const lineChartData: ChartData = prepareData(json, chartDefaults);
-    return displayChart(lineChartData, chartDefaults);
+export default function pluginDownloads(json: object, targetEl: HTMLCanvasElement): Chart {
+    const lineChartData: ChartData = prepareData(json);
+    return displayChart(lineChartData, targetEl);
 }
