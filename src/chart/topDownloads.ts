@@ -1,10 +1,8 @@
 import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
 import {Chart} from 'chart.js';
 import type {ChartDefaults} from './ChartDefaults';
-import {useNavigate} from 'svelte-navigator';
 import {chartDefaults} from './ChartDefaults';
-
-const navigate = useNavigate();
+import {navigate} from 'svelte-navigator';
 
 const prepareData = (json: object): ChartData => {
     const defaults: ChartDefaults = chartDefaults();
