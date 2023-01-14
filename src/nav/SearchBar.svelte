@@ -19,12 +19,13 @@
     }
 
     function onSubmit() {
-        const search = searchText.trim().toLowerCase();
+        let search = searchText.trim().toLowerCase();
         if (search === '') return;
         let pluginExists = false;
         for (const option of Object.keys(options)) {
             if (option.toLowerCase() === search) {
                 pluginExists = true;
+                search = option 
                 break;
             }
         }
