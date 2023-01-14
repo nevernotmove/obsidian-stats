@@ -5,6 +5,7 @@
     --base-1: 220, 50%;
     --base-2: 110, 80%;
     --base-3: 154, 70%;
+    --base-4: 0, 70%;
 
     /* Color 1 palette (hue, saturation, lightness) */
     --color-1-0: var(--base-1), 0%;
@@ -45,6 +46,19 @@
     --color-3-90: var(--base-3), 90%;
     --color-3-100: var(--base-3), 100%;
 
+    /* Color 4 palette (hue, saturation, lightness) */
+    --color-4-0: var(--base-4), 0%;
+    --color-4-10: var(--base-4), 10%;
+    --color-4-20: var(--base-4), 20%;
+    --color-4-30: var(--base-4), 30%;
+    --color-4-40: var(--base-4), 40%;
+    --color-4-50: var(--base-4), 50%;
+    --color-4-60: var(--base-4), 60%;
+    --color-4-70: var(--base-4), 70%;
+    --color-4-80: var(--base-4), 80%;
+    --color-4-90: var(--base-4), 90%;
+    --color-4-100: var(--base-4), 100%;
+
     /* Background colors */
     --color-background-muted: hsla(var(--color-1-40), 1);
     --color-background: hsla(var(--color-1-50), 1);
@@ -65,11 +79,12 @@
     
     /* Text colors */
     --color-text-muted: hsla(var(--color-3-50), .7);
-    --color-text: hsla(var(--color-3-50), 9);
+    --color-text: hsla(var(--color-3-50), 1);
     --color-text-highlight: hsla(var(--color-2-50), 1);
-    
-    --color-error: red;
-    
+
+    /* Error */
+    --color-error: hsla(var(--color-4-50), 1);
+
     --radius: .2em;
     
     /* Charts */
