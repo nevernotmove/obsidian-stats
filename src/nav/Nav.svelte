@@ -2,7 +2,7 @@
     import {Link, navigate, Route} from 'svelte-navigator';
     import {onMount} from "svelte";
     import {getData} from '../cache';
-    import Logo from '../Logo.svelte';
+    import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
     import ChartView from '../chart/ChartView.svelte';
     import topDownloads from '../chart/topDownloads.js';
