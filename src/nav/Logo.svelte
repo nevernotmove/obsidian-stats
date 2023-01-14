@@ -52,6 +52,10 @@
         height: 100%;
     }
 
+    span:hover, span:focus {
+        filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+    }
+    
     svg {
         height: 100%;
         margin-right: .4rem;
