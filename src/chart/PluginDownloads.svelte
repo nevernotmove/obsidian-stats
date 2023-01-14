@@ -1,26 +1,48 @@
 <script lang="ts">
     import {Chart} from 'chart.js';
-    import {onDestroy} from 'svelte';
+    import {onDestroy, onMount} from 'svelte';
     import {randomId} from '../util';
+    import pluginDownloads from './pluginDownloads';
+    import {getData} from '../cache';
+    import {navigate} from 'svelte-navigator';
 
-    export let draw: (object, HTMLCanvasElement) => Chart;
-    export let data: object = null;
+    export let activePlugin: string = null;
+    
+    $: if (activePlugin !== null) loadPluginData(activePlugin); 
     
     const id = randomId();
+    let pluginData: object;
     let chart: Chart;
 
-    $: if (data !== null) {
+    $: if (pluginData) {
+        console.log("Reacting");
         if (chart) chart.destroy();
-        console.log('Drawing top chart');
         const targetEl = document.getElementById(id) as HTMLCanvasElement;
-        if (targetEl) chart = draw(data, targetEl);
+        if (targetEl) chart = pluginDownloads(pluginData, targetEl);
     }
+
+    function loadPluginData(pluginName: string) {
+        console.log("Loading");
+        const path = `plugins/${pluginName}.json`;
+        getData(path, (data: object) => {
+            if (data) {
+                pluginData = data;
+                navigate(`/plugin-stats/plugin/${pluginName}`);
+            } else {
+                // TODO Show error
+            }
+        });
+    }
+    
+    onMount(() => {
+        console.log("mount");
+        console.log("Active plugin in mount", activePlugin);
+        loadPluginData(activePlugin);
+    });
 
     onDestroy(() => {
         if (chart) chart.destroy();
     });
 </script>
 
-{#if data}
-    <canvas id={id}></canvas>
-{/if}
+<canvas id={id}></canvas>

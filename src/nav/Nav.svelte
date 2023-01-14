@@ -4,14 +4,13 @@
     import {getData} from '../cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
-    import pluginDownloads from '../chart/pluginDownloads.js';
     import TopDownloads from '../chart/TopDownloads.svelte';
     import PluginDownloads from '../chart/PluginDownloads.svelte';
 
-    let searchText: string;
+    let activePlugin: string;
     let allPlugins: object;
-    let singlePlugin: object;
-    let error: boolean = false;
+    
+    $: if (activePlugin) navigate(`/plugin-stats/plugin/${activePlugin}`);
 
     onMount(() => {
         getData('total-downloads.json', (data: object) => {
@@ -26,26 +25,20 @@
         // loadData(pluginName);
     });
 
-    function loadPluginData(pluginName: string) {
-        const path = `plugins/${pluginName}.json`;
-        getData(path, (data: object) => {
-            if (data) {
-                singlePlugin = data;
-                navigate(`/plugin-stats/plugin/${pluginName}`);
-            } else {
-                error = true;
-            }
-        });
-    }
 </script>
 
 <nav>
     <Logo/>
-    <SearchBar options={allPlugins} {searchText} onSearch={(s) => loadPluginData(s)} {error} maxSuggestions={10} placeholder={'Enter plugin name'}/>
+    <SearchBar options={allPlugins} onSearch={(s) => activePlugin = s} 
+               maxSuggestions={10} placeholder={'Enter plugin name'}/>
     <Link to="/plugin-stats/top">top</Link>
 </nav>
-<Route path="/top"> <TopDownloads/> </Route>
-<Route path="/plugin/*"> <PluginDownloads bind:data={singlePlugin} draw={pluginDownloads}/> </Route>
+<Route path="/top"> 
+    <TopDownloads/> 
+</Route>
+<Route path="/plugin/*">
+    <PluginDownloads bind:activePlugin={activePlugin}/>
+</Route>
 
 <style>
     nav {
