@@ -189,6 +189,6 @@
 
     li:hover, .selected {
         background-color: var(--color-background-highlight);
-        color: var(--color-text-hightlight);
+        color: var(--color-text-highlight);
     }
 </style>

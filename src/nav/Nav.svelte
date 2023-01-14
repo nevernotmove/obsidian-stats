@@ -63,9 +63,9 @@
         border-radius: var(--radius);
     }
     :global(a):hover {
-        color: var(--color-text-hightlight);
+        color: var(--color-text-highlight);
     }
     :global(a[aria-current="page"]) {
-        color: var(--color-text-hightlight);
+        color: var(--color-text-highlight);
     }
 </style>
