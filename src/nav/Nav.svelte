@@ -1,7 +1,6 @@
 <script lang="ts">
     import {Link, navigate, Route} from 'svelte-navigator';
     import {onMount} from "svelte";
-    import {Chart} from 'chart.js';
     import {getData} from '../cache';
     import Logo from '../Logo.svelte';
     import SearchBar from './SearchBar.svelte';
@@ -13,7 +12,6 @@
     let allPlugins: object;
     let singlePlugin: object;
     let error: boolean = false;
-    let chart: Chart;
 
     onMount(() => {
         getData('total-downloads.json', (data: object) => {
@@ -32,7 +30,6 @@
         const path = `plugins/${pluginName}.json`;
         getData(path, (data: object) => {
             if (data) {
-                if (chart) chart.destroy();
                 singlePlugin = data;
                 navigate(`/plugin-stats/plugin/${pluginName}`);
             } else {
