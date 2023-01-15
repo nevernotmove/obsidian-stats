@@ -58,7 +58,5 @@
     
     svg {
         height: 100%;
-        margin-right: .4rem;
-        transform: scale(1.6);
     }
 </style>

@@ -30,7 +30,9 @@
 </script>
 
 <nav>
-    <Logo/>
+    <div id="logo-container">
+        <Logo/>
+    </div>
     <SearchBar options={allPlugins} {onSearch} 
                maxSuggestions={10} placeholder={'Enter plugin name'}/>
     <Link to="/plugin-stats/top">top</Link>
@@ -62,5 +64,10 @@
     }
     :global(a[aria-current="page"]) {
         color: var(--color-text-highlight);
+    }
+    #logo-container {
+        height: 100%;
+        margin-right: .4rem;
+        transform: scale(1.6);
     }
 </style>
