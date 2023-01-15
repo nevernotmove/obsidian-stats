@@ -10,7 +10,7 @@
 
 <span>
     <Link to="/plugin-stats/">
-        <svg viewBox="0 0 2160 2160" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 2160 2160">
             {#if start}
                 <path transition:draw="{{duration: 4000, delay: 200, easing: quintOut}}"
                       d="m1355 1988 98-187 192-1172-358-222-501 398 569 1183Z"
