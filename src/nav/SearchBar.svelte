@@ -29,7 +29,10 @@
                 break;
             }
         }
-        if (pluginExists) onSearch(search);
+        if (pluginExists) {
+            searchText = '';
+            onSearch(search);
+        }
         else error = true;
         resetSuggestions();
     }
