@@ -11,7 +11,8 @@ const prepareData = (json: object, targetEl: HTMLCanvasElement): ChartData => {
     const data = [];
     const sortable = Object.entries(json)
         .sort(([, a], [, b]) => b - a);
-    const width: number = targetEl.clientWidth;
+    const width: number = targetEl.parentElement.clientWidth;
+    console.log(width);
     const max = width && width > 0 ? Math.floor(width / 50) : 5;
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
