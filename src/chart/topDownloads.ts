@@ -5,13 +5,14 @@ import {chartDefaults} from './ChartDefaults';
 import {navigate} from 'svelte-navigator';
 import {formatNumberWithKiloMega} from './util';
 
-const prepareData = (json: object): ChartData => {
+const prepareData = (json: object, targetEl: HTMLCanvasElement): ChartData => {
     const defaults: ChartDefaults = chartDefaults();
     const labels: string[] = [];
     const data = [];
     const sortable = Object.entries(json)
         .sort(([, a], [, b]) => b - a);
-    const max = 20;
+    const width: number = targetEl.clientWidth;
+    const max = width && width > 0 ? Math.floor(width / 50) : 5;
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
         data.push(sortable[i][1]);
@@ -125,6 +126,6 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
 };
 
 export default function topDownloads(json: object, targetEl: HTMLCanvasElement): Chart {
-    const barChartData: ChartData = prepareData(json);
+    const barChartData: ChartData = prepareData(json, targetEl);
     return displayChart(barChartData, targetEl);
 }
