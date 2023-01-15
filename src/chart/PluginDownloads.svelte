@@ -47,4 +47,12 @@
     });
 </script>
 
-<canvas id={id}></canvas>
+<div>
+    <canvas id={id}></canvas>
+</div>
+
+<style>
+    div {
+        height: 100%;
+    }
+</style>
