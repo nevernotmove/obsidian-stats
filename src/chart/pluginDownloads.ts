@@ -36,7 +36,6 @@ const prepareData = (json: object): ChartData => {
 
 const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
     const defaults: ChartDefaults = chartDefaults();
-    console.log("Element to place plugin chart on:", targetEl);
     
     const dataPoints = data.datasets[0].data.length;
     let unit: TimeUnit = 'month';
