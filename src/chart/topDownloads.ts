@@ -9,7 +9,7 @@ const prepareData = (json: object): ChartData => {
     const labels: string[] = [];
     const data = [];
     const sortable = Object.entries(json)
-        .sort(([, a], [, b]) => b - a)
+        .sort(([, a], [, b]) => b - a);
     const max = 20;
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
@@ -34,16 +34,16 @@ const prepareData = (json: object): ChartData => {
 };
 
 const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        if (elements.length === 0) return;
-        const index = elements[0].index;
-        const label = chart.data.labels[index];
-        navigate('/plugin-stats/plugin/' + label);
-}
+    if (elements.length === 0) return;
+    const index = elements[0].index;
+    const label = chart.data.labels[index];
+    navigate('/plugin-stats/plugin/' + label);
+};
 
 const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
     const defaults: ChartDefaults = chartDefaults();
-    let highlighted = false; 
-    
+    let highlighted = false;
+
     const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
         if (elements.length === 0) {
             if (!highlighted) return;
@@ -55,8 +55,8 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
         }
 
         if (highlighted) return;
-        
-        targetEl.style.cursor = 'pointer'
+
+        targetEl.style.cursor = 'pointer';
         const numBars = chart.data.datasets[0].data.length;
         const colors: string[] = new Array<string>(numBars);
         colors.fill(defaults.fontColor);
@@ -66,7 +66,7 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
         chart.update();
         highlighted = true;
     };
-    
+
     return new Chart(targetEl, {
         type: 'bar',
         data: data,
@@ -83,12 +83,12 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
                     grid: {
                         display: false,
                     },
-                     ticks: {
-                         font: {
-                            size: defaults.fontSize,    
-                         },
-                         color: defaults.fontColor,
-                     }
+                    ticks: {
+                        font: {
+                            size: defaults.fontSize,
+                        },
+                        color: defaults.fontColor,
+                    }
                 },
                 y: {
                     border: {
@@ -114,9 +114,9 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
                 legend: {
                     display: false,
                     labels: {
-                        color: defaults.fontColor,   
+                        color: defaults.fontColor,
                     },
-                },   
+                },
             },
         }
     });
