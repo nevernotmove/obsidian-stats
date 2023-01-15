@@ -1,6 +1,6 @@
 <script lang="ts">
     import {navigate, Route, Router} from "svelte-navigator";
-    import Nav from '../nav/Nav.svelte';
+    import Main from '../nav/Main.svelte';
     
     if (window.location.href.endsWith('/plugin-stats')) {
         navigate('/plugin-stats/') 
@@ -11,7 +11,7 @@
     <!--TODO Might want to remove primary=false and take care-->
     <Router primary={false}>
         <Route path="plugin-stats/*">
-            <Nav/>
+            <Main/>
         </Route>
     </Router>
 </main>
