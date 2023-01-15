@@ -45,6 +45,8 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
     if (dataPoints < 50) unit = 'day';
     else if (dataPoints > 700) unit = 'year';
     
+    const bounds = data.datasets[0].data.length == 1 ? 'ticks' : 'data';
+    
     return new Chart(targetEl, {
         type: 'line',
         data: data,
@@ -65,7 +67,8 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
                         },
                         color: defaults.fontColor,
                     },
-                    type: 'time', 
+                    type: 'time',
+                    bounds: bounds,
                     time: {
                         unit: unit,
                         // displayFormats: {
