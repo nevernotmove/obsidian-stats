@@ -14,6 +14,7 @@ export async function getData(path: string,  callback: (data: object) => void): 
     const val = read(absolutePath);
     if (val === undefined) {
         await fetch(absolutePath, {
+            cache: "no-store",
             headers: {
                 Accept: "application/json"
             }
