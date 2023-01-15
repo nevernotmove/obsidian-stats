@@ -3,6 +3,7 @@ import {Chart} from 'chart.js';
 import type {ChartDefaults} from './ChartDefaults';
 import {chartDefaults} from './ChartDefaults';
 import {navigate} from 'svelte-navigator';
+import {formatNumberWithKiloMega} from './util';
 
 const prepareData = (json: object): ChartData => {
     const defaults: ChartDefaults = chartDefaults();
@@ -96,6 +97,7 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
                     },
                     beginAtZero: true,
                     ticks: {
+                        callback: formatNumberWithKiloMega,
                         font: {
                             size: defaults.fontSize,
                         },

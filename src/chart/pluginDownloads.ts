@@ -3,6 +3,7 @@ import {Chart} from 'chart.js';
 import 'chartjs-adapter-luxon';
 import type {ChartDefaults} from './ChartDefaults';
 import {chartDefaults} from './ChartDefaults';
+import {formatNumberWithKiloMega} from './util';
 
 const prepareData = (json: object): ChartData => {
     const defaults: ChartDefaults = chartDefaults();
@@ -88,6 +89,7 @@ const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
                         color: defaults.gridColor,
                     },
                     ticks: {
+                        callback: formatNumberWithKiloMega,
                         font: {
                             size: defaults.fontSize,
                         },
