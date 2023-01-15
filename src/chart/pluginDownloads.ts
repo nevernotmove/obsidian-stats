@@ -15,6 +15,8 @@ const prepareData = (json: object): ChartData => {
         labels.push(time);
         data.push(downloads);
     }
+    const pointSize = data.length < 2 ? 20 : 0;
+    const pointHoverSize = pointSize  == 0 ? 10 : pointSize * 2;
     const label = "downloads";
     const datasets = [{
         label: label,
@@ -24,8 +26,8 @@ const prepareData = (json: object): ChartData => {
         borderColor: defaults.lineColor,
         hoverBackgroundColor: defaults.fillColorHighlight,
         pointStyle: true,
-        pointRadius: 0,
-        pointHoverRadius: 10,
+        pointRadius: pointSize,
+        pointHoverRadius: pointHoverSize,
         fill: true,
     }];
     const res = {
