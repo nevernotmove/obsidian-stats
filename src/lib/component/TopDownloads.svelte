@@ -19,7 +19,7 @@
             if (data) {
                 if (chart) chart.destroy();
                 const targetEl = document.getElementById(id) as HTMLCanvasElement;
-                if (targetEl) chart = topDownloads(data, targetEl);
+                if (targetEl) chart = drawBarChart(data, targetEl);
             }
         });
     });
@@ -28,7 +28,14 @@
         if (chart) chart.destroy();
     });
 
-    const prepareData = (json: object, targetEl: HTMLCanvasElement): ChartData => {
+    const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
+        if (elements.length === 0) return;
+        const index = elements[0].index;
+        const label = chart.data.labels[index];
+        navigate('/plugin/' + label);
+    };
+
+    function drawBarChart(json: object, targetEl: HTMLCanvasElement): Chart {
         const defaults: ChartDefaults = chartDefaults();
         const labels: string[] = [];
         const data = [];
@@ -51,22 +58,11 @@
             hoverBackgroundColor: defaults.fillColorHighlight,
             hoverBorderColor: defaults.lineColorHighlight,
         }];
-        const res = {
+        const barChartData: ChartData = {
             labels: labels,
             datasets: datasets
         };
-        return res as ChartData;
-    };
 
-    const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        if (elements.length === 0) return;
-        const index = elements[0].index;
-        const label = chart.data.labels[index];
-        navigate('/plugin/' + label);
-    };
-
-    const displayChart = (data: ChartData, targetEl: HTMLCanvasElement): Chart => {
-        const defaults: ChartDefaults = chartDefaults();
         let highlighted = false;
 
         const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
@@ -94,7 +90,7 @@
 
         return new Chart(targetEl, {
             type: 'bar',
-            data: data,
+            data: barChartData,
             options: {
                 onHover: onHover,
                 onClick: handleClickOnChart,
@@ -146,11 +142,6 @@
                 },
             }
         });
-    };
-
-    function topDownloads(json: object, targetEl: HTMLCanvasElement): Chart {
-        const barChartData: ChartData = prepareData(json, targetEl);
-        return displayChart(barChartData, targetEl);
     }
 </script>
 

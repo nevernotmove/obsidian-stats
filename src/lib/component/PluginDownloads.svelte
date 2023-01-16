@@ -14,14 +14,14 @@
     let chart: Chart;
     let loading = false;
     export let activePlugin: string = null;
-    $: if (activePlugin !== null) load(activePlugin); 
+    $: if (activePlugin !== null) load(activePlugin);
 
     $: if (pluginData) {
         if (chart) chart.destroy();
         const targetEl = document.getElementById(id) as HTMLCanvasElement;
-        if (targetEl) chart = pluginDownloads(pluginData, targetEl);
+        if (targetEl) chart = drawLineChart(pluginData, targetEl);
     }
-    
+
     onMount(() => {
         load(activePlugin);
     });
@@ -43,8 +43,8 @@
             }
         });
     }
-    
-    const prepareData = (json: object): ChartData => {
+
+    function drawLineChart(json: object, targetEl: HTMLCanvasElement): Chart {
         const defaults: ChartDefaults = chartDefaults();
         const labels = [];
         const data = [];
@@ -55,7 +55,7 @@
             data.push(downloads);
         }
         const pointSize = data.length < 2 ? 20 : 0;
-        const pointHoverSize = pointSize  == 0 ? 10 : pointSize * 2;
+        const pointHoverSize = pointSize == 0 ? 10 : pointSize * 2;
         const label = "downloads";
         const datasets = [{
             label: label,
@@ -69,26 +69,21 @@
             pointHoverRadius: pointHoverSize,
             fill: true,
         }];
-        const res = {
+        const lineChartData: ChartData = {
             labels: labels,
             datasets: datasets
         };
-        return res as ChartData;
-    };
 
-    const displayChart = (data: ChartData, targetEl: HTMLCanvasElement) => {
-        const defaults: ChartDefaults = chartDefaults();
-
-        const dataPoints = data.datasets[0].data.length;
+        const dataPoints = lineChartData.datasets[0].data.length;
         let unit: TimeUnit = 'month';
         if (dataPoints < 50) unit = 'day';
         else if (dataPoints > 700) unit = 'year';
 
-        const bounds = data.datasets[0].data.length == 1 ? 'ticks' : 'data';
+        const bounds = lineChartData.datasets[0].data.length == 1 ? 'ticks' : 'data';
 
         return new Chart(targetEl, {
             type: 'line',
-            data: data,
+            data: lineChartData,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -110,17 +105,6 @@
                         bounds: bounds,
                         time: {
                             unit: unit,
-                            // displayFormats: {
-                            //     'millisecond': 'MMM DD',
-                            //     'second': 'MMM DD',
-                            //     'minute': 'MMM DD',
-                            //     'hour': 'MMM DD',
-                            //     'day': 'MMM DD',
-                            //     'week': 'MMM DD',
-                            //     'month': 'MMM DD',
-                            //     'quarter': 'MMM DD',
-                            //     'year': 'MMM DD',
-                            // }
                         }
                     },
                     y: {
@@ -154,11 +138,6 @@
                 },
             }
         });
-    };
-
-    function pluginDownloads(json: object, targetEl: HTMLCanvasElement): Chart {
-        const lineChartData: ChartData = prepareData(json);
-        return displayChart(lineChartData, targetEl);
     }
 </script>
 
