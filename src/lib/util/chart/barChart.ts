@@ -29,19 +29,10 @@ export default function barChart(json: object, targetEl: HTMLCanvasElement): Cha
         chart.update();
         highlighted = true;
     };
-
-    const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        if (elements.length === 0) return;
-        const index = elements[0].index;
-        const label = chart.data.labels[index];
-        navigate('/plugin-stats/plugin/' + label);
-    };
     
     const labels: string[] = [];
     const data = [];
-    const sortable = Object.entries(json)
-        .sort(([, a], [, b]) => b - a);
-    
+    const sortable = Object.entries(json) .sort(([, a], [, b]) => b - a);
     const width: number = targetEl.parentElement.clientWidth;
     const max = width && width > 0 ? Math.floor(width / 50) : 5;
     
@@ -120,3 +111,10 @@ export default function barChart(json: object, targetEl: HTMLCanvasElement): Cha
         }
     });
 }
+
+const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
+    if (elements.length === 0) return;
+    const index = elements[0].index;
+    const label = chart.data.labels[index];
+    navigate('/plugin-stats/plugin/' + label);
+};

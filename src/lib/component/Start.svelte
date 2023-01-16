@@ -3,7 +3,7 @@
     import Logo from "./Logo.svelte";
     import {onMount} from 'svelte';
     import {getData} from '../util/cache';
-    import {useNavigate} from 'svelte-navigator';
+    import {Link, useNavigate} from 'svelte-navigator';
 
     const navigate = useNavigate();
     let allPlugins: object;
@@ -23,6 +23,7 @@
         <div id="slogan">Search for any obsidian plugin</div>
         <SearchBar options={allPlugins} maxSuggestions={5} --search-text-align="center"
                    onSearch={s => navigate(`/plugin/${s}`)}/>
+        <div id="top"><Link to="/top">top downloads</Link></div>
     </section>
 </div>
 
@@ -34,9 +35,11 @@
     }
 
     section {
+        font-size: var(--text-size-small);
         width: 100%;
+        height: 100%;
         max-width: 30rem;
-        margin: 0 auto;
+        margin: 0 auto 0 auto;
         display: flex;
         flex-direction: column;
         gap: .5rem;
@@ -45,13 +48,27 @@
     }
 
     #logo-container {
-        width: 25%;
+        height: 4rem;
         margin-right: 3%;
     }
 
     #slogan {
         color: var(--color-text-muted);
-        font-size: 1.3rem;
-        margin-bottom: .7rem;
+        margin-bottom: .8rem;
+    }
+    
+    #top {
+        color: var(--color-text-muted);
+        margin-top: .52rem;
+        font-size: .8em;
+    }
+
+    @media (max-width: 600px) {
+        #slogan {
+            font-size: .8em;
+        }
+        #top {
+            font-size: .6em;
+        }
     }
 </style>

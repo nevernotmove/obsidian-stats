@@ -7,9 +7,9 @@
     export let big = false;
     let start = false;
 
-    let strokeWidth: string = "12px";
+    let strokeWidth: string = "15px";
     if (big) {
-        strokeWidth = "10px";
+        strokeWidth = "12px";
     }
 
     onMount(() => start = true);
