@@ -160,6 +160,7 @@
         border-radius: var(--radius);
         font-weight: lighter;
         font-size: 1.6rem;
+        outline:none;
     }
     
     .error {
