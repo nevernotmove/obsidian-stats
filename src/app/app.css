@@ -78,7 +78,8 @@
     --text-size-big: calc(var(--text-size-px-big) / 16 * 1rem);
     
     /* Text colors */
-    --color-text-muted: hsla(var(--color-3-50), .7);
+    --color-text-faint: hsla(var(--color-3-50), .7);
+    --color-text-muted: hsla(var(--color-3-50), .9);
     --color-text: hsla(var(--color-3-50), 1);
     --color-text-highlight: hsla(var(--color-2-50), 1);
 
@@ -90,7 +91,7 @@
     /* Charts */
     --chart-line-width: 1;
     --chart-font-size: var(--text-size-px-small);
-    --chart-font-color: var(--color-text-muted);
+    --chart-font-color: var(--color-text-faint);
     --chart-font-color-highlight: var(--color-text-highlight);
     --chart-line-color: var(--color-line);
     --chart-line-color-highlight: var(--color-line-highlight);
@@ -104,6 +105,7 @@
     
     
     font-size: var(--text-size);
+    font-weight: lighter;
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

@@ -4,6 +4,7 @@
     import {randomId} from '../util';
     import pluginDownloads from './pluginDownloads';
     import {getData} from '../cache';
+    import Nav from '../nav/Nav.svelte';
 
     console.log("init");
     
@@ -47,6 +48,7 @@
     });
 </script>
 
+<Nav/>
 <div>
     <canvas id={id}></canvas>
 </div>

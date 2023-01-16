@@ -1,19 +1,13 @@
 <script lang="ts">
-    import {Link, useNavigate, Route} from 'svelte-navigator';
+    import {Link, useNavigate} from 'svelte-navigator';
     import {onMount} from "svelte";
     import {getData} from '../cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
-    import TopDownloads from '../chart/TopDownloads.svelte';
-    import PluginDownloads from '../chart/PluginDownloads.svelte';
 
     const navigate = useNavigate();
     let allPlugins: object;
     
-    const onSearch = (search: string) => {
-        navigate(`plugin/${search}`);
-    }
-
     onMount(() => {
         getData('total-downloads.json', (data: object) => {
             if (data) allPlugins = data;
@@ -33,16 +27,10 @@
     <div id="logo-container">
         <Logo/>
     </div>
-    <SearchBar options={allPlugins} {onSearch} 
+    <SearchBar options={allPlugins} onSearch={s => navigate(`/plugin/${s}`)} 
                maxSuggestions={10} placeholder={'Enter plugin name'}/>
-    <Link to="/plugin-stats/top">top</Link>
+    <Link to="/top">top</Link>
 </nav>
-<Route path="/top"> 
-    <TopDownloads/> 
-</Route>
-<Route path="/plugin/:id" let:params>
-    <PluginDownloads activePlugin={params.id}/>
-</Route>
 
 <style>
     nav {
