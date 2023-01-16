@@ -28,7 +28,7 @@
         <Logo/>
     </div>
     <SearchBar options={allPlugins} onSearch={s => navigate(`/plugin/${s}`)} 
-               maxSuggestions={10} placeholder={'Enter plugin name'}/>
+               maxSuggestions={10} placeholder={'Enter plugin name'} --search-text-align="left"/>
     <Link to="/top">top</Link>
 </nav>
 

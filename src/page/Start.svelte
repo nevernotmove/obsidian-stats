@@ -21,7 +21,8 @@
             <Logo big={true}/>
         </div>
         <div id="slogan">Search for any obsidian plugin</div>
-        <SearchBar options={allPlugins} maxSuggestions={5} onSearch={s => navigate(`/plugin/${s}`)}/>
+        <SearchBar options={allPlugins} maxSuggestions={5} --search-text-align="center" 
+                   onSearch={s => navigate(`/plugin/${s}`)}/>
     </section>
 </main>
 
