@@ -147,13 +147,12 @@
 
 <style>
     form {
-        margin: 0;
-        padding: 0;
+        width: 100%;
     }
 
     input {
         text-align: var(--search-text-align);
-        width: 30rem;
+        width: 100%;
         background-color: var(--color-background-muted);
         color: inherit;
         padding: .6rem 1rem;

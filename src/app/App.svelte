@@ -32,7 +32,7 @@
         flex-direction: column;
         row-gap: 3rem;
         height: 100%;
-        padding: 0 3rem 3rem 3rem;
+        padding: 0 5% 5% 5%;
     }
 </style>
 
