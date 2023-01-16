@@ -29,7 +29,7 @@ export async function getData(path: string,  callback: (data: object) => void): 
                     callback(jsonData);
                 } else callback(null);
             }).catch(_ => {
-                //console.log(reason);
+                // TODO
             });       
         return;
     }

@@ -9,8 +9,6 @@
     import type {ChartDefaults} from '../util/ChartDefaults';
     import {chartDefaults} from '../util/ChartDefaults';
 
-    console.log("init");
-    
     const id = randomId();
     let pluginData: object;
     let chart: Chart;
@@ -19,20 +17,25 @@
     $: if (activePlugin !== null) load(activePlugin); 
 
     $: if (pluginData) {
-        console.log("react");
         if (chart) chart.destroy();
         const targetEl = document.getElementById(id) as HTMLCanvasElement;
         if (targetEl) chart = pluginDownloads(pluginData, targetEl);
     }
+    
+    onMount(() => {
+        load(activePlugin);
+    });
+
+    onDestroy(() => {
+        if (chart) chart.destroy();
+    });
 
     function load(pluginName: string) {
         if (loading) return;
         loading = true;
-        console.log("load");
         const path = `plugins/${pluginName}.json`;
         getData(path, (data: object) => {
             if (data) {
-                console.log("got data");
                 pluginData = data;
                 loading = false;
             } else {
@@ -41,15 +44,6 @@
         });
     }
     
-    onMount(() => {
-        console.log("mount");
-        load(activePlugin);
-    });
-
-    onDestroy(() => {
-        if (chart) chart.destroy();
-    });
-
     const prepareData = (json: object): ChartData => {
         const defaults: ChartDefaults = chartDefaults();
         const labels = [];
