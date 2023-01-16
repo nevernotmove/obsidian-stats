@@ -1,8 +1,8 @@
 <script lang="ts">
-    import SearchBar from "../nav/SearchBar.svelte";
-    import Logo from "../nav/Logo.svelte";
+    import SearchBar from "./SearchBar.svelte";
+    import Logo from "./Logo.svelte";
     import {onMount} from 'svelte';
-    import {getData} from '../cache';
+    import {getData} from '../util/cache';
     import {useNavigate} from 'svelte-navigator';
 
     const navigate = useNavigate();

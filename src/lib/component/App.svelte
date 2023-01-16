@@ -1,9 +1,9 @@
 <script lang="ts">
     import {navigate, Route, Router} from "svelte-navigator";
     import Header from './Header.svelte';
-    import Start from '../page/Start.svelte';
-    import TopDownloads from '../chart/TopDownloads.svelte';
-    import PluginDownloads from '../chart/PluginDownloads.svelte';
+    import Start from './Start.svelte';
+    import TopDownloads from './TopDownloads.svelte';
+    import PluginDownloads from './PluginDownloads.svelte';
     
     if (window.location.href.endsWith('/plugin-stats')) {
         navigate('/plugin-stats/');

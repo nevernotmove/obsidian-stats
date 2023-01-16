@@ -1,14 +1,14 @@
 <script lang="ts">
     import {onDestroy, onMount} from 'svelte';
-    import {getData} from '../cache';
-    import {randomId} from '../util';
-    import Nav from '../nav/Nav.svelte';
+    import {getData} from '../util/cache';
+    import {randomId} from '../util/util';
+    import Nav from './Nav.svelte';
     import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
     import {Chart} from 'chart.js';
-    import type {ChartDefaults} from './ChartDefaults';
-    import {chartDefaults} from './ChartDefaults';
+    import type {ChartDefaults} from '../util/ChartDefaults';
+    import {chartDefaults} from '../util/ChartDefaults';
     import {useNavigate} from 'svelte-navigator';
-    import {formatNumberWithKiloMega} from './util';
+    import {formatNumberWithKiloMega} from '../util/util';
 
     const navigate = useNavigate();
     const id = randomId();

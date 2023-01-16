@@ -1,7 +1,7 @@
 <script lang="ts">
     import {Link, useNavigate} from 'svelte-navigator';
     import {onMount} from "svelte";
-    import {getData} from '../cache';
+    import {getData} from '../util/cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
 
