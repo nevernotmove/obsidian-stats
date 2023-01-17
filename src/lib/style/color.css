@@ -12,7 +12,7 @@
     --color-prime-mid-faint: hsla(var(--base-color-prime), 50%, 0.7);
     --color-prime-mid-less: hsla(var(--base-color-prime), 50%, 0.9);
     --color-prime-mid: hsla(var(--base-color-prime), 50%, 1);
-    
+
     /* Highlight color palette */
     --color-highlight: hsla(var(--base-color-highlight), 64%, 1);
     
