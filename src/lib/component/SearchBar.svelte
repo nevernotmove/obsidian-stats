@@ -182,6 +182,7 @@
         margin: 0;
         border: 1px inset var(--color-line);
         border-radius: var(--radius);
+        overflow: hidden;
     }
 
     li {
