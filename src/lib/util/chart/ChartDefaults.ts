@@ -10,6 +10,7 @@ export type ChartDefaults = {
     fontColor: string;
     fontColorHighlight: string;
     gridColor: string;
+    borderRadius: number;
 };
 
 let defaults: ChartDefaults = null;
@@ -33,6 +34,7 @@ export function chartDefaults(): ChartDefaults {
     const fillColor = style.getPropertyValue('--chart-fill-color');
     const fillColorHighlight = style.getPropertyValue('--chart-fill-color-highlight');
     const gridColor = style.getPropertyValue('--chart-grid-color');
+    const borderRadius = parseInt(style.getPropertyValue('--border-radius-without-unit'));
 
     defaults = {
         lineWidth,
@@ -43,7 +45,8 @@ export function chartDefaults(): ChartDefaults {
         fontColorHighlight,
         fillColor,
         fillColorHighlight,
-        gridColor
+        gridColor,
+        borderRadius
     };
 
     return defaults;

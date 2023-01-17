@@ -46,7 +46,7 @@ export default function barChart(json: object, targetEl: HTMLCanvasElement): Cha
             data: data,
             borderWidth: defaults.lineWidth,
             borderColor: defaults.lineColor,
-            borderRadius: 2,
+            borderRadius: defaults.borderRadius,
             backgroundColor: defaults.fillColor,
             hoverBackgroundColor: defaults.fillColorHighlight,
             hoverBorderColor: defaults.lineColorHighlight

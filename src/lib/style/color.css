@@ -1,29 +1,32 @@
 :root {
     /* Base colors */
-    --color-prime: 0, 0%;
-    --color-highlight: hsla(254, 80%, 64%, 1);
-    --color-error: hsla(0, 60%, 50%, 1);
+    --base-color-prime: 0, 0%;
+    --base-color-highlight: 254, 80%;
+    --base-color-error: 0, 60%;
 
     /* Prime color palette */
-    --prime-darkest: hsla(var(--color-prime), 9%, 1);
-    --prime-darker: hsla(var(--color-prime), 12%, 1);
-    --prime-dark: hsla(var(--color-prime), 15%, 1);
-    --prime-mid-gone: hsla(var(--color-prime), 50%, 0.2);
-    --prime-mid-faint: hsla(var(--color-prime), 50%, 0.7);
-    --prime-mid-less: hsla(var(--color-prime), 50%, 0.9);
-    --prime-mid: hsla(var(--color-prime), 50%, 1);
-
-    /* Background colors */
-    --color-background-highlight: var(--prime-dark);
+    --color-prime-darkest: hsla(var(--base-color-prime), 9%, 1);
+    --color-prime-darker: hsla(var(--base-color-prime), 12%, 1);
+    --color-prime-dark: hsla(var(--base-color-prime), 15%, 1);
+    --color-prime-mid-gone: hsla(var(--base-color-prime), 50%, 0.2);
+    --color-prime-mid-faint: hsla(var(--base-color-prime), 50%, 0.7);
+    --color-prime-mid-less: hsla(var(--base-color-prime), 50%, 0.9);
+    --color-prime-mid: hsla(var(--base-color-prime), 50%, 1);
+    
+    /* Highlight color palette */
+    --color-highlight: hsla(var(--base-color-highlight), 64%, 1);
+    
+    /* Error color palette */
+    --color-error: hsla(var(--base-color-error), 50%, 1);
 
     /* Line colors */
-    --color-line-muted: var(--prime-mid-gone);
-    --color-line: var(--prime-mid);
+    --color-line-muted: var(--color-prime-mid-gone);
+    --color-line: var(--color-prime-mid);
     --color-line-highlight: var(--color-highlight);
 
     /* Text colors */
-    --color-text-faint: var(--prime-mid-faint);
-    --color-text-muted: var(--prime-mid-less);
-    --color-text: var(--prime-mid);
+    --color-text-faint: var(--color-prime-mid-faint);
+    --color-text-muted: var(--color-prime-mid-less);
+    --color-text: var(--color-prime-mid);
     --color-text-highlight: var(--color-highlight);
 }

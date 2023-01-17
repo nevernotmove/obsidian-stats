@@ -1,19 +1,16 @@
 @import url(modern-normalize.css);
 @import url(color.css);
+@import url(radius.css);
 @import url(text.css);
 @import url(logo.css);
 @import url(link.css);
 @import url(input.css);
 @import url(chart.css);
 
-:root {
-    --radius: 0.2em;
-}
-
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--prime-darker);
+    background-color: var(--color-prime-darker);
     color: var(--color-text);
     height: 100dvh;
 }
