@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
     import { Link, useNavigate } from 'svelte-navigator';
     import { onMount } from 'svelte';
     import { getData } from '../util/cache';
@@ -22,29 +22,37 @@
     });
 </script>
 
-<nav>
-    <div id="logo-container">
-        <Logo />
-    </div>
-    <SearchBar
-        options={allPlugins}
-        onSearch={(s) => navigate(`/plugin/${s}`)}
-        maxSuggestions={10}
-        placeholder={'Enter plugin name'}
-        --search-text-align="left"
-    />
-    <span id="top">
-        <Link to="/top">top</Link>
+<div id='container'>
+    <nav>
+        <div id='logo-container'>
+            <Logo />
+        </div>
+        <SearchBar
+            options={allPlugins}
+            onSearch={(s) => navigate(`/plugin/${s}`)}
+            maxSuggestions={10}
+            placeholder={'Enter plugin name'}
+            --search-text-align='left'
+        />
+        <span id='top'>
+        <Link to='/top'>top</Link>
     </span>
-</nav>
+    </nav>
+</div>
 
 <style>
+    #container {
+        display: flex;
+        justify-content: center;
+    }
+    
     nav {
         display: flex;
         flex-direction: row;
         gap: 1rem;
         justify-content: center;
         align-items: center;
+        width: 40rem;
     }
 
     #logo-container {
