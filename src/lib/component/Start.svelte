@@ -54,6 +54,7 @@
     }
 
     #logo-container {
+        pointer-events: none;
         height: 4rem;
         margin-right: 3%;
     }
