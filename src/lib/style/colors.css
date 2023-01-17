@@ -1,0 +1,29 @@
+:root {
+    /* Base colors */
+    --color-prime: 0, 0%;
+    --color-highlight: hsla(254, 80%, 64%, 1);
+    --color-error: hsla(0, 60%, 50%, 1);
+
+    /* Prime color palette */
+    --prime-darkest: hsla(var(--color-prime), 9%, 1);
+    --prime-darker: hsla(var(--color-prime), 12%, 1);
+    --prime-dark: hsla(var(--color-prime), 15%, 1);
+    --prime-mid-gone: hsla(var(--color-prime), 50%, 0.2);
+    --prime-mid-faint: hsla(var(--color-prime), 50%, 0.7);
+    --prime-mid-less: hsla(var(--color-prime), 50%, 0.9);
+    --prime-mid: hsla(var(--color-prime), 50%, 1);
+
+    /* Background colors */
+    --color-background-highlight: var(--prime-dark);
+
+    /* Line colors */
+    --color-line-muted: var(--prime-mid-gone);
+    --color-line: var(--prime-mid);
+    --color-line-highlight: var(--color-highlight);
+
+    /* Text colors */
+    --color-text-faint: var(--prime-mid-faint);
+    --color-text-muted: var(--prime-mid-less);
+    --color-text: var(--prime-mid);
+    --color-text-highlight: var(--color-highlight);
+}
