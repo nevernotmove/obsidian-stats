@@ -155,14 +155,8 @@
     input {
         text-align: var(--search-text-align);
         width: 100%;
-        background-color: var(--color-background-muted);
-        color: inherit;
         padding: 0.6rem 1rem;
-        border: 1px inset var(--color-line);
-        border-radius: var(--radius);
-        font-weight: lighter;
         font-size: 1.6rem;
-        outline: none;
     }
 
     .error {
@@ -183,7 +177,7 @@
         width: 100%;
         padding: 0;
         color: inherit;
-        background-color: var(--color-background-muted);
+        background-color: var(--input-bg-color);
         list-style-type: none;
         margin: 0;
         border: 1px inset var(--color-line);
@@ -197,7 +191,7 @@
 
     li:hover,
     .selected {
-        background-color: var(--color-background-highlight);
+        background-color: var(--input-bg-color-select);
         color: var(--color-text-highlight);
     }
 </style>

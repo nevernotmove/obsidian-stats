@@ -47,22 +47,6 @@
         align-items: center;
     }
 
-    :global(a) {
-        text-decoration: none;
-        background-color: transparent;
-        color: inherit;
-        cursor: pointer;
-        border-radius: var(--radius);
-    }
-
-    :global(a):hover {
-        color: var(--color-text-highlight);
-    }
-
-    :global(a[aria-current='page']) {
-        color: var(--color-text-highlight);
-    }
-
     #logo-container {
         height: 100%;
     }
