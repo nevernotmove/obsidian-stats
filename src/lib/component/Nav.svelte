@@ -29,7 +29,9 @@
     </div>
     <SearchBar options={allPlugins} onSearch={s => navigate(`/plugin/${s}`)} 
                maxSuggestions={10} placeholder={'Enter plugin name'} --search-text-align="left"/>
-    <Link to="/top">top</Link>
+    <span id="top">
+        <Link to="/top">top</Link>
+    </span>
 </nav>
 
 <style>
@@ -55,5 +57,10 @@
     }
     #logo-container {
         height: 100%;
+    }
+    @media (max-width: 800px) {
+        #logo-container, #top {
+            display: none;
+        }
     }
 </style>
