@@ -31,7 +31,7 @@
             options={allPlugins}
             onSearch={(s) => navigate(`/plugin/${s}`)}
             maxSuggestions={10}
-            placeholder={'Enter plugin name'}
+            placeholder={''}
             --search-text-align='left'
         />
         <span id='top'>
