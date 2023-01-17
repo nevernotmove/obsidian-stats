@@ -1,0 +1,10 @@
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+a:hover {
+    color: var(--color-text-highlight);
+}

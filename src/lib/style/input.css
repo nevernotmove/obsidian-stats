@@ -1,0 +1,13 @@
+:root {
+    --input-bg-color: var(--prime-darkest);
+    --input-bg-color-select: var(--prime-dark);
+}
+
+input {
+    background-color: var(--input-bg-color);
+    color: inherit;
+    border: 1px inset var(--color-line);
+    border-radius: var(--radius);
+    font-weight: lighter;
+    outline: none;
+}

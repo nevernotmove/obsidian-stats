@@ -1,42 +1,13 @@
 @import url(modern-normalize.css);
-@import url(colors.css);
+@import url(color.css);
+@import url(text.css);
+@import url(logo.css);
+@import url(link.css);
+@import url(input.css);
+@import url(chart.css);
 
 :root {
-    /* Text sizes */
-    --text-size-px-small: 20;
-    --text-size-px: 26;
-    --text-size-px-big: 32;
-    --text-size-small: calc(var(--text-size-px-small) / 16 * 1rem);
-    --text-size: calc(var(--text-size-px) / 16 * 1rem);
-    --text-size-big: calc(var(--text-size-px-big) / 16 * 1rem);
-
     --radius: 0.2em;
-
-    /* Charts */
-    --chart-line-width: 1;
-    --chart-font-size: var(--text-size-px-small);
-    --chart-font-color: var(--color-text-faint);
-    --chart-font-color-highlight: var(--color-text-highlight);
-    --chart-line-color: var(--color-line);
-    --chart-line-color-highlight: var(--color-line-highlight);
-    --chart-fill-color: var(--color-background-highlight);
-    --chart-fill-color-highlight: var(--color-background-highlight);
-    --chart-grid-color: var(--color-line-muted);
-
-    /* Logo */
-    --logo-line-color: var(--color-line);
-    --logo-fill-color: var(--prime-darkest);
-    
-    /* Input */
-    --input-bg-color: var(--prime-darkest);
-    --input-bg-color-select: var(--prime-dark);
-
-    font-size: var(--text-size);
-    font-weight: lighter;
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -45,26 +16,6 @@ body {
     background-color: var(--prime-darker);
     color: var(--color-text);
     height: 100dvh;
-}
-
-a {
-    text-decoration: none;
-    background-color: transparent;
-    color: inherit;
-    cursor: pointer;
-}
-
-a:hover {
-    color: var(--color-text-highlight);
-}
-
-input {
-    background-color: var(--input-bg-color);
-    color: inherit;
-    border: 1px inset var(--color-line);
-    border-radius: var(--radius);
-    font-weight: lighter;
-    outline: none;
 }
 
 #app {

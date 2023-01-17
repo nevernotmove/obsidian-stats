@@ -1,0 +1,11 @@
+:root {
+    --chart-line-width: 1;
+    --chart-font-size: var(--text-size-px-small);
+    --chart-font-color: var(--color-text-faint);
+    --chart-font-color-highlight: var(--color-text-highlight);
+    --chart-line-color: var(--color-line);
+    --chart-line-color-highlight: var(--color-line-highlight);
+    --chart-fill-color: var(--color-background-highlight);
+    --chart-fill-color-highlight: var(--color-background-highlight);
+    --chart-grid-color: var(--color-line-muted);
+}
