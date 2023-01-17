@@ -124,7 +124,6 @@
         autocomplete="off">
     <input
             id="searchbar"
-            autofocus type="text"
             placeholder={placeholder}
             bind:value={searchText}
             class:error={error}
