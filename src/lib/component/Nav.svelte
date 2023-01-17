@@ -47,6 +47,7 @@
     }
     
     nav {
+        max-height: 3rem;
         display: flex;
         flex-direction: row;
         gap: 1rem;
@@ -56,7 +57,9 @@
     }
 
     #logo-container {
+        transform: translate(13%, 0);
         height: 100%;
+        aspect-ratio: 1.05/1;
     }
 
     @media (max-width: 800px) {
