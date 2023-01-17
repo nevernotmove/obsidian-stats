@@ -117,7 +117,7 @@ body {
     padding: 0;
     background-color: var(--color-background);
     color: var(--color-text);
-    height: 100vh;
+    height: 100dvh;
 }
 
 
