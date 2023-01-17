@@ -33,8 +33,4 @@
     div {
         height: 100%;
     }
-
-    canvas {
-        height: 100%;
-    }
 </style>
