@@ -1,12 +1,12 @@
 import { Chart } from 'chart.js';
 import { formatNumberWithKiloMega } from '../util';
 import type { ChartDefaults } from './ChartDefaults';
-import { chartDefaults } from './ChartDefaults';
+import { barChartDefaults } from './ChartDefaults';
 import type { ActiveElement, ChartData, ChartEvent } from 'chart.js/dist/types';
 import { navigate } from 'svelte-navigator';
 
 export default function barChart(json: object, targetEl: HTMLCanvasElement): Chart {
-    const defaults: ChartDefaults = chartDefaults();
+    const defaults: ChartDefaults = barChartDefaults();
     let highlighted = false;
 
     const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {

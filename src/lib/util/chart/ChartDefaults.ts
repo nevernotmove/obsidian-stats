@@ -13,41 +13,34 @@ export type ChartDefaults = {
     borderRadius: number;
 };
 
-let defaults: ChartDefaults = null;
+let lineDefaults: ChartDefaults = null;
+let barDefaults: ChartDefaults = null;
 
-export function chartDefaults(): ChartDefaults {
-    if (defaults !== null) {
-        return defaults;
-    }
+export function lineChartDefaults(): ChartDefaults {
+    if (lineDefaults === null && barDefaults === null) Chart.register(...registerables);
+    if (lineDefaults !== null) return lineDefaults;
+    return (barDefaults = commonDefaults());
+}
 
-    // Bundling fails if missing
-    Chart.register(...registerables);
+export function barChartDefaults(): ChartDefaults {
+    if (lineDefaults === null && barDefaults === null) Chart.register(...registerables);
+    if (barDefaults !== null) return barDefaults;
+    return (barDefaults = commonDefaults());
+}
 
-    // Get default values
+function commonDefaults(): ChartDefaults {
     const style = getComputedStyle(document.body);
-    const lineWidth = parseInt(style.getPropertyValue('--chart-line-width'));
-    const lineColor = style.getPropertyValue('--chart-line-color');
-    const lineColorHighlight = style.getPropertyValue('--chart-line-color-highlight');
-    const fontSize = parseInt(style.getPropertyValue('--chart-font-size'));
-    const fontColor = style.getPropertyValue('--chart-font-color');
-    const fontColorHighlight = style.getPropertyValue('--chart-font-color-highlight');
-    const fillColor = style.getPropertyValue('--chart-fill-color');
-    const fillColorHighlight = style.getPropertyValue('--chart-fill-color-highlight');
-    const gridColor = style.getPropertyValue('--chart-grid-color');
-    const borderRadius = parseInt(style.getPropertyValue('--border-radius-without-unit'));
-
-    defaults = {
-        lineWidth,
-        lineColor,
-        lineColorHighlight,
-        fontSize,
-        fontColor,
-        fontColorHighlight,
-        fillColor,
-        fillColorHighlight,
-        gridColor,
-        borderRadius
+    const defaults: ChartDefaults = {
+        lineWidth: parseInt(style.getPropertyValue('--chart-line-width')),
+        lineColor: style.getPropertyValue('--chart-line-color'),
+        lineColorHighlight: style.getPropertyValue('--chart-line-color-highlight'),
+        fontSize: parseInt(style.getPropertyValue('--chart-font-size')),
+        fontColor: style.getPropertyValue('--chart-font-color'),
+        fontColorHighlight: style.getPropertyValue('--chart-font-color-highlight'),
+        fillColor: style.getPropertyValue('--chart-fill-color'),
+        fillColorHighlight: style.getPropertyValue('--chart-fill-color-highlight'),
+        gridColor: style.getPropertyValue('--chart-grid-color'),
+        borderRadius: parseInt(style.getPropertyValue('--border-radius-without-unit'))
     };
-
     return defaults;
 }

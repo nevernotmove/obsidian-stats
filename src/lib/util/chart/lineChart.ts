@@ -3,7 +3,7 @@ import { formatNumberWithKiloMega } from '../util';
 import type { ChartData, TimeUnit } from 'chart.js/dist/types';
 import 'chartjs-adapter-luxon';
 import type { ChartDefaults } from './ChartDefaults';
-import { chartDefaults } from './ChartDefaults';
+import { lineChartDefaults } from './ChartDefaults';
 
 function getTimeUnitForDataAmount(dataPoints: number) {
     let unit: TimeUnit = 'month';
@@ -13,7 +13,7 @@ function getTimeUnitForDataAmount(dataPoints: number) {
 }
 
 export default function lineChart(json: object, targetEl: HTMLCanvasElement): Chart {
-    const defaults: ChartDefaults = chartDefaults();
+    const defaults: ChartDefaults = lineChartDefaults();
 
     const labels = [];
     const data = [];
