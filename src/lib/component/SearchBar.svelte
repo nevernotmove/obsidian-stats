@@ -11,7 +11,7 @@
     let showSuggestions: boolean = false;
     $: showSuggestions ? hideOnClickOutside(document.getElementById('search-form').parentElement) : null;
     resetSuggestions();
-    
+
     function resetSuggestions() {
         // suggestions = [];
         activeSuggestion = -1;
@@ -25,15 +25,14 @@
         for (const option of Object.keys(options)) {
             if (option.toLowerCase() === search) {
                 pluginExists = true;
-                search = option 
+                search = option;
                 break;
             }
         }
         if (pluginExists) {
             searchText = '';
             onSearch(search);
-        }
-        else error = true;
+        } else error = true;
         resetSuggestions();
     }
 
@@ -86,10 +85,10 @@
             if (activeSuggestion > 0) {
                 activeSuggestion--;
             } else {
-                const searchBar = document.getElementById("searchbar") as HTMLElement;
+                const searchBar = document.getElementById('searchbar') as HTMLElement;
                 searchBar.focus();
             }
-        } else if (e.key === "Enter") {
+        } else if (e.key === 'Enter') {
             if (activeSuggestion >= 0) {
                 searchText = suggestions[activeSuggestion];
             }
@@ -98,9 +97,9 @@
             resetSuggestions();
         }
     }
-   
+
     function hideOnClickOutside(element) {
-        const outsideClickListener = event => {
+        const outsideClickListener = (event) => {
             if (!element.contains(event.target) && isVisible(element)) {
                 resetSuggestions();
                 removeClickListener();
@@ -114,29 +113,33 @@
         document.addEventListener('click', outsideClickListener);
     }
 
-    const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+    const isVisible = (elem) =>
+        !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
 </script>
 
-<form 
-        id="search-form" 
-        on:submit|preventDefault={onSubmit} 
-        on:keydown={e => onKeyDown(e)} 
-        autocomplete="off">
+<form
+    id="search-form"
+    on:submit|preventDefault={onSubmit}
+    on:keydown={(e) => onKeyDown(e)}
+    autocomplete="off"
+>
     <input
-            id="searchbar"
-            placeholder={placeholder}
-            bind:value={searchText}
-            class:error={error}
-            on:input={e => onInput(e)}
-            on:focus={e => onInput(e)}>
-    <div id="suggestions" class={(showSuggestions ? '' : 'hidden')}>
+        id="searchbar"
+        {placeholder}
+        bind:value={searchText}
+        class:error
+        on:input={(e) => onInput(e)}
+        on:focus={(e) => onInput(e)}
+    />
+    <div id="suggestions" class={showSuggestions ? '' : 'hidden'}>
         <ul>
             {#each suggestions as s, id}
                 <li
-                        id={id}
-                        tabindex="-1"
-                        on:click={(e) => onSelect(e)}
-                        class={(activeSuggestion === id ? 'selected' : '')}>
+                    {id}
+                    tabindex="-1"
+                    on:click={(e) => onSelect(e)}
+                    class={activeSuggestion === id ? 'selected' : ''}
+                >
                     {s}
                 </li>
             {/each}
@@ -154,14 +157,14 @@
         width: 100%;
         background-color: var(--color-background-muted);
         color: inherit;
-        padding: .6rem 1rem;
+        padding: 0.6rem 1rem;
         border: 1px inset var(--color-line);
         border-radius: var(--radius);
         font-weight: lighter;
         font-size: 1.6rem;
-        outline:none;
+        outline: none;
     }
-    
+
     .error {
         background-color: var(--color-error);
     }
@@ -188,11 +191,12 @@
     }
 
     li {
-        padding: .3em .6em;
+        padding: 0.3em 0.6em;
         cursor: pointer;
     }
 
-    li:hover, .selected {
+    li:hover,
+    .selected {
         background-color: var(--color-background-highlight);
         color: var(--color-text-highlight);
     }

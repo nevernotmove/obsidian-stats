@@ -1,13 +1,13 @@
 <script lang="ts">
-    import {Link, useNavigate} from 'svelte-navigator';
-    import {onMount} from "svelte";
-    import {getData} from '../util/cache';
+    import { Link, useNavigate } from 'svelte-navigator';
+    import { onMount } from 'svelte';
+    import { getData } from '../util/cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
 
     const navigate = useNavigate();
     let allPlugins: object;
-    
+
     onMount(() => {
         getData('total-downloads.json', (data: object) => {
             if (data) allPlugins = data;
@@ -20,15 +20,19 @@
         // }
         // loadData(pluginName);
     });
-
 </script>
 
 <nav>
     <div id="logo-container">
-        <Logo/>
+        <Logo />
     </div>
-    <SearchBar options={allPlugins} onSearch={s => navigate(`/plugin/${s}`)} 
-               maxSuggestions={10} placeholder={'Enter plugin name'} --search-text-align="left"/>
+    <SearchBar
+        options={allPlugins}
+        onSearch={(s) => navigate(`/plugin/${s}`)}
+        maxSuggestions={10}
+        placeholder={'Enter plugin name'}
+        --search-text-align="left"
+    />
     <span id="top">
         <Link to="/top">top</Link>
     </span>
@@ -42,6 +46,7 @@
         justify-content: center;
         align-items: center;
     }
+
     :global(a) {
         text-decoration: none;
         background-color: transparent;
@@ -49,17 +54,22 @@
         cursor: pointer;
         border-radius: var(--radius);
     }
+
     :global(a):hover {
         color: var(--color-text-highlight);
     }
-    :global(a[aria-current="page"]) {
+
+    :global(a[aria-current='page']) {
         color: var(--color-text-highlight);
     }
+
     #logo-container {
         height: 100%;
     }
+
     @media (max-width: 800px) {
-        #logo-container, #top {
+        #logo-container,
+        #top {
             display: none;
         }
     }

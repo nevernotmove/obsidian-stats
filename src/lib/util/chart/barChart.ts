@@ -1,9 +1,9 @@
-import {Chart} from 'chart.js';
-import {formatNumberWithKiloMega} from '../util';
-import type {ChartDefaults} from './ChartDefaults';
-import {chartDefaults} from './ChartDefaults';
-import type {ActiveElement, ChartData, ChartEvent} from 'chart.js/dist/types';
-import {navigate} from 'svelte-navigator';
+import { Chart } from 'chart.js';
+import { formatNumberWithKiloMega } from '../util';
+import type { ChartDefaults } from './ChartDefaults';
+import { chartDefaults } from './ChartDefaults';
+import type { ActiveElement, ChartData, ChartEvent } from 'chart.js/dist/types';
+import { navigate } from 'svelte-navigator';
 
 export default function barChart(json: object, targetEl: HTMLCanvasElement): Chart {
     const defaults: ChartDefaults = chartDefaults();
@@ -29,27 +29,29 @@ export default function barChart(json: object, targetEl: HTMLCanvasElement): Cha
         chart.update();
         highlighted = true;
     };
-    
+
     const labels: string[] = [];
     const data = [];
-    const sortable = Object.entries(json) .sort(([, a], [, b]) => b - a);
+    const sortable = Object.entries(json).sort(([, a], [, b]) => b - a);
     const width: number = targetEl.parentElement.clientWidth;
     const max = width && width > 0 ? Math.floor(width / 50) : 5;
-    
+
     for (let i = 0; i < sortable.length && i < max; i++) {
         labels.push(sortable[i][0]);
         data.push(sortable[i][1]);
     }
-    
-    const datasets = [{
-        data: data,
-        borderWidth: defaults.lineWidth,
-        borderColor: defaults.lineColor,
-        borderRadius: 2,
-        backgroundColor: defaults.fillColor,
-        hoverBackgroundColor: defaults.fillColorHighlight,
-        hoverBorderColor: defaults.lineColorHighlight,
-    }];
+
+    const datasets = [
+        {
+            data: data,
+            borderWidth: defaults.lineWidth,
+            borderColor: defaults.lineColor,
+            borderRadius: 2,
+            backgroundColor: defaults.fillColor,
+            hoverBackgroundColor: defaults.fillColorHighlight,
+            hoverBorderColor: defaults.lineColorHighlight
+        }
+    ];
 
     const barChartData: ChartData = {
         labels: labels,
@@ -67,47 +69,47 @@ export default function barChart(json: object, targetEl: HTMLCanvasElement): Cha
             scales: {
                 x: {
                     border: {
-                        color: defaults.gridColor,
+                        color: defaults.gridColor
                     },
                     grid: {
-                        display: false,
+                        display: false
                     },
                     ticks: {
                         font: {
-                            size: defaults.fontSize,
+                            size: defaults.fontSize
                         },
-                        color: defaults.fontColor,
+                        color: defaults.fontColor
                     }
                 },
                 y: {
                     border: {
-                        display: false,
+                        display: false
                     },
                     beginAtZero: true,
                     ticks: {
                         callback: formatNumberWithKiloMega,
                         font: {
-                            size: defaults.fontSize,
+                            size: defaults.fontSize
                         },
-                        color: defaults.fontColor,
+                        color: defaults.fontColor
                     },
                     grid: {
                         tickLength: 0,
-                        color: defaults.gridColor,
+                        color: defaults.gridColor
                     }
                 }
             },
             plugins: {
                 tooltip: {
-                    enabled: false,
+                    enabled: false
                 },
                 legend: {
                     display: false,
                     labels: {
-                        color: defaults.fontColor,
-                    },
-                },
-            },
+                        color: defaults.fontColor
+                    }
+                }
+            }
         }
     });
 }

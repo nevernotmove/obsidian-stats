@@ -1,16 +1,16 @@
-import {Chart, registerables} from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 export type ChartDefaults = {
-    fillColor: string,
-    fillColorHighlight: string,
-    lineColor: string,
-    lineColorHighlight: string,
-    lineWidth: number,
-    fontSize: number,
-    fontColor: string,
-    fontColorHighlight: string,
-    gridColor: string,
-}
+    fillColor: string;
+    fillColorHighlight: string;
+    lineColor: string;
+    lineColorHighlight: string;
+    lineWidth: number;
+    fontSize: number;
+    fontColor: string;
+    fontColorHighlight: string;
+    gridColor: string;
+};
 
 let defaults: ChartDefaults = null;
 
@@ -43,7 +43,7 @@ export function chartDefaults(): ChartDefaults {
         fontColorHighlight,
         fillColor,
         fillColorHighlight,
-        gridColor,
+        gridColor
     };
 
     return defaults;

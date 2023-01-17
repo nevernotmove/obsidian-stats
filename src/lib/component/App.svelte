@@ -1,10 +1,10 @@
 <script lang="ts">
-    import {navigate, Route, Router} from "svelte-navigator";
+    import { navigate, Route, Router } from 'svelte-navigator';
     import Header from './Header.svelte';
     import Start from './Start.svelte';
     import TopDownloads from './TopDownloads.svelte';
     import PluginDownloads from './PluginDownloads.svelte';
-    
+
     if (window.location.href.endsWith('/plugin-stats')) {
         navigate('/plugin-stats/');
     }
@@ -12,16 +12,16 @@
 
 <!--TODO Might want to remove primary=false and take care-->
 <Router primary={false} basepath="/plugin-stats">
-    <Header/>
+    <Header />
     <main>
         <Route path="/">
-            <Start/>
+            <Start />
         </Route>
         <Route path="top">
-            <TopDownloads/>
+            <TopDownloads />
         </Route>
         <Route path="plugin/:id" let:params>
-            <PluginDownloads activePlugin={params.id}/>
+            <PluginDownloads activePlugin={params.id} />
         </Route>
     </main>
 </Router>
@@ -35,4 +35,3 @@
         padding: 0 5% 5% 5%;
     }
 </style>
-

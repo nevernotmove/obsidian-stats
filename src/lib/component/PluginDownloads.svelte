@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {Chart} from 'chart.js';
-    import {onDestroy, onMount} from 'svelte';
-    import {randomId} from '../util/util';
-    import {getData} from '../util/cache';
+    import { Chart } from 'chart.js';
+    import { onDestroy, onMount } from 'svelte';
+    import { randomId } from '../util/util';
+    import { getData } from '../util/cache';
     import Nav from './Nav.svelte';
     import lineChart from '../util/chart/lineChart';
 
@@ -42,9 +42,9 @@
     }
 </script>
 
-<Nav/>
+<Nav />
 <div>
-    <canvas id={id}></canvas>
+    <canvas {id} />
 </div>
 
 <style>
