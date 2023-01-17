@@ -62,7 +62,7 @@
 
     a:hover,
     a:focus {
-        filter: contrast(130%);
+        filter: contrast(140%);
     }
 
     .start {
@@ -71,6 +71,7 @@
 
     a {
         height: 100%;
+        filter: contrast(130%);
     }
 
     svg {
