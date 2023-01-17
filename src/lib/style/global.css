@@ -2,72 +2,20 @@
 
 :root {
     /* Base colors (hue, saturation)*/
-    --base-1: 220, 50%;
-    --base-2: 110, 80%;
-    --base-3: 154, 70%;
-    --base-4: 0, 70%;
-
-    /* Color 1 palette (hue, saturation, lightness) */
-    --color-1-0: var(--base-1), 0%;
-    --color-1-10: var(--base-1), 10%;
-    --color-1-20: var(--base-1), 20%;
-    --color-1-30: var(--base-1), 30%;
-    --color-1-40: var(--base-1), 40%;
-    --color-1-50: var(--base-1), 50%;
-    --color-1-60: var(--base-1), 60%;
-    --color-1-70: var(--base-1), 70%;
-    --color-1-80: var(--base-1), 80%;
-    --color-1-90: var(--base-1), 90%;
-    --color-1-100: var(--base-1), 100%;
-
-    /* Color 2 palette (hue, saturation, lightness) */
-    --color-2-0: var(--base-2), 0%;
-    --color-2-10: var(--base-2), 10%;
-    --color-2-20: var(--base-2), 20%;
-    --color-2-30: var(--base-2), 30%;
-    --color-2-40: var(--base-2), 40%;
-    --color-2-50: var(--base-2), 50%;
-    --color-2-60: var(--base-2), 60%;
-    --color-2-70: var(--base-2), 70%;
-    --color-2-80: var(--base-2), 80%;
-    --color-2-90: var(--base-2), 90%;
-    --color-2-100: var(--base-2), 100%;
-
-    /* Color 3 palette (hue, saturation, lightness) */
-    --color-3-0: var(--base-3), 0%;
-    --color-3-10: var(--base-3), 10%;
-    --color-3-20: var(--base-3), 20%;
-    --color-3-30: var(--base-3), 30%;
-    --color-3-40: var(--base-3), 40%;
-    --color-3-50: var(--base-3), 50%;
-    --color-3-60: var(--base-3), 60%;
-    --color-3-70: var(--base-3), 70%;
-    --color-3-80: var(--base-3), 80%;
-    --color-3-90: var(--base-3), 90%;
-    --color-3-100: var(--base-3), 100%;
-
-    /* Color 4 palette (hue, saturation, lightness) */
-    --color-4-0: var(--base-4), 0%;
-    --color-4-10: var(--base-4), 10%;
-    --color-4-20: var(--base-4), 20%;
-    --color-4-30: var(--base-4), 30%;
-    --color-4-40: var(--base-4), 40%;
-    --color-4-50: var(--base-4), 50%;
-    --color-4-60: var(--base-4), 60%;
-    --color-4-70: var(--base-4), 70%;
-    --color-4-80: var(--base-4), 80%;
-    --color-4-90: var(--base-4), 90%;
-    --color-4-100: var(--base-4), 100%;
+    --color-1: 0, 0%;
+    --color-2: 254, 80%;
+    --color-3: 0, 0%;
+    --color-4: 0, 60%;
 
     /* Background colors */
-    --color-background-muted: hsla(var(--color-1-40), 1);
-    --color-background: hsla(var(--color-1-50), 1);
-    --color-background-highlight: hsla(var(--color-1-60), 1);
+    --color-background-muted: hsla(var(--color-1), 9%, 1);
+    --color-background: hsla(var(--color-1), 12%, 1);
+    --color-background-highlight: hsla(var(--color-1), 15%, 1);
 
     /* Line colors */
-    --color-line-muted: hsla(var(--color-3-50), 0.2);
-    --color-line: hsla(var(--color-3-50), 1);
-    --color-line-highlight: hsla(var(--color-2-50), 1);
+    --color-line-muted: hsla(var(--color-3), 50%, 0.2);
+    --color-line: hsla(var(--color-3), 50%, 1);
+    --color-line-highlight: hsla(var(--color-2), 72%, 1);
 
     /* Text sizes */
     --text-size-px-small: 20;
@@ -78,13 +26,13 @@
     --text-size-big: calc(var(--text-size-px-big) / 16 * 1rem);
 
     /* Text colors */
-    --color-text-faint: hsla(var(--color-3-50), 0.7);
-    --color-text-muted: hsla(var(--color-3-50), 0.9);
-    --color-text: hsla(var(--color-3-50), 1);
-    --color-text-highlight: hsla(var(--color-2-50), 1);
+    --color-text-faint: hsla(var(--color-3), 50%, 0.7);
+    --color-text-muted: hsla(var(--color-3), 50%, 0.9);
+    --color-text: hsla(var(--color-3), 50%, 1);
+    --color-text-highlight: hsla(var(--color-2), 73%, 1);
 
     /* Error */
-    --color-error: hsla(var(--color-4-50), 1);
+    --color-error: hsla(var(--color-4), 50%, 1);
 
     --radius: 0.2em;
 
