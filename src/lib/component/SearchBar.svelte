@@ -107,6 +107,7 @@
         };
         document.addEventListener('click', outsideClickListener);
     }
+    
 </script>
 
 <form
@@ -123,7 +124,7 @@
         on:input={(e) => onInput(e)}
         on:focus={(e) => onInput(e)}
     />
-    <div id="suggestions" class={showSuggestions ? '' : 'hidden'}>
+    <div id="suggestions" class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
             {#each suggestions as s, id}
                 <li
