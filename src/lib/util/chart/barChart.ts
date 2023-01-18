@@ -3,40 +3,53 @@ import { formatNumberWithKiloMega } from '../util';
 import type { ChartDefaults } from './ChartDefaults';
 import { barChartDefaults } from './ChartDefaults';
 import type { ActiveElement, ChartData, ChartEvent } from 'chart.js/dist/types';
-import type AnyObject from 'svelte-navigator/types/AnyObject';
 import type { NavigateFn } from 'svelte-navigator';
 
-let navigate: NavigateFn<AnyObject>;
+let navigate: NavigateFn;
+let highlighted = false;
+let targetEl: HTMLCanvasElement;
+let chart: Chart;
+const defaults: ChartDefaults = barChartDefaults();
+
+function removeHighlighting() {
+    if (!highlighted) return;
+    chart.config.options.scales.x.ticks.color = defaults.fontColor;
+    targetEl.style.cursor = 'default';
+    chart.update();
+    highlighted = false;
+}
+
+const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
+    if (elements.length === 0) {
+        removeHighlighting();
+        return;
+    }
+    if (highlighted) {
+        return;
+    }
+    targetEl.style.cursor = 'pointer';
+    const numBars = chart.data.datasets[0].data.length;
+    const colors: string[] = new Array<string>(numBars);
+    colors.fill(defaults.fontColor);
+    const index = elements[0].index;
+    colors[index] = defaults.fontColorHighlight;
+    chart.config.options.scales.x.ticks.color = colors;
+    chart.update();
+    highlighted = true;
+};
 
 export default function barChart(
     json: object,
-    targetEl: HTMLCanvasElement,
-    navigationFunc: NavigateFn<AnyObject>
+    targetCanvas: HTMLCanvasElement,
+    navigationFunc: NavigateFn
 ): Chart {
     navigate = navigationFunc;
-    const defaults: ChartDefaults = barChartDefaults();
-    let highlighted = false;
+    targetEl = targetCanvas;
 
-    const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        if (elements.length === 0) {
-            if (!highlighted) return;
-            chart.config.options.scales.x.ticks.color = defaults.fontColor;
-            targetEl.style.cursor = 'default';
-            chart.update();
-            highlighted = false;
-            return;
-        }
-        if (highlighted) return;
-        targetEl.style.cursor = 'pointer';
-        const numBars = chart.data.datasets[0].data.length;
-        const colors: string[] = new Array<string>(numBars);
-        colors.fill(defaults.fontColor);
-        const index = elements[0].index;
-        colors[index] = defaults.fontColorHighlight;
-        chart.config.options.scales.x.ticks.color = colors;
-        chart.update();
-        highlighted = true;
-    };
+    // TODO Remove listener
+    targetEl.addEventListener('mouseleave', (ev: MouseEvent) => {
+        removeHighlighting();
+    });
 
     const labels: string[] = [];
     const data = [];
@@ -66,12 +79,17 @@ export default function barChart(
         datasets: datasets
     };
 
-    return new Chart(targetEl, {
+    chart = new Chart(targetEl, {
         type: 'bar',
         data: barChartData,
         options: {
+            hover: {
+                //mode: 'index',
+                //intersect: true
+            },
             onHover: onHover,
             onClick: handleClickOnChart,
+            events: ['mousemove', 'mouseenter', 'mouseout', 'click', 'touchstart', 'touchmove'],
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -120,6 +138,8 @@ export default function barChart(
             }
         }
     });
+
+    return chart;
 }
 
 const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
