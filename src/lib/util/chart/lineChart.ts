@@ -47,7 +47,8 @@ export default function lineChart(json: object, targetEl: HTMLCanvasElement): Ch
     };
 
     const unit = getTimeUnitForDataAmount(chartData.datasets[0].data.length);
-    const bounds = chartData.datasets[0].data.length == 1 ? 'ticks' : 'data';
+    const bounds = chartData.datasets[0].data.length === 1 ? 'ticks' : 'data';
+    const source = chartData.datasets[0].data.length === 2 ? 'labels' : 'auto';
 
     return new Chart(targetEl, {
         type: 'line',
@@ -64,6 +65,7 @@ export default function lineChart(json: object, targetEl: HTMLCanvasElement): Ch
                         display: false
                     },
                     ticks: {
+                        source: source,
                         font: {
                             size: defaults.fontSize
                         },
