@@ -9,7 +9,7 @@
     let suggestions: string[] = [];
     let activeSuggestion: number;
     let showSuggestions: boolean = false;
-    $: showSuggestions ? hideOnClickOutside(document.getElementById('search-form').parentElement) : null;
+    $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
     resetSuggestions();
 
     function resetSuggestions() {
@@ -100,21 +100,13 @@
 
     function hideOnClickOutside(element) {
         const outsideClickListener = (event) => {
-            if (!element.contains(event.target) && isVisible(element)) {
+            if (element.id !== event.target.id) {
                 resetSuggestions();
-                removeClickListener();
+                document.removeEventListener('click', outsideClickListener);
             }
         };
-
-        const removeClickListener = () => {
-            document.removeEventListener('click', outsideClickListener);
-        };
-
         document.addEventListener('click', outsideClickListener);
     }
-
-    const isVisible = (elem) =>
-        !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
 </script>
 
 <form
