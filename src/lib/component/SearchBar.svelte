@@ -173,7 +173,7 @@
         list-style-type: none;
         margin: 0;
         border: 1px inset var(--color-line);
-        border-radius: var(--radius);
+        border-radius: var(--border-radius);
         overflow: hidden;
     }
 
