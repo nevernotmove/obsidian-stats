@@ -111,7 +111,7 @@
 
     span:hover,
     span:focus {
-        filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        filter: brightness(150%) contrast(110%);
     }
 
     svg {
