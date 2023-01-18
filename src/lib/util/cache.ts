@@ -1,5 +1,7 @@
 import { get, writable } from 'svelte/store';
 
+const base: string = import.meta.env.BASE_URL;
+const basepath = base.endsWith('/') ? base.substring(0, base.length - 1) : base;
 const data = writable<Map<string, object>>(new Map<string, object>());
 
 const read = (path: string): object => {
@@ -10,7 +12,7 @@ const write = (path: string, newEntry: object) => {
 };
 
 export async function getData(path: string, callback: (data: object) => void): Promise<void> {
-    const absolutePath = `${import.meta.env.BASE_URL}/${path}`;
+    const absolutePath = `${basepath}/${path}`;
     const val = read(absolutePath);
     if (val === undefined) {
         await fetch(absolutePath, {

@@ -3,9 +3,17 @@ import { formatNumberWithKiloMega } from '../util';
 import type { ChartDefaults } from './ChartDefaults';
 import { barChartDefaults } from './ChartDefaults';
 import type { ActiveElement, ChartData, ChartEvent } from 'chart.js/dist/types';
-import { navigate } from 'svelte-navigator';
+import type AnyObject from 'svelte-navigator/types/AnyObject';
+import type { NavigateFn } from 'svelte-navigator';
 
-export default function barChart(json: object, targetEl: HTMLCanvasElement): Chart {
+let navigate: NavigateFn<AnyObject>;
+
+export default function barChart(
+    json: object,
+    targetEl: HTMLCanvasElement,
+    navigationFunc: NavigateFn<AnyObject>
+): Chart {
+    navigate = navigationFunc;
     const defaults: ChartDefaults = barChartDefaults();
     let highlighted = false;
 
@@ -118,5 +126,5 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
     if (elements.length === 0) return;
     const index = elements[0].index;
     const label = chart.data.labels[index];
-    navigate('/plugin-stats/plugin/' + label);
+    navigate('/plugin/' + label);
 };

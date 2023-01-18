@@ -1,18 +1,23 @@
 <script lang="ts">
-    import { Link, navigate, Route, Router } from 'svelte-navigator';
+    import { Route, Router } from 'svelte-navigator';
     import Header from './Header.svelte';
     import Start from './Start.svelte';
     import TopDownloads from './TopDownloads.svelte';
     import PluginDownloads from './PluginDownloads.svelte';
     import PageNotFound from './PageNotFound.svelte';
 
-    if (window.location.href.endsWith('/plugin-stats')) {
-        navigate('/plugin-stats/');
+    const basepath = import.meta.env.BASE_URL;
+    
+    /*
+    if (window.location.href.endsWith(basepath)) {
+        navigate(basepath + '/');
     }
+    */
+    
 </script>
 
 <!--TODO Might want to remove primary=false and take care-->
-<Router primary={false} basepath="/plugin-stats">
+<Router primary={false} basepath={basepath}>
     <Header />
     <main>
         <Route path="top">

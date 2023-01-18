@@ -1,8 +1,13 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  base: '/plugin-stats', // Base URL of website
-  plugins: [svelte()],
-})
+export default ({ command }) => {
+    console.log('command is ', command);
+    let basepath = '/';
+    if (command === 'build') basepath = '/plugin-stats';
+
+    return defineConfig({
+        base: basepath, // Base URL of website
+        plugins: [svelte()]
+    });
+};
