@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
     export let onSearch: (searchText: string) => void;
     export let options: object;
     export let searchText: string = '';
@@ -107,29 +107,31 @@
         };
         document.addEventListener('click', outsideClickListener);
     }
-    
+
 </script>
 
 <form
-    id="search-form"
+    id='search-form'
     on:submit|preventDefault={onSubmit}
     on:keydown={(e) => onKeyDown(e)}
-    autocomplete="off"
+    autocomplete='off'
+    autocapitalize='off'
+    spellcheck='false'
 >
     <input
-        id="searchbar"
+        id='searchbar'
         {placeholder}
         bind:value={searchText}
         class:error
         on:input={(e) => onInput(e)}
         on:focus={(e) => onInput(e)}
     />
-    <div id="suggestions" class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
+    <div id='suggestions' class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
             {#each suggestions as s, id}
                 <li
                     {id}
-                    tabindex="-1"
+                    tabindex='-1'
                     on:click={(e) => onSelect(e)}
                     class={activeSuggestion === id ? 'selected' : ''}
                 >
