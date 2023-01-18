@@ -12,13 +12,6 @@
         getData('total-downloads.json', (data: object) => {
             if (data) allPlugins = data;
         });
-        // const lastSegment = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-        // let pluginName = 'chord-lyrics';
-        // if (lastSegment !== 'plugin') {
-        //     pluginName = lastSegment;
-        //     searchText = pluginName;
-        // }
-        // loadData(pluginName);
     });
 </script>
 
