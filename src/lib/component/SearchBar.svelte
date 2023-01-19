@@ -83,32 +83,25 @@
         return true;
     }
 
-    function highlightMatchingLetters(node: Node): void {
-        const originalText: string = node.textContent;
-        const text = originalText.toLowerCase();
-        const search = searchText.toLowerCase();
-        const container = document.createElement('span');
+    function highlightMatchingLetters(originalText: string): string {
+        const text: string = originalText.toLowerCase();
+        const search: string = searchText.toLowerCase();
+        const mainTag: string = '<span>';
+        let result: string = '' + mainTag;
         console.log(search, '@', text);
         textLoop: for (let t = 0; t < text.length; t++) {
             const textChar = text.charCodeAt(t);
             for (let s = 0; s < search.length; s++) {
                 let searchChar = search.charCodeAt(s);
                 if (textChar === searchChar) {
-                    const char = document.createTextNode(String.fromCharCode(textChar));
-                    const mark = document.createElement('span');
-                    //mark.className = 'match';
-                    mark.classList.add('match')
-                    mark.appendChild(char);
-                    container.appendChild(mark);
+                    result += `<span class="match">${originalText.charAt(t)}</span>`;
                     continue textLoop;
                 }
             }
-            const char = document.createTextNode(String.fromCharCode(textChar));
-            container.appendChild(char);
+            result += originalText.charAt(t);
         }
-        //node.textContent = '';
-        node.replaceChild(container, node.firstChild)
-        node.appendChild(container);
+        result += mainTag;
+        return result.toString();
     }
 
     function onSelect(e) {
@@ -175,9 +168,8 @@
                     tabindex='-1'
                     on:click={(e) => onSelect(e)}
                     class={activeSuggestion === id ? 'selected' : ''}
-                    use:highlightMatchingLetters
                 >
-                    {s}
+                    {@html highlightMatchingLetters(s)}
                 </li>
             {/each}
         </ul>
