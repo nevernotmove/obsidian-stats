@@ -1,4 +1,7 @@
 <script lang='ts'>
+    import { fuzzySearch, isTouchDevice } from '../util/util';
+    import { highlightMatchingLetters } from '../util/util.js';
+
     export let onSearch: (searchText: string) => void;
     export let options: object;
     export let searchText: string = '';
@@ -12,12 +15,6 @@
     let showSuggestions: boolean = false;
     $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
     resetSuggestions();
-
-    function isTouchDevice() {
-        return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-    }
 
     function resetSuggestions() {
         // suggestions = [];
@@ -57,52 +54,15 @@
         }
         const numOptions = maxSuggestions <= newSuggestions.length ? maxSuggestions : newSuggestions.length;
         suggestions = newSuggestions.slice(0, numOptions); // TODO Select best matches
-        console.log(suggestions);
         showSuggestions = true;
     }
 
-    function fuzzySearch(search: string, text: string): boolean {
-        search = search.toLowerCase();
-        text = text.toLowerCase();
-        const searchLen = search.length;
-        const textLen = text.length;
-        if (searchLen > textLen) return false;
-        if (searchLen === textLen) return search === text;
-        nextChar: for (let s = 0, t = 0; s < searchLen; s++) {
-            let searchChar = search.charCodeAt(s);
-            while (t < textLen) {
-                if (text.charCodeAt(t++) === searchChar) {
-                    continue nextChar;
-                }
-            }
-            return false;
+    function onSelectionClicked(e) {
+        let el: HTMLElement = e.target;
+        while (el.tagName.toLowerCase() !== 'li') {
+            el = el.parentElement;
         }
-        return true;
-    }
-
-    function highlightMatchingLetters(originalText: string): string {
-        const text: string = originalText.toLowerCase();
-        const search: string = searchText.toLowerCase();
-        const mainTag: string = '<span>';
-        let result: string = '' + mainTag;
-        textLoop: for (let t = 0; t < text.length; t++) {
-            const textChar = text.charCodeAt(t);
-            for (let s = 0; s < search.length; s++) {
-                let searchChar = search.charCodeAt(s);
-                if (textChar === searchChar) {
-                    result += `<span class="match">${originalText.charAt(t)}</span>`;
-                    continue textLoop;
-                }
-            }
-            result += originalText.charAt(t);
-        }
-        result += mainTag;
-        return result.toString();
-    }
-
-    function onSelect(e) {
-        const id = e.target.id;
-        searchText = suggestions[id];
+        searchText = suggestions[el.id];
         onSubmit();
     }
 
@@ -157,14 +117,14 @@
     />
     <div id='suggestions' class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
-            {#each suggestions as s, id (s)}
+            {#each suggestions as suggestion, index}
                 <li
-                    {id}
+                    id={index}
                     tabindex='-1'
-                    on:click={(e) => onSelect(e)}
-                    class={activeSuggestion === id ? 'selected' : ''}
+                    on:click={(e) => onSelectionClicked(e)}
+                    class={activeSuggestion === index ? 'selected' : ''}
                 >
-                    {@html highlightMatchingLetters(s)}
+                    {@html highlightMatchingLetters(suggestion, searchText)}
                 </li>
             {/each}
         </ul>
