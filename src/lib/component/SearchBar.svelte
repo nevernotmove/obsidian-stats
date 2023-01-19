@@ -55,7 +55,9 @@
                 newSuggestions.push(option);
             }
         }
-        suggestions = newSuggestions;
+        const numOptions = maxSuggestions <= newSuggestions.length ? maxSuggestions : newSuggestions.length;
+        suggestions = newSuggestions.slice(0, numOptions); // TODO Select best matches
+        console.log(suggestions);
         showSuggestions = true;
     }
 
