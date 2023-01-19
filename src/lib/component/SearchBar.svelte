@@ -56,7 +56,6 @@
                 //if (newSuggestions.length >= maxSuggestions) break;
             }
         }
-        console.log('Updating suggestions');
         suggestions = newSuggestions;
         showSuggestions = true;
     }
@@ -88,7 +87,6 @@
         const search: string = searchText.toLowerCase();
         const mainTag: string = '<span>';
         let result: string = '' + mainTag;
-        console.log(search, '@', text);
         textLoop: for (let t = 0; t < text.length; t++) {
             const textChar = text.charCodeAt(t);
             for (let s = 0; s < search.length; s++) {
