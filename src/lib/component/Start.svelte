@@ -69,14 +69,4 @@
         margin-top: 0.52rem;
         font-size: 0.8em;
     }
-
-    @media (max-width: 600px) {
-        #slogan {
-            font-size: 0.8em;
-        }
-
-        #top {
-            font-size: 0.6em;
-        }
-    }
 </style>
