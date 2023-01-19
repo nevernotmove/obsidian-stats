@@ -12,7 +12,7 @@ function getTimeUnitForDataAmount(dataPoints: number) {
     return unit;
 }
 
-export default function lineChart(json: object, targetEl: HTMLCanvasElement): Chart {
+export function lineChart(json: object, targetEl: HTMLCanvasElement): Chart {
     const defaults: ChartDefaults = lineChartDefaults();
 
     const labels = [];

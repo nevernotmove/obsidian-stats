@@ -38,11 +38,7 @@ const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => 
     highlighted = true;
 };
 
-export default function barChart(
-    json: object,
-    targetCanvas: HTMLCanvasElement,
-    navigationFunc: NavigateFn
-): Chart {
+export function barChart(json: object, targetCanvas: HTMLCanvasElement, navigationFunc: NavigateFn): Chart {
     navigate = navigationFunc;
     targetEl = targetCanvas;
 

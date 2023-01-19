@@ -4,7 +4,7 @@
     import { randomId } from '../util/util';
     import Nav from './Nav.svelte';
     import { Chart } from 'chart.js';
-    import barChart from '../util/chart/barChart';
+    import { barChart } from '../util/chart/barChart';
     import { useNavigate } from 'svelte-navigator';
 
     const id = randomId();

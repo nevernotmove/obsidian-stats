@@ -4,7 +4,7 @@
     import { randomId } from '../util/util';
     import { getData } from '../util/cache';
     import Nav from './Nav.svelte';
-    import lineChart from '../util/chart/lineChart';
+    import { lineChart } from '../util/chart/lineChart';
 
     const id = randomId();
     let pluginData: object;
