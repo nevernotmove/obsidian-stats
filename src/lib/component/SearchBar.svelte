@@ -112,7 +112,7 @@
 
     function onKeyDown(e) {
         if (e.key === 'ArrowDown' || e.key === 'Down') {
-            if (activeSuggestion < maxSuggestions - 1) activeSuggestion++;
+            if (activeSuggestion < suggestions.length - 1) activeSuggestion++;
         } else if (e.key === 'ArrowUp' || e.key === 'Up') {
             if (activeSuggestion > 0) {
                 activeSuggestion--;
