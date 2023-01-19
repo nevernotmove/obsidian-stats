@@ -161,8 +161,7 @@
     />
     <div id='suggestions' class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
-            <!-- TODO This ID is bad, just here so highlightMatchingLetters is called on every change for now -->
-            {#each suggestions as s, id (String(Math.floor(Math.random() * 10000000)))}
+            {#each suggestions as s, id (s)}
                 <li
                     {id}
                     tabindex='-1'
