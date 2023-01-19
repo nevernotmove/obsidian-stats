@@ -53,9 +53,10 @@
         for (const option: string of Object.keys(options)) {
             if (fuzzySearch(searchText, option)) {
                 newSuggestions.push(option);
-                if (newSuggestions.length >= maxSuggestions) break;
+                //if (newSuggestions.length >= maxSuggestions) break;
             }
         }
+        console.log('Updating suggestions');
         suggestions = newSuggestions;
         showSuggestions = true;
     }
@@ -68,15 +69,46 @@
         if (searchLen > textLen) return false;
         if (searchLen === textLen) return search === text;
         nextChar: for (let s = 0, t = 0; s < searchLen; s++) {
-            let searchChart = search.charCodeAt(s);
+            let searchChar = search.charCodeAt(s);
             while (t < textLen) {
-                if (text.charCodeAt(t++) === searchChart) {
+                if (text === 'chord-lyrics') {
+                    //console.log('Comparing search char', String.fromCharCode(searchChar), 'with option char', String.fromCharCode(text.charCodeAt(t)));
+                }
+                if (text.charCodeAt(t++) === searchChar) {
                     continue nextChar;
                 }
             }
             return false;
         }
         return true;
+    }
+
+    function highlightMatchingLetters(node: Node): void {
+        const originalText: string = node.textContent;
+        const text = originalText.toLowerCase();
+        const search = searchText.toLowerCase();
+        const container = document.createElement('span');
+        console.log(search, '@', text);
+        textLoop: for (let t = 0; t < text.length; t++) {
+            const textChar = text.charCodeAt(t);
+            for (let s = 0; s < search.length; s++) {
+                let searchChar = search.charCodeAt(s);
+                if (textChar === searchChar) {
+                    const char = document.createTextNode(String.fromCharCode(textChar));
+                    const mark = document.createElement('span');
+                    //mark.className = 'match';
+                    mark.classList.add('match')
+                    mark.appendChild(char);
+                    container.appendChild(mark);
+                    continue textLoop;
+                }
+            }
+            const char = document.createTextNode(String.fromCharCode(textChar));
+            container.appendChild(char);
+        }
+        //node.textContent = '';
+        node.replaceChild(container, node.firstChild)
+        node.appendChild(container);
     }
 
     function onSelect(e) {
@@ -136,12 +168,14 @@
     />
     <div id='suggestions' class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
-            {#each suggestions as s, id}
+            <!-- TODO This ID is bad, just here so highlightMatchingLetters is called on every change for now -->
+            {#each suggestions as s, id (String(Math.floor(Math.random() * 10000000)))}
                 <li
                     {id}
                     tabindex='-1'
                     on:click={(e) => onSelect(e)}
                     class={activeSuggestion === id ? 'selected' : ''}
+                    use:highlightMatchingLetters
                 >
                     {s}
                 </li>
@@ -196,6 +230,11 @@
     li:hover,
     .selected {
         background-color: var(--input-bg-color-select);
+        color: var(--color-text-highlight);
+    }
+    
+    /* TODO Must be global or it will get thrown out, as it's only used in script segment. Is there a better way? */
+    :global(.match) {
         color: var(--color-text-highlight);
     }
 </style>
