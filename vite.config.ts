@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default ({ command }) => {
-    console.log('command is ', command);
     let basepath = '/';
     if (command === 'build') basepath = '/plugin-stats';
 

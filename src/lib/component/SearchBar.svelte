@@ -53,7 +53,6 @@
         for (const option: string of Object.keys(options)) {
             if (fuzzySearch(searchText, option)) {
                 newSuggestions.push(option);
-                //if (newSuggestions.length >= maxSuggestions) break;
             }
         }
         suggestions = newSuggestions;
@@ -70,9 +69,6 @@
         nextChar: for (let s = 0, t = 0; s < searchLen; s++) {
             let searchChar = search.charCodeAt(s);
             while (t < textLen) {
-                if (text === 'chord-lyrics') {
-                    //console.log('Comparing search char', String.fromCharCode(searchChar), 'with option char', String.fromCharCode(text.charCodeAt(t)));
-                }
                 if (text.charCodeAt(t++) === searchChar) {
                     continue nextChar;
                 }
