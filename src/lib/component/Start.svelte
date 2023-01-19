@@ -60,11 +60,13 @@
     }
 
     #slogan {
+        text-align: center;
         color: var(--color-text-muted);
         margin-bottom: 0.8rem;
     }
 
     #top {
+        text-align: center;
         color: var(--color-text-muted);
         margin-top: 0.52rem;
         font-size: 0.8em;
