@@ -31,6 +31,7 @@
         display: flex;
         flex-direction: row;
         height: 4rem;
+        min-height: 4rem;
         padding: 1rem;
 
         justify-content: space-between;
