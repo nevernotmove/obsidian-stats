@@ -1,0 +1,10 @@
+:root {
+    --font-size-px: 15;
+    
+    font-size: calc(var(--font-size-px) * 1px + 0.490625dvw);
+    font-weight: lighter;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

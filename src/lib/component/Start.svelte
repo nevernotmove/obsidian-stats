@@ -41,7 +41,7 @@
     }
 
     section {
-        font-size: var(--text-size-small);
+        font-size: 1.3em;
         width: 100%;
         height: 100%;
         max-width: 30rem;

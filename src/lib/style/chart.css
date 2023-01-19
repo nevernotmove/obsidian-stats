@@ -1,7 +1,7 @@
 :root {
     /* General */
     --chart-line-width: 1;
-    --chart-font-size: var(--text-size-px-small);
+    --chart-font-size: var(--font-size-px);
     --chart-font-color: var(--color-text-faint);
     --chart-font-color-highlight: var(--color-text-highlight);
     --chart-line-color: var(--color-line-highlight);
