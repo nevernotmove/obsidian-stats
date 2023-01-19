@@ -5,12 +5,19 @@
     export let error: boolean = false;
     export let maxSuggestions: number = 3;
     export let placeholder: string = '';
+    export let isTouch = isTouchDevice();
 
     let suggestions: string[] = [];
     let activeSuggestion: number;
     let showSuggestions: boolean = false;
     $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
     resetSuggestions();
+
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+    }
 
     function resetSuggestions() {
         // suggestions = [];
@@ -123,6 +130,7 @@
         {placeholder}
         bind:value={searchText}
         class:error
+        autofocus={isTouch ? '' : 'autofocus'}
         on:input={(e) => onInput(e)}
         on:focus={(e) => onInput(e)}
     />
