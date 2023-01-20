@@ -23,9 +23,8 @@
         showSuggestions = false;
     }
 
-    function onSubmit() {
-        console.log('onSubmit');
-        let search = searchText.trim().toLowerCase();
+    function onSubmit(searchString: string) {
+        let search = searchString.trim().toLowerCase();
         if (search === '') return;
         let optionExists = false;
         for (const option of Object.keys(options)) {
@@ -77,9 +76,7 @@
         while (el.tagName.toLowerCase() !== 'li') { // TODO Check for a class instead, more resilient to change
             el = el.parentElement;
         }
-        searchText = suggestions[el.id];
-        console.log('Submitting from click');
-        onSubmit();
+        onSubmit(suggestions[el.id]);
     }
 
     function goToNextSuggestions() {
@@ -101,11 +98,8 @@
         else if (isUp(key)) goToPreviousSuggestion();
         else if (isEsc(key)) resetSuggestions();
         else if (isEnter(key)) {
-            if (keyboardSelectionIndex >= 0) {
-                searchText = suggestions[keyboardSelectionIndex];
-            }
-            console.log('Submitting from keyboard func');
-            onSubmit();
+            const search = keyboardSelectionIndex >= 0 ? suggestions[keyboardSelectionIndex] : searchText;
+            onSubmit(search);
         }
         updateSuggestions();
     }
