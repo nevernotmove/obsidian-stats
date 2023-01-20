@@ -46,10 +46,10 @@
         updateSuggestions();
     }
 
-    function findNewSuggestions(): string[] {
+    function findNewSuggestions(search: string): string[] {
         const newSuggestions: string[] = [];
         for (const option: string of Object.keys(options)) {
-            if (fuzzySearch(searchText, option)) {
+            if (fuzzySearch(search, option)) {
                 newSuggestions.push(option);
             }
         }
@@ -61,7 +61,7 @@
             showSuggestions = false;
             return;
         }
-        const newSuggestions = findNewSuggestions();
+        const newSuggestions = findNewSuggestions(searchText);
         suggestions = getSuggestionsToShow(newSuggestions);
         showSuggestions = true;
     }
