@@ -79,11 +79,11 @@
         onSubmit(suggestions[el.id]);
     }
 
-    function goToNextSuggestions() {
+    function nextSuggestion() {
         if (keyboardSelectionIndex < suggestions.length - 1) keyboardSelectionIndex++;
     }
 
-    function goToPreviousSuggestion() {
+    function previousSuggestion() {
         if (keyboardSelectionIndex > 0) {
             keyboardSelectionIndex--;
         } else {
@@ -92,16 +92,17 @@
         }
     }
 
+    function submitSuggestion() {
+        const search = keyboardSelectionIndex >= 0 ? suggestions[keyboardSelectionIndex] : searchText;
+        onSubmit(search);
+    }
+
     function onKeyDown(e) {
         const key = e.key;
-        if (isDown(key)) goToNextSuggestions();
-        else if (isUp(key)) goToPreviousSuggestion();
+        if (isDown(key)) nextSuggestion();
+        else if (isUp(key)) previousSuggestion();
         else if (isEsc(key)) resetSuggestions();
-        else if (isEnter(key)) {
-            const search = keyboardSelectionIndex >= 0 ? suggestions[keyboardSelectionIndex] : searchText;
-            onSubmit(search);
-        }
-        updateSuggestions();
+        else if (isEnter(key)) submitSuggestion();
     }
 
     function hideOnClickOutside(element) {
