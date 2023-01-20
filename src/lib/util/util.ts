@@ -12,6 +12,22 @@ export function isTouchDevice() {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 }
 
+export function isDown(key): boolean {
+    return key === 'ArrowDown' || key === 'Down';
+}
+
+export function isUp(key): boolean {
+    return key === 'ArrowUp' || key === 'Up';
+}
+
+export function isEsc(key): boolean {
+    return key === 'Escape';
+}
+
+export function isEnter(key): boolean {
+    return key === 'Enter';
+}
+
 export function fuzzySearch(search: string, text: string): boolean {
     search = search.toLowerCase();
     text = text.toLowerCase();

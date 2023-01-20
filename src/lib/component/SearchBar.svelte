@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { fuzzySearch, isTouchDevice } from '../util/util';
+    import { fuzzySearch, isDown, isEnter, isEsc, isTouchDevice, isUp } from '../util/util';
     import { highlightMatchingLetters } from '../util/util.js';
 
     export let onSearch: (searchText: string) => void;
@@ -11,14 +11,15 @@
     export let isTouch = isTouchDevice();
 
     let suggestions: string[] = [];
-    let activeSuggestion: number;
+    let keyboardSelectionIndex: number;
     let showSuggestions: boolean = false;
+    
     $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
+    
     resetSuggestions();
 
     function resetSuggestions() {
-        // suggestions = [];
-        activeSuggestion = -1;
+        keyboardSelectionIndex = -1;
         showSuggestions = false;
     }
 
@@ -42,47 +43,66 @@
 
     function onInput() {
         error = false;
-        if (searchText === '') {
-            showSuggestions = false;
-            return;
-        }
+        updateSuggestions();
+    }
+
+    function findNewSuggestions(): string[] {
         const newSuggestions: string[] = [];
         for (const option: string of Object.keys(options)) {
             if (fuzzySearch(searchText, option)) {
                 newSuggestions.push(option);
             }
         }
-        const numOptions = maxSuggestions <= newSuggestions.length ? maxSuggestions : newSuggestions.length;
-        suggestions = newSuggestions.slice(0, numOptions); // TODO Select best matches
+        return newSuggestions;
+    }
+
+    function updateSuggestions() {
+        if (searchText === '') {
+            showSuggestions = false;
+            return;
+        }
+        const newSuggestions = findNewSuggestions();
+        suggestions = getSuggestionsToShow(newSuggestions);
         showSuggestions = true;
+    }
+
+    function getSuggestionsToShow(newSuggestions: string[]): string[] {
+        const numOptions = maxSuggestions <= newSuggestions.length ? maxSuggestions : newSuggestions.length;
+        return newSuggestions.slice(0, numOptions); // TODO Select best matches
     }
 
     function onSelectionClicked(e) {
         let el: HTMLElement = e.target;
-        while (el.tagName.toLowerCase() !== 'li') {
+        while (el.tagName.toLowerCase() !== 'li') { // TODO Check for a class instead, more resilient to change
             el = el.parentElement;
         }
         searchText = suggestions[el.id];
         onSubmit();
     }
 
+    function goToNextSuggestions() {
+        if (keyboardSelectionIndex < suggestions.length - 1) keyboardSelectionIndex++;
+    }
+
+    function goToPreviousSuggestion() {
+        if (keyboardSelectionIndex > 0) {
+            keyboardSelectionIndex--;
+        } else {
+            const searchBar = document.getElementById('searchbar') as HTMLElement;
+            searchBar.focus();
+        }
+    }
+
     function onKeyDown(e) {
-        if (e.key === 'ArrowDown' || e.key === 'Down') {
-            if (activeSuggestion < suggestions.length - 1) activeSuggestion++;
-        } else if (e.key === 'ArrowUp' || e.key === 'Up') {
-            if (activeSuggestion > 0) {
-                activeSuggestion--;
-            } else {
-                const searchBar = document.getElementById('searchbar') as HTMLElement;
-                searchBar.focus();
-            }
-        } else if (e.key === 'Enter') {
-            if (activeSuggestion >= 0) {
-                searchText = suggestions[activeSuggestion];
+        const key = e.key;
+        if (isDown(key)) goToNextSuggestions();
+        else if (isUp(key)) goToPreviousSuggestion();
+        else if (isEsc(key)) resetSuggestions();
+        else if (isEnter(key)) {
+            if (keyboardSelectionIndex >= 0) {
+                searchText = suggestions[keyboardSelectionIndex];
             }
             onSubmit();
-        } else if (e.key === 'Escape') {
-            resetSuggestions();
         }
     }
 
@@ -95,23 +115,22 @@
         };
         document.addEventListener('click', outsideClickListener);
     }
-
 </script>
 
 <form
     id='search-form'
-    on:submit|preventDefault={onSubmit}
-    on:keydown={(e) => onKeyDown(e)}
     autocomplete='off'
     autocapitalize='off'
     spellcheck='false'
+    on:submit|preventDefault={onSubmit}
+    on:keydown={(e) => onKeyDown(e)}
 >
     <input
         id='searchbar'
+        autofocus={isTouch ? '' : 'autofocus'}
         {placeholder}
         bind:value={searchText}
         class:error
-        autofocus={isTouch ? '' : 'autofocus'}
         on:input={(e) => onInput(e)}
         on:focus={(e) => onInput(e)}
     />
@@ -122,7 +141,7 @@
                     id={index}
                     tabindex='-1'
                     on:click={(e) => onSelectionClicked(e)}
-                    class={activeSuggestion === index ? 'selected' : ''}
+                    class={keyboardSelectionIndex === index ? 'selected' : ''}
                 >
                     {@html highlightMatchingLetters(suggestion, searchText)}
                 </li>
@@ -179,7 +198,7 @@
         background-color: var(--input-bg-color-select);
         color: var(--color-text-highlight);
     }
-    
+
     /* TODO Must be global or it will get thrown out, as it's only used in script segment. Is there a better way? */
     :global(.match) {
         color: var(--color-text-highlight);
