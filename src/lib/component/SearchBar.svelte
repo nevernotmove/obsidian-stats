@@ -83,26 +83,33 @@
         if (keyboardSelectionIndex < suggestions.length - 1) keyboardSelectionIndex++;
     }
 
+    function focusSearchBar() {
+        const searchBar = document.getElementById('searchbar') as HTMLElement;
+        searchBar.focus();
+    }
+
     function previousSuggestion() {
-        if (keyboardSelectionIndex > 0) {
-            keyboardSelectionIndex--;
-        } else {
-            const searchBar = document.getElementById('searchbar') as HTMLElement;
-            searchBar.focus();
-        }
+        console.log('prev start:', keyboardSelectionIndex);
+        if (keyboardSelectionIndex == 0) focusSearchBar();
+        keyboardSelectionIndex--;
+        keyboardSelectionIndex = Math.max(keyboardSelectionIndex, -1);
+        console.log('prev end:', keyboardSelectionIndex);
     }
 
     function submitSuggestion() {
+        console.log('submit:', keyboardSelectionIndex);
         const search = keyboardSelectionIndex >= 0 ? suggestions[keyboardSelectionIndex] : searchText;
         onSubmit(search);
     }
 
     function onKeyDown(e) {
         const key = e.key;
-        if (isDown(key)) nextSuggestion();
-        else if (isUp(key)) previousSuggestion();
-        else if (isEsc(key)) resetSuggestions();
-        else if (isEnter(key)) submitSuggestion();
+        if (showSuggestions) {
+            if (isDown(key)) nextSuggestion();
+            else if (isUp(key)) previousSuggestion();
+            else if (isEsc(key)) resetSuggestions();
+            else if (isEnter(key)) submitSuggestion();
+        } 
     }
 
     function hideOnClickOutside(element) {
