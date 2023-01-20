@@ -83,14 +83,14 @@
         if (keyboardSelectionIndex < suggestions.length - 1) keyboardSelectionIndex++;
     }
 
-    function focusSearchBar() {
+    function focusSearchBar(focus: boolean) {
         const searchBar = document.getElementById('searchbar') as HTMLElement;
-        searchBar.focus();
+        focus ? searchBar.focus() : searchBar.blur();
     }
 
     function previousSuggestion() {
         console.log('prev start:', keyboardSelectionIndex);
-        if (keyboardSelectionIndex == 0) focusSearchBar();
+        if (keyboardSelectionIndex == 0) focusSearchBar(true);
         keyboardSelectionIndex--;
         keyboardSelectionIndex = Math.max(keyboardSelectionIndex, -1);
         console.log('prev end:', keyboardSelectionIndex);
@@ -105,6 +105,7 @@
     function onKeyDown(e) {
         const key = e.key;
         if (showSuggestions) {
+            if (keyboardSelectionIndex >= 0) e.preventDefault();
             if (isDown(key)) nextSuggestion();
             else if (isUp(key)) previousSuggestion();
             else if (isEsc(key)) resetSuggestions();
