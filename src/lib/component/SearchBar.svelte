@@ -13,9 +13,9 @@
     let suggestions: string[] = [];
     let keyboardSelectionIndex: number;
     let showSuggestions: boolean = false;
-    
+
     $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
-    
+
     resetSuggestions();
 
     function resetSuggestions() {
@@ -24,24 +24,25 @@
     }
 
     function onSubmit() {
+        console.log('onSubmit');
         let search = searchText.trim().toLowerCase();
         if (search === '') return;
-        let pluginExists = false;
+        let optionExists = false;
         for (const option of Object.keys(options)) {
             if (option.toLowerCase() === search) {
-                pluginExists = true;
+                optionExists = true;
                 search = option;
                 break;
             }
         }
-        if (pluginExists) {
+        if (optionExists) {
             searchText = '';
             onSearch(search);
         } else error = true;
         resetSuggestions();
     }
 
-    function onInput() {
+    function onSearchInputChange() {
         error = false;
         updateSuggestions();
     }
@@ -77,6 +78,7 @@
             el = el.parentElement;
         }
         searchText = suggestions[el.id];
+        console.log('Submitting from click');
         onSubmit();
     }
 
@@ -102,8 +104,10 @@
             if (keyboardSelectionIndex >= 0) {
                 searchText = suggestions[keyboardSelectionIndex];
             }
+            console.log('Submitting from keyboard func');
             onSubmit();
         }
+        updateSuggestions();
     }
 
     function hideOnClickOutside(element) {
@@ -117,22 +121,19 @@
     }
 </script>
 
-<form
-    id='search-form'
-    autocomplete='off'
-    autocapitalize='off'
-    spellcheck='false'
-    on:submit|preventDefault={onSubmit}
-    on:keydown={(e) => onKeyDown(e)}
->
+<div id='container'>
     <input
         id='searchbar'
+        autocomplete='off'
+        autocapitalize='off'
+        spellcheck='false'
         autofocus={isTouch ? '' : 'autofocus'}
         {placeholder}
         bind:value={searchText}
         class:error
-        on:input={(e) => onInput(e)}
-        on:focus={(e) => onInput(e)}
+        on:keydown={(e) => onKeyDown(e)}
+        on:input={(e) => onSearchInputChange(e)}
+        on:focus={(e) => onSearchInputChange(e)}
     />
     <div id='suggestions' class={!showSuggestions || (showSuggestions && suggestions.length === 0) ? 'hidden' : ''}>
         <ul>
@@ -148,10 +149,10 @@
             {/each}
         </ul>
     </div>
-</form>
+</div>
 
 <style>
-    form {
+    #container {
         width: 100%;
     }
 
