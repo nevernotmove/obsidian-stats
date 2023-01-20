@@ -11,19 +11,19 @@
     export let isTouch = isTouchDevice();
 
     let suggestions: string[] = [];
-    let keyboardSelectionIndex: number;
+    let keyboardSelectionIndex: number = -1;
     let showSuggestions: boolean = false;
 
     $: showSuggestions ? hideOnClickOutside(document.getElementById('searchbar')) : null;
 
-    resetSuggestions();
-
     function resetSuggestions() {
         keyboardSelectionIndex = -1;
         showSuggestions = false;
+        showBlinkingCursor(true);
     }
 
     function onSubmit(searchString: string) {
+        focusSearchBar(true);
         let search = searchString.trim().toLowerCase();
         if (search === '') return;
         let optionExists = false;
@@ -84,33 +84,47 @@
     }
 
     function focusSearchBar(focus: boolean) {
-        const searchBar = document.getElementById('searchbar') as HTMLElement;
-        focus ? searchBar.focus() : searchBar.blur();
+        if (isTouch) return;
+        const searchBar = document.getElementById('searchbar') as HTMLInputElement;
+        if (focus) {
+            searchBar.focus();
+            // See https://stackoverflow.com/questions/511088/use-javascript-to-place-cursor-at-end-of-text-in-text-input-element
+            setTimeout(function() {
+                searchBar.selectionStart = searchBar.selectionEnd = 10000;
+                showBlinkingCursor(true);
+            }, 0); // Gets called when stack is empty
+        } else searchBar.blur();
     }
 
     function previousSuggestion() {
-        console.log('prev start:', keyboardSelectionIndex);
         if (keyboardSelectionIndex == 0) focusSearchBar(true);
         keyboardSelectionIndex--;
         keyboardSelectionIndex = Math.max(keyboardSelectionIndex, -1);
-        console.log('prev end:', keyboardSelectionIndex);
     }
 
     function submitSuggestion() {
-        console.log('submit:', keyboardSelectionIndex);
         const search = keyboardSelectionIndex >= 0 ? suggestions[keyboardSelectionIndex] : searchText;
         onSubmit(search);
+    }
+
+    function showBlinkingCursor(show: boolean) {
+        const searchBar = document.getElementById('searchbar') as HTMLInputElement;
+        if (show) searchBar.classList.remove('disable-cursor');
+        else searchBar.classList.add('disable-cursor');
     }
 
     function onKeyDown(e) {
         const key = e.key;
         if (showSuggestions) {
-            if (keyboardSelectionIndex >= 0) e.preventDefault();
             if (isDown(key)) nextSuggestion();
             else if (isUp(key)) previousSuggestion();
             else if (isEsc(key)) resetSuggestions();
             else if (isEnter(key)) submitSuggestion();
-        } 
+            if (keyboardSelectionIndex >= 0) {
+                showBlinkingCursor(false);
+                e.preventDefault();
+            }
+        }
     }
 
     function hideOnClickOutside(element) {
@@ -164,6 +178,11 @@
         width: 100%;
         padding: 0.6rem 1rem;
         font-size: 1.6rem;
+    }
+
+    /* TODO Must be global or it will get thrown out, as it's only used in script segment. Is there a better way? */
+    :global(.disable-cursor) {
+        caret-color: transparent;
     }
 
     .error {
