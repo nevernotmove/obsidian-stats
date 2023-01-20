@@ -10,4 +10,5 @@ input {
     border-radius: var(--border-radius);
     font-weight: lighter;
     outline: none;
+    line-height: initial;
 }
