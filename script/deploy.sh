@@ -9,9 +9,6 @@
 # Abort on errors
 set -e
 
-# Build
-npm run build
-
 # Navigate into the build output directory
 cd dist
 
