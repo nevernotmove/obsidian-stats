@@ -6,8 +6,6 @@
 # To unset it do this:
 # npm config delete script-shell
 
-TMP_DIR = tmp
-
 mkdir tmp
 cd tmp
 git clone https://github.com/obsidianmd/obsidian-releases.git
