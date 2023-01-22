@@ -8,10 +8,10 @@
     --color-prime-darkest: hsla(var(--base-color-prime), 9%, 1);
     --color-prime-darker: hsla(var(--base-color-prime), 12%, 1);
     --color-prime-dark: hsla(var(--base-color-prime), 15%, 1);
-    --color-prime-mid-gone: hsla(var(--base-color-prime), 50%, 0.2);
-    --color-prime-mid-faint: hsla(var(--base-color-prime), 50%, 0.7);
-    --color-prime-mid-less: hsla(var(--base-color-prime), 50%, 0.9);
-    --color-prime-mid: hsla(var(--base-color-prime), 50%, 1);
+    --color-prime-mid-gone: hsla(var(--base-color-prime), 80%, 0.2);
+    --color-prime-mid-faint: hsla(var(--base-color-prime), 80%, 0.7);
+    --color-prime-mid-less: hsla(var(--base-color-prime), 80%, 0.9);
+    --color-prime-mid: hsla(var(--base-color-prime), 80%, 1);
 
     /* Highlight color palette */
     --color-highlight: hsla(var(--base-color-highlight), 64%, 1);
