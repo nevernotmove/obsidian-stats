@@ -1,3 +1,5 @@
+![logo](doc/img/banner.svg)
+
 # Obsidian Stats
 Display Obsidian plugin statistics :chart_with_downwards_trend:.
 
