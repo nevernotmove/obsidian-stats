@@ -48,8 +48,8 @@ jobs:
         run: |
           echo "Crunch data into fitting format"
           cd ${{ github.workspace }}/deploy
-          git config --global user.name "github-action"
-          git config --global user.email "github-action@nevernotmove-no-reply.com"
+          git config --global user.name "nevernotmove-bot"
+          git config --global user.email "nevernotmove@gmail.com"
           echo "Deleting old data"
           rm -rf ./data
           echo "Adding new data"
