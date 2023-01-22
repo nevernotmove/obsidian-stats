@@ -12,13 +12,10 @@ set -e
 # Navigate into the build output directory
 cd dist
 
-# Place .nojekyll to bypass Jekyll processing
-echo > .nojekyll
-
 git init
 git checkout -B main
 git add -A
-git commit -m 'deploy'
+git commit -m 'Deploy all'
 
 git push -f git@github.com:nevernotmove/plugin-stats.git main:gh-pages
 

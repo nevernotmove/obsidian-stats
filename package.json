@@ -11,7 +11,7 @@
     "host": "vite --host",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "deploy-all": "npm run build && script/deploy-all.sh",
-    "deploy-code": "npm run build && script/deploy-all.sh",
+    "deploy-code": "npm run build && script/deploy-code.sh",
     "fetch-and-crunch": "script/fetch-and-crunch.sh"
   },
   "devDependencies": {
