@@ -20,6 +20,6 @@ git add -A
 git commit -m 'Deploy code'
 git status
 
-git push -f git@github.com:nevernotmove/plugin-stats.git main:gh-pages
+git push -f git@github.com:nevernotmove/obsidian-stats.git main:gh-pages
 
 cd -

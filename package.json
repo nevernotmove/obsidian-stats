@@ -1,12 +1,12 @@
 {
-  "name": "plugin-stats",
+  "name": "obsidian-stats",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --base=//plugin-stats",
+    "preview": "vite preview --base=//obsidian-stats",
     "build-then-preview": "npm run build && npm run preview",
     "host": "vite --host",
     "check": "svelte-check --tsconfig ./tsconfig.json",
