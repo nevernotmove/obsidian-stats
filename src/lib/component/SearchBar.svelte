@@ -141,6 +141,7 @@
 <div id='container'>
     <input
         id='searchbar'
+        aria-label="Search"
         autocomplete='off'
         autocapitalize='off'
         spellcheck='false'
