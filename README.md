@@ -10,5 +10,5 @@ https://nevernotmove.github.io/obsidian-stats/
 
 ## Known Limitations
 - Search atm only works with plugin IDs, not names or descriptions
-- There is no backend, only runs on GitHub pages
+- There is no backend, data is updated by a GitHub action
 - Lots of missing features that would be cool :star_struck:
