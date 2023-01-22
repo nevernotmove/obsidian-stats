@@ -2,7 +2,7 @@ name: scheduled-data-update
 run-name: Scheduled update of data
 on:
   schedule:
-    - cron:  '50 10 * * *'
+    - cron:  '15 0 * * *'
 jobs:
   update-data:
     runs-on: ubuntu-latest
