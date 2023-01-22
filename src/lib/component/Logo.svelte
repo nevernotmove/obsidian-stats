@@ -15,7 +15,7 @@
     onMount(() => (start = true));
 </script>
 
-<Link to='/'>
+<Link to='/' aria-label="Go to home page">
     <span>
         <svg viewBox='0 0 2160 2160'>
             {#if start && big}

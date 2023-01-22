@@ -14,7 +14,7 @@
             <Link to="/top">top</Link>
         </div>
     {/if}
-    <a href="https://github.com/nevernotmove/obsidian-stats" class={$location.pathname === '/' ? 'start' : ''}>
+    <a href="https://github.com/nevernotmove/obsidian-stats" class={$location.pathname === '/' ? 'start' : ''} aria-label="Go to GitHub repository">
         <svg viewBox="0 0 98 96">
             <path
                 fill-rule="evenodd"
