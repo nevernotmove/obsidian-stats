@@ -17,7 +17,7 @@ cp -R ../script/crunch/. .
 go mod tidy
 go mod vendor
 go run crunch.go
-cp total-downloads.json ../public/total-downloads.json
-cp -R ./plugins/. ../public/plugins
+cp total-downloads.json ../public/data/total-downloads.json
+cp -R ./plugins/. ../public/data/plugins
 cd ..
 rm -rf tmp 

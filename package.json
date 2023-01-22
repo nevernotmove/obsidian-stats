@@ -10,7 +10,8 @@
     "build-then-preview": "npm run build && npm run preview",
     "host": "vite --host",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "npm run build && script/deploy.sh",
+    "deploy-all": "npm run build && script/deploy-all.sh",
+    "deploy-code": "npm run build && script/deploy-all.sh",
     "fetch-and-crunch": "script/fetch-and-crunch.sh"
   },
   "devDependencies": {

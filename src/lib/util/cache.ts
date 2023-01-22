@@ -12,7 +12,7 @@ const write = (path: string, newEntry: object) => {
 };
 
 export async function getData(path: string, callback: (data: object) => void): Promise<void> {
-    const absolutePath = `${basepath}/${path}`;
+    const absolutePath = `${basepath}/data/${path}`;
     const val = read(absolutePath);
     if (val === undefined) {
         await fetch(absolutePath, {
