@@ -2,7 +2,7 @@ name: scheduled-data-update
 run-name: Scheduled update of data
 on:
   schedule:
-    - cron:  '25 10 * * *'
+    - cron:  '50 10 * * *'
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
           echo "Adding new data"
           cp -R ../data ./data
           git add ./data
-          git commit -m 'Deploy new data'
+          git commit -m 'Auto deploy new data'
           git status
       - name: Push data to GitHub page
         uses: ad-m/github-push-action@master
