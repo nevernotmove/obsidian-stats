@@ -1,16 +1,17 @@
 <script lang='ts'>
     import { Link, useNavigate } from 'svelte-navigator';
     import { onMount } from 'svelte';
-    import { getData } from '../util/cache';
+    import { getData, getPlugins } from '../util/cache';
+    import type { PluginInfo } from '../util/cache';
     import Logo from './Logo.svelte';
     import SearchBar from './SearchBar.svelte';
 
     const navigate = useNavigate();
-    let allPlugins: object;
+    let allPlugins: PluginInfo[];
 
     onMount(() => {
-        getData('total-downloads.json', (data: object) => {
-            if (data) allPlugins = data;
+        getPlugins((plugins: PluginInfo[]) => {
+            allPlugins = plugins;
         });
     });
 </script>

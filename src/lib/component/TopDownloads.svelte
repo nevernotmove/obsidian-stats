@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onDestroy, onMount } from 'svelte';
-    import { getData } from '../util/cache';
+    import { getPlugins } from '../util/cache';
+    import type { PluginInfo } from '../util/cache';
     import { randomId } from '../util/util';
     import Nav from './Nav.svelte';
     import { Chart } from 'chart.js';
@@ -12,11 +13,11 @@
     const navigate  = useNavigate();
 
     onMount(() => {
-        getData('total-downloads.json', (data: object) => {
-            if (data) {
+        getPlugins((plugins: PluginInfo[]) => {
+            if (plugins) {
                 if (chart) chart.destroy();
                 const targetEl = document.getElementById(id) as HTMLCanvasElement;
-                if (targetEl) chart = barChart(data, targetEl, navigate);
+                if (targetEl) chart = barChart(plugins, targetEl, navigate);
             }
         });
     });

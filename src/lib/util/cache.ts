@@ -38,3 +38,38 @@ export async function getData(path: string, callback: (data: object) => void): P
     }
     callback(val);
 }
+
+
+
+let plugins: PluginInfo[] = null;
+
+export type PluginInfo = {
+    id: string;
+    name: string;
+    author: string;
+    description: string;
+    repo: string;
+    downloads: number;
+}
+
+export function getPlugins(callback: (plugins: PluginInfo[]) => void): void {
+    if (plugins != null) {
+        callback(plugins)
+        return;
+    }
+    getData('plugins.json', (data: object) => {
+        if (data) {
+            plugins = <PluginInfo[]>JSON.parse(JSON.stringify(data));
+            callback(plugins)
+        }
+    })
+}
+
+export function getPluginIdForName(name: string): string {
+    if (plugins == null) return null;
+    for (const plugin of plugins) {
+        if (plugin.name === name) {
+            return plugin.id;
+        }
+    }
+}

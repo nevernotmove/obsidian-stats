@@ -4,6 +4,8 @@ import type { ChartDefaults } from './ChartDefaults';
 import { barChartDefaults } from './ChartDefaults';
 import type { ActiveElement, ChartData, ChartEvent } from 'chart.js/dist/types';
 import type { NavigateFn } from 'svelte-navigator';
+import type { PluginInfo } from '../cache';
+import { getPluginIdForName } from '../cache';
 
 let navigate: NavigateFn;
 let highlighted = false;
@@ -38,7 +40,7 @@ const onHover = (event: ChartEvent, elements: ActiveElement[], chart: Chart) => 
     highlighted = true;
 };
 
-export function barChart(json: object, targetCanvas: HTMLCanvasElement, navigationFunc: NavigateFn): Chart {
+export function barChart(plugins: PluginInfo[], targetCanvas: HTMLCanvasElement, navigationFunc: NavigateFn): Chart {
     navigate = navigationFunc;
     targetEl = targetCanvas;
 
@@ -49,13 +51,15 @@ export function barChart(json: object, targetCanvas: HTMLCanvasElement, navigati
 
     const labels: string[] = [];
     const data = [];
-    const sortable = Object.entries(json).sort(([, a], [, b]) => b - a);
+    console.log(plugins);
+    const sorted: PluginInfo[] = plugins.sort((a, b) => (b.downloads - a.downloads));
+    //const sorted = Object.entries(plugins).sort(([, a], [, b]) => b - a);
     const width: number = targetEl.parentElement.clientWidth;
     const max = width && width > 0 ? Math.floor(width / 50) : 5;
 
-    for (let i = 0; i < sortable.length && i < max; i++) {
-        labels.push(sortable[i][0]);
-        data.push(sortable[i][1]);
+    for (let i = 0; i < sorted.length && i < max; i++) {
+        labels.push(sorted[i].name);
+        data.push(sorted[i].downloads);
     }
 
     const datasets = [
@@ -142,5 +146,8 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
     if (elements.length === 0) return;
     const index = elements[0].index;
     const label = chart.data.labels[index];
-    navigate('/plugin/' + label);
+    const id = getPluginIdForName(label.toString());
+    console.log(label, label.toString(), id);
+    if (id == null) return; // TODO Show or log error 
+    navigate('/plugin/' + id);
 };

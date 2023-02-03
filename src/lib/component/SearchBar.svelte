@@ -1,9 +1,10 @@
 <script lang='ts'>
     import { fuzzySearch, isDown, isEnter, isEsc, isTouchDevice, isUp } from '../util/util';
     import { highlightMatchingLetters } from '../util/util.js';
+    import type { PluginInfo } from '../util/cache';
 
     export let onSearch: (searchText: string) => void;
-    export let options: object;
+    export let options: PluginInfo[];
     export let searchText: string = '';
     export let error: boolean = false;
     export let maxSuggestions: number = 3;
@@ -27,12 +28,12 @@
         let search = searchString.trim().toLowerCase();
         if (search === '') return;
         let optionExists = false;
-        for (const option of Object.keys(options)) {
-            if (option.toLowerCase() === search) {
+        for (const option of options) {
+            if (option.name.toLowerCase() === search) {
                 optionExists = true;
-                search = option;
+                search = option.id;
                 break;
-            }
+            }           
         }
         if (optionExists) {
             searchText = '';
@@ -48,9 +49,9 @@
 
     function findNewSuggestions(search: string): string[] {
         const newSuggestions: string[] = [];
-        for (const option: string of Object.keys(options)) {
-            if (fuzzySearch(search, option)) {
-                newSuggestions.push(option);
+        for (const option of options) {
+            if (fuzzySearch(search, option.name)) {
+                newSuggestions.push(option.name);
             }
         }
         return newSuggestions;
