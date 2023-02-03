@@ -11,27 +11,43 @@ import (
 
 import "github.com/buger/jsonparser"
 
-// Outputs of this script:
-//   - json file with all plugin names plus their total downloads
-//   - a json file for each plugin with their downloads over time
-
 var downloadsOverTime = make(map[string]map[int64]int64)
-var totalDownloads = make(map[string]int64)
+var pluginInfos []Plugin
+
+type Plugin struct {
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Author      string `json:"author"`
+	Description string `json:"description"`
+	Repo        string `json:"repo"`
+	Downloads   int64  `json:"downloads"`
+}
 
 func main() {
+	readPluginInfos("community-plugins.json")
 	processData("stats.json")
-	saveJsonFile("total-downloads.json", totalDownloads)
+	err := os.MkdirAll("./plugins", 0700)
+	if err != nil {
+		panic(err)
+	}
 	for pluginName, pluginDownloads := range downloadsOverTime {
-		err := os.MkdirAll("./plugins", 0700)
-		if err != nil {
-			panic(err)
-		}
 		path := "./plugins/" + pluginName + ".json"
-		saveJsonFile(path, pluginDownloads)
+		saveToJsonFile(path, pluginDownloads)
+	}
+	saveToJsonFile("plugins.json", pluginInfos)
+}
+
+func readPluginInfos(fileName string) {
+	data, err := os.ReadFile(fileName)
+	if err != nil {
+		panic(err)
+	}
+	if err := json.Unmarshal(data, &pluginInfos); err != nil {
+		panic(err)
 	}
 }
 
-func saveJsonFile[K comparable, V any](fileName string, data map[K]V) {
+func saveToJsonFile[V any](fileName string, data V) {
 	println("Writing file:", fileName)
 	file, err := json.MarshalIndent(data, "", "	")
 	if err != nil {
@@ -94,7 +110,14 @@ func parsePluginData(json string, timestamp int64) {
 			}
 		}
 		downloadsOverTime[name][timestamp] = downloads
-		totalDownloads[name] = downloads
+
+		for i, plugin := range pluginInfos {
+			if plugin.Id == name && downloads > plugin.Downloads {
+				plugin.Downloads = downloads
+				pluginInfos[i] = plugin
+			}
+		}
+
 		return nil
 	})
 	if err != nil {
@@ -111,13 +134,4 @@ func parseTimestamp(input string) int64 {
 		panic(err)
 	}
 	return timestamp
-	/*
-		i, err := strconv.ParseInt(unixTime, 10, 64)
-		if err != nil {
-			panic(err)
-		}
-		tm := time.Unix(i, 0)
-		fmt.Println(tm)
-		return tm
-	*/
 }
