@@ -14,6 +14,7 @@ jobs:
           mkdir fetch
           cd fetch
           git clone https://github.com/obsidianmd/obsidian-releases.git .
+          cp community-plugins.json ../community-plugins.json
           git fast-export --all community-plugin-stats.json >> ../stats.json
           cd ..
           rm -rf fetch
@@ -33,7 +34,7 @@ jobs:
           go mod vendor
           go run crunch.go
           mkdir ${{ github.workspace }}/data
-          cp total-downloads.json ../data/total-downloads.json
+          cp plugins.json ../data/plugins.json
           cp -R ./plugins/. ../data/plugins
           cd ..
           rm -rf crunch
