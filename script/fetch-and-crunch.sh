@@ -10,6 +10,7 @@ mkdir tmp
 cd tmp
 git clone https://github.com/obsidianmd/obsidian-releases.git
 cd obsidian-releases
+cp community-plugins.json ../community-plugins.json
 git fast-export --all community-plugin-stats.json >> ../stats.json
 cd ..
 pwd
@@ -17,7 +18,7 @@ cp -R ../script/crunch/. .
 go mod tidy
 go mod vendor
 go run crunch.go
-cp total-downloads.json ../public/data/total-downloads.json
+cp plugins.json ../public/data/plugins.json
 cp -R ./plugins/. ../public/data/plugins
 cd ..
 rm -rf tmp 
