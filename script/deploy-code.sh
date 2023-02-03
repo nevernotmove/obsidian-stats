@@ -16,7 +16,6 @@ git init
 git checkout -B main
 # Add everything but data folder
 git add -- . ':!data'
-git add -A
 git commit -m 'Deploy code'
 git status
 
