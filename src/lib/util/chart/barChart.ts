@@ -51,7 +51,6 @@ export function barChart(plugins: PluginInfo[], targetCanvas: HTMLCanvasElement,
 
     const labels: string[] = [];
     const data = [];
-    console.log(plugins);
     const sorted: PluginInfo[] = plugins.sort((a, b) => (b.downloads - a.downloads));
     //const sorted = Object.entries(plugins).sort(([, a], [, b]) => b - a);
     const width: number = targetEl.parentElement.clientWidth;
@@ -147,7 +146,6 @@ const handleClickOnChart = (event: ChartEvent, elements: ActiveElement[], chart:
     const index = elements[0].index;
     const label = chart.data.labels[index];
     const id = getPluginIdForName(label.toString());
-    console.log(label, label.toString(), id);
     if (id == null) return; // TODO Show or log error 
     navigate('/plugin/' + id);
 };
