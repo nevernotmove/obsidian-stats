@@ -2946,9 +2946,9 @@
 	{
 		"id": "cooklang-obsidian",
 		"name": "CookLang Editor",
-		"author": "death_au",
+		"author": "death_au/cooklang",
 		"description": "Edit and display CookLang recipes in Obsidian.",
-		"repo": "deathau/cooklang-obsidian",
+		"repo": "cooklang/cooklang-obsidian",
 		"downloads": 5225
 	},
 	{
@@ -10137,10 +10137,10 @@
 	},
 	{
 		"id": "remotely-secure",
-		"name": "Remotely Secure",
+		"name": "Remotely Sync",
 		"author": "sboesen",
 		"description": "Security fixes for the remotely-save unofficial plugin allowing users to synchronize notes between local device and the cloud service. Not backwards compatible.",
-		"repo": "sboesen/remotely-secure",
+		"repo": "sboesen/remotely-sync",
 		"downloads": 4132
 	},
 	{
@@ -10774,5 +10774,141 @@
 		"description": "A desk to see notes at a glance in Obsidian. Requires Dataview as a dependency.",
 		"repo": "davidlandry93/obsidian-desk",
 		"downloads": 180
+	},
+	{
+		"id": "tldraw",
+		"name": "Tldraw",
+		"author": "Sam Alhaqab",
+		"description": "Integrates Tldraw into Obsidian, allowing users to draw and edit content on a virtual whiteboard.",
+		"repo": "holxsam/tldraw-in-obsidian",
+		"downloads": 0
+	},
+	{
+		"id": "autocorrect-formatter",
+		"name": "Autocorrect Formatter",
+		"author": "b-yp",
+		"description": "Format Markdown content using Autocorrect.",
+		"repo": "b-yp/obsidian-autocorrect",
+		"downloads": 0
+	},
+	{
+		"id": "vim-yank-highlight",
+		"name": "Vim Yank Highlight",
+		"author": "Aleksey Rowan",
+		"description": "Highlight yanked text in Vim mode. Enjoy that subtle animation you've missed so much.",
+		"repo": "aleksey-rowan/obsidian-vim-yank-highlight",
+		"downloads": 0
+	},
+	{
+		"id": "tickticksync",
+		"name": "TickTickSync",
+		"author": "thesamim",
+		"description": "Sync TickTick tasks to Obsidian, and Obsidian tasks to TickTick",
+		"repo": "thesamim/TickTickSync",
+		"downloads": 0
+	},
+	{
+		"id": "slash-commander",
+		"name": "Slash Commander",
+		"author": "alephpiece",
+		"description": "Customize the slash command list, assign each command an icon.",
+		"repo": "alephpiece/obsidian-slash-commander",
+		"downloads": 0
+	},
+	{
+		"id": "custom-save",
+		"name": "Custom save",
+		"author": "Hananoshika Yomaru",
+		"description": "Add custom save actions",
+		"repo": "HananoshikaYomaru/obsidian-custom-save",
+		"downloads": 0
+	},
+	{
+		"id": "peerdraft",
+		"name": "Peerdraft",
+		"author": "Peerdraft",
+		"description": "Secure real-time collaboration via secret link",
+		"repo": "peerdraft/obsidian-plugin",
+		"downloads": 0
+	},
+	{
+		"id": "note-gallery",
+		"name": "Note Gallery",
+		"author": "Pash Shocky",
+		"description": "A masonry gallery that will visualize your notes, similar to Craft note view.",
+		"repo": "pashashocky/obsidian-note-gallery",
+		"downloads": 0
+	},
+	{
+		"id": "smart-title",
+		"name": "Smart Title",
+		"author": "magooup",
+		"description": "Automatically extract tags and aliases from the title.",
+		"repo": "magooup/obsidian-plugin-smart-title",
+		"downloads": 0
+	},
+	{
+		"id": "gamified-pkm",
+		"name": "Gamificate your PKM",
+		"author": "Andreas Trebing",
+		"description": "Enhance your Personal Knowledge Management with gamification elements. Boost motivation and achieve growth as you engage with your PKM.",
+		"repo": "saertna/obsidian-gamified-pkm",
+		"downloads": 0
+	},
+	{
+		"id": "relax",
+		"name": "R.E.L.A.X.",
+		"author": "Syr",
+		"description": "Multi-regex management for data linking and batch processing across selection, files, and folders.",
+		"repo": "Syr0/R.E.L.A.X.",
+		"downloads": 0
+	},
+	{
+		"id": "coder",
+		"name": "Encoder/Decoder",
+		"author": "Rudi Häusler",
+		"description": "Converts text into base64 format.",
+		"repo": "rudimuc/obsidian-coder",
+		"downloads": 0
+	},
+	{
+		"id": "habit-tracker-21",
+		"name": "Habit Tracker 21",
+		"author": "zoreet",
+		"description": "Your 21-day journey to habit formation simplified",
+		"repo": "zoreet/habit-tracker",
+		"downloads": 0
+	},
+	{
+		"id": "math-in-callout",
+		"name": "Better Math in Callouts \u0026 Blockquotes",
+		"author": "Ryota Ushio",
+		"description": "Add better Live Preview support for math rendering inside callouts \u0026 blockquotes.",
+		"repo": "RyotaUshio/obsidian-math-in-callout",
+		"downloads": 0
+	},
+	{
+		"id": "dynamic-line-height-cjk",
+		"name": "Dynamic Line Height for CJK",
+		"author": "Ryota Ushio",
+		"description": "Dynamically adjust line height for lines \u0026 paragraphs containing CJK characters.",
+		"repo": "RyotaUshio/obsidian-dynamic-line-height-cjk",
+		"downloads": 0
+	},
+	{
+		"id": "pomodoro-timer",
+		"name": "Pomodoro Timer",
+		"author": "eatgrass",
+		"description": "A pomodoro timer that helps manage your daily focus",
+		"repo": "eatgrass/obsidian-pomodoro-timer",
+		"downloads": 0
+	},
+	{
+		"id": "vim-im-control",
+		"name": "Vim IM Control",
+		"author": "hideakitai",
+		"description": "Obsidian plugin to switch Input Method when `InsertLeave` and `InsertEnter`. Supports macOS, Windows, and Linux.",
+		"repo": "hideakitai/obsidian-vim-im-control",
+		"downloads": 0
 	}
 ]
