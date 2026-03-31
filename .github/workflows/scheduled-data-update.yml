@@ -11,15 +11,33 @@ jobs:
       - name: Fetch new data
         shell: bash
         run: |
-          echo "Fetch new data"
+          echo "::group::Fetching data from obsidian-releases"
           mkdir fetch
           cd fetch
           git clone https://github.com/obsidianmd/obsidian-releases.git .
           cp community-plugins.json ../community-plugins.json
-          git fast-export --all community-plugin-stats.json >> ../stats.json
+          
+          echo "Extracting history of community-plugin-stats.json"
+          LOG_COUNT=$(git log --oneline -- community-plugin-stats.json | wc -l)
+          echo "Found $LOG_COUNT historical versions of community-plugin-stats.json"
+          
+          CURRENT=0
+          git log --reverse --pretty=format:"%at %H" -- community-plugin-stats.json | while read ts hash; do
+            echo "---BEGIN $ts---"
+            git show $hash:community-plugin-stats.json
+            echo "---END---"
+            CURRENT=$((CURRENT+1))
+            if (( CURRENT % 100 == 0 )); then
+              echo "::notice::Extracted $CURRENT/$LOG_COUNT versions..." >&2
+            fi
+          done > ../stats.json
+          echo "Finished extraction."
           cd ..
           rm -rf fetch
-          ls ${{ github.workspace }}
+          echo "::group::Final stats file size"
+          ls -lh ${{ github.workspace }}/stats.json
+          echo "::endgroup::"
+          echo "::endgroup::"
       - name: Check out main
         with:
           ref: main
@@ -28,19 +46,21 @@ jobs:
       - name: Crunch data into fitting format
         shell: bash
         run: |
-          echo "Crunch data into fitting format"
+          echo "::group::Crunching data"
           cd crunch
           cp -R ./script/crunch/. .
           cp ../stats.json ./stats.json
           cp ../community-plugins.json ./community-plugins.json
-          go mod vendor
-          go run crunch.go
+          echo "Starting Go cruncher..."
+          time go run crunch.go
+          
+          echo "Moving results to data directory"
           mkdir ${{ github.workspace }}/data
           cp plugins.json ../data/plugins.json
           cp -R ./plugins/. ../data/plugins
           cd ..
           rm -rf crunch
-          ls ${{ github.workspace }}
+          echo "::endgroup::"
       - name: Check out gh-pages
         with:
           ref: gh-pages

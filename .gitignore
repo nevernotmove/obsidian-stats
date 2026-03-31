@@ -11,3 +11,11 @@ src/**/*.js
 # Build output
 dist
 
+# Temporary and Test data
+tmp/
+test-output/
+stats.json
+community-plugins.json
+plugins.json
+plugins/
+

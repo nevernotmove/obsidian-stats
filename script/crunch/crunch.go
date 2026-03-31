@@ -3,13 +3,12 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
 )
-
-import "github.com/buger/jsonparser"
 
 var downloadsOverTime = make(map[string]map[int64]int64)
 var pluginInfos []Plugin
@@ -24,20 +23,35 @@ type Plugin struct {
 }
 
 func main() {
+	fmt.Println("Starting data crunching...")
 	readPluginInfos("community-plugins.json")
 	processData("stats.json")
+	
+	fmt.Println("Creating plugins directory...")
 	err := os.MkdirAll("./plugins", 0700)
 	if err != nil {
 		panic(err)
 	}
+
+	totalPlugins := len(downloadsOverTime)
+	fmt.Printf("Writing %d individual plugin files...\n", totalPlugins)
+	count := 0
 	for pluginName, pluginDownloads := range downloadsOverTime {
 		path := "./plugins/" + pluginName + ".json"
 		saveToJsonFile(path, pluginDownloads)
+		count++
+		if count%100 == 0 {
+			fmt.Printf("Progress: %d/%d plugins written\n", count, totalPlugins)
+		}
 	}
+	
+	fmt.Println("Writing master plugins.json file...")
 	saveToJsonFile("plugins.json", pluginInfos)
+	fmt.Println("Data crunching completed successfully.")
 }
 
 func readPluginInfos(fileName string) {
+	fmt.Printf("Reading plugin info from %s...\n", fileName)
 	data, err := os.ReadFile(fileName)
 	if err != nil {
 		panic(err)
@@ -45,93 +59,124 @@ func readPluginInfos(fileName string) {
 	if err := json.Unmarshal(data, &pluginInfos); err != nil {
 		panic(err)
 	}
+	fmt.Printf("Loaded info for %d plugins.\n", len(pluginInfos))
 }
 
 func saveToJsonFile[V any](fileName string, data V) {
-	println("Writing file:", fileName)
+	// Reduced noise for individual files, but keeping the error check
 	file, err := json.MarshalIndent(data, "", "	")
 	if err != nil {
+		fmt.Printf("Error marshaling %s: %v\n", fileName, err)
 		panic(err)
 	}
 	err = os.WriteFile(fileName, file, 0644)
 	if err != nil {
+		fmt.Printf("Error writing %s: %v\n", fileName, err)
 		panic(err)
 	}
 }
 
 func processData(fileName string) {
+	fmt.Printf("Processing %s...\n", fileName)
 	readFile, err := os.Open(fileName)
 	if err != nil {
 		panic(err)
 	}
+	defer readFile.Close()
 	scan := bufio.NewScanner(readFile)
-	scan.Split(bufio.ScanLines)
+	const maxCapacity = 10 * 1024 * 1024 // 10MB
+	buf := make([]byte, 64*1024)
+	scan.Buffer(buf, maxCapacity)
 
-	jsonData := ""
+	var jsonData strings.Builder
 	doCopy := false
+	var currentTimestamp int64
+	blockCount := 0
+	
 	for scan.Scan() {
 		line := scan.Text()
-		if strings.HasPrefix(line, "{") {
+		if strings.HasPrefix(line, "---BEGIN") {
+			currentTimestamp = parseTimestamp(line)
 			doCopy = true
-			jsonData += line + "\n"
-		} else if strings.HasPrefix(line, "}") {
-			doCopy = false
-			jsonData += line + "\n"
-		} else if strings.HasPrefix(line, "author") {
-			timestamp := parseTimestamp(line)
-			parsePluginData(jsonData, timestamp)
-			jsonData = ""
+			jsonData.Reset()
+			jsonData.Grow(512 * 1024)
+		} else if strings.HasPrefix(line, "---END---") {
+			if doCopy {
+				parsePluginData(jsonData.String(), currentTimestamp)
+				jsonData.Reset()
+				doCopy = false
+				blockCount++
+				if blockCount%100 == 0 {
+					fmt.Printf("Processed %d data blocks...\n", blockCount)
+				}
+			}
 		} else if doCopy {
-			jsonData += line + "\n"
+			jsonData.WriteString(line)
+			jsonData.WriteByte('\n')
 		}
 	}
 
-	err = readFile.Close()
-	if err != nil {
+	if err := scan.Err(); err != nil {
+		fmt.Printf("Scanner error: %v\n", err)
 		panic(err)
 	}
+	fmt.Printf("Finished processing %d total data blocks.\n", blockCount)
 }
 
-func parsePluginData(json string, timestamp int64) {
-	jsonBytes := []byte(json)
-	err := jsonparser.ObjectEach(jsonBytes, func(key []byte, value []byte, dataType jsonparser.ValueType, offset int) error {
-		name := string(key)
-		downloads, _ := jsonparser.GetInt(value, "downloads")
+type StatsEntry struct {
+	Downloads int64 `json:"downloads"`
+}
+
+func parsePluginData(jsonStr string, timestamp int64) {
+	if jsonStr == "" || timestamp == 0 {
+		return
+	}
+	var data map[string]StatsEntry
+	if err := json.Unmarshal([]byte(jsonStr), &data); err != nil {
+		// If it's not a valid map of StatsEntry, ignore it. 
+		// This happens if fast-export contains other JSON files.
+		return
+	}
+
+	for name, entry := range data {
+		downloads := entry.Downloads
 		if plugin, ok := downloadsOverTime[name]; !ok {
 			plugin = make(map[int64]int64)
 			downloadsOverTime[name] = plugin
 		}
 		// Ignore 0 values for downloads if there were more downloads before
 		if downloads == 0 && len(downloadsOverTime[name]) != 0 {
+			hasPositive := false
 			for _, prevDownloads := range downloadsOverTime[name] {
 				if prevDownloads > 0 {
-					return nil
+					hasPositive = true
+					break
 				}
+			}
+			if hasPositive {
+				continue
 			}
 		}
 		downloadsOverTime[name][timestamp] = downloads
 
-		for i, plugin := range pluginInfos {
-			if plugin.Id == name && downloads > plugin.Downloads {
-				plugin.Downloads = downloads
-				pluginInfos[i] = plugin
+		for i := range pluginInfos {
+			if pluginInfos[i].Id == name && downloads > pluginInfos[i].Downloads {
+				pluginInfos[i].Downloads = downloads
 			}
 		}
-
-		return nil
-	})
-	if err != nil {
-		panic(err)
 	}
 }
 
 func parseTimestamp(input string) int64 {
 	// "author Obsidian Bot <admin@obsidian.md> 1672964166 +0000"
-	rx, _ := regexp.Compile("\\b(\\d+)\\b")
-	unixTime := rx.FindString(input)
-	timestamp, err := strconv.ParseInt(unixTime, 10, 64)
+	rx := regexp.MustCompile(`\b(\d+)\b`)
+	matches := rx.FindStringSubmatch(input)
+	if len(matches) < 2 {
+		return 0
+	}
+	timestamp, err := strconv.ParseInt(matches[1], 10, 64)
 	if err != nil {
-		panic(err)
+		return 0
 	}
 	return timestamp
 }
